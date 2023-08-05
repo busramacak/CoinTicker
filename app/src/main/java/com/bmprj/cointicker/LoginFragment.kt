@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
 
     private fun reload(){
 
-        Toast.makeText(requireContext(),viewModel.currentUser?.email.toString(),Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(),viewModel.currentUser?.displayName,Toast.LENGTH_LONG).show()
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -29,10 +29,7 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.materialButton.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
-        }
+        
 
 //        observeLiveData()
     }
@@ -43,6 +40,9 @@ class RegisterFragment : Fragment() {
 
     fun signup(view: View, name:String,email:String, password:String){
         viewModel.signup(view, name, email, password)
+
+        Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
+
 
     }
 }
