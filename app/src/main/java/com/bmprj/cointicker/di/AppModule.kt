@@ -1,7 +1,7 @@
 package com.bmprj.cointicker.di
 
-import com.bmprj.cointicker.data.AuthRepository
-import com.bmprj.cointicker.data.AuthRepositoryImpl
+import com.bmprj.cointicker.data.auth.AuthRepository
+import com.bmprj.cointicker.data.auth.AuthRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
@@ -16,5 +16,5 @@ class AppModule {
     fun provideFirebaseAuth():FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
-    fun provideAuthRepo(impl: AuthRepositoryImpl):AuthRepository = impl
+    fun provideAuthRepo(impl: AuthRepositoryImpl): AuthRepository = impl
 }

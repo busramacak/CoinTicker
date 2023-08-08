@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.data
+package com.bmprj.cointicker.data.auth
 
 import com.bmprj.cointicker.data.utils.await
 import com.google.firebase.auth.FirebaseAuth

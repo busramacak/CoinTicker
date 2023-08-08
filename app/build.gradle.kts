@@ -5,6 +5,7 @@ plugins {
     id ("com.google.dagger.hilt.android")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("kotlin-parcelize")
 }
 
 allprojects {
@@ -61,6 +62,10 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics:21.3.0")
     kapt ("com.google.dagger:hilt-android-compiler:2.44")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.9.0")
 
 
     implementation("androidx.core:core-ktx:1.10.1")

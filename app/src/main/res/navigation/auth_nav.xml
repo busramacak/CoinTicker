@@ -28,12 +28,12 @@
     </fragment>
     <fragment
         android:id="@+id/coinListFragment"
-        android:name="com.bmprj.cointicker.coinListFragment"
+        android:name="com.bmprj.cointicker.view.CoinListFragment"
         android:label="fragment_coin_list"
         tools:layout="@layout/fragment_coin_list" />
     <fragment
         android:id="@+id/favCoinsFragment"
-        android:name="com.bmprj.cointicker.FavCoinsFragment"
+        android:name="com.bmprj.cointicker.view.FavCoinsFragment"
         android:label="fragment_fav_coins"
         tools:layout="@layout/fragment_fav_coins" />
 </navigation>

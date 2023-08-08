@@ -11,24 +11,23 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
+import com.bmprj.cointicker.view.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginFragment : Fragment() {
-    private lateinit var binding:FragmentLoginBinding
+class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
     private val viewModel by viewModels<LoginViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        binding=DataBindingUtil.inflate(inflater, R.layout.fragment_login, container,false)
+    override fun setUpViews(view: View) {
+        super.setUpViews(view)
         binding.login=this
-        return binding.root
-    }
 
+        if(viewModel.currentUser!=null){
+            reload(view)
+        }
+    }
 
 
 
@@ -37,19 +36,6 @@ class LoginFragment : Fragment() {
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        if(viewModel.currentUser!=null){
-            reload(view)
-        }
-
-
-
-//        observeLiveData()
-
-    }
 
     fun signUp(view:View){
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)

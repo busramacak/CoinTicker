@@ -10,35 +10,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.databinding.FragmentRegisterBinding
+import com.bmprj.cointicker.view.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
 
-   private lateinit var binding:FragmentRegisterBinding
    private val viewModel by viewModels<RegisterViewModel>()
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        binding=DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
+
+    override fun setUpViews(view: View) {
+        super.setUpViews(view)
         binding.register=this
-        return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        
-
-//        observeLiveData()
-    }
-
-//    private fun observeLiveData(){
-//
-//    }
 
     fun login(view:View){
         Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
