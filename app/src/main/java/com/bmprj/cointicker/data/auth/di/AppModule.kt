@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.di
+package com.bmprj.cointicker.data.auth.di
 
 import com.bmprj.cointicker.data.auth.AuthRepository
 import com.bmprj.cointicker.data.auth.AuthRepositoryImpl

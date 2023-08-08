@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 
+@Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
 data class CoinMarketItem(
     @SerialName("current_price")
