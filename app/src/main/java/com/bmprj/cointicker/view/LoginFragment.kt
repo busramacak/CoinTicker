@@ -1,4 +1,4 @@
-package com.bmprj.cointicker
+package com.bmprj.cointicker.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.bmprj.cointicker.R
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
+import com.bmprj.cointicker.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -24,7 +24,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        binding=DataBindingUtil.inflate(inflater,R.layout.fragment_login, container,false)
+        binding=DataBindingUtil.inflate(inflater, R.layout.fragment_login, container,false)
         binding.login=this
         return binding.root
     }
@@ -32,30 +32,32 @@ class LoginFragment : Fragment() {
 
 
 
-    private fun reload(){
-
-        Toast.makeText(requireContext(),viewModel.currentUser?.displayName,Toast.LENGTH_LONG).show()
+    private fun reload(view:View){
+        Toast.makeText(requireContext(),"Hoşgeldiniz, "+viewModel.currentUser?.displayName,Toast.LENGTH_LONG).show()
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel = ViewModelProvider(this@LoginFragment)[LoginViewModel::class.java]
+
         if(viewModel.currentUser!=null){
-            reload()
-        }
-        binding.signUp.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)
-
+            reload(view)
         }
 
 
 
+//        observeLiveData()
 
-        observeLiveData()
+    }
 
+    fun signUp(view:View){
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)
     }
     fun login(view: View, email:String, password:String){
         viewModel.login(view,email, password)
+
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
     }
 
     fun observeLiveData(){

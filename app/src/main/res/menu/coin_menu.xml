@@ -2,11 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/login_fragment"
-        android:title=""
-        />
+        android:id="@+id/coinListFragment"
+        android:icon="@drawable/bitcoin"
+        android:title="Coins"/>
 
     <item
-        android:id="@+id/register_fragment"
-        android:title=""/>
+        android:id="@+id/favCoinsFragment"
+        android:icon="@drawable/fav"
+        android:title="Favorites"/>
+
 </menu>

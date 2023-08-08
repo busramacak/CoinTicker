@@ -1,4 +1,4 @@
-package com.bmprj.cointicker
+package com.bmprj.cointicker.viewmodel
 
 import android.view.View
 import android.widget.Toast

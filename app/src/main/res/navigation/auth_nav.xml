@@ -7,20 +7,33 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.bmprj.cointicker.LoginFragment"
+        android:name="com.bmprj.cointicker.view.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.bmprj.cointicker.RegisterFragment"
+        android:name="com.bmprj.cointicker.view.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/coinListFragment"
+        android:name="com.bmprj.cointicker.coinListFragment"
+        android:label="fragment_coin_list"
+        tools:layout="@layout/fragment_coin_list" />
+    <fragment
+        android:id="@+id/favCoinsFragment"
+        android:name="com.bmprj.cointicker.FavCoinsFragment"
+        android:label="fragment_fav_coins"
+        tools:layout="@layout/fragment_fav_coins" />
 </navigation>

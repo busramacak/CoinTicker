@@ -6,14 +6,14 @@
     <data>
         <variable
             name="login"
-            type="com.bmprj.cointicker.LoginFragment" />
+            type="com.bmprj.cointicker.view.LoginFragment" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginFragment">
+        tools:context=".view.LoginFragment">
 
         <ImageView
             android:id="@+id/img"
@@ -96,9 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginStart="70dp"
             android:text="Don't have an account?"
-            app:layout_constraintStart_toStartOf="@+id/materialButton"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toStartOf="@+id/signUp"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -108,6 +108,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="70dp"
             android:text="Sign Up"
+            android:onClick="@{(V) -> login.signUp(V)}"
             android:textStyle="bold"
             android:textColor="#0DA8EC"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
