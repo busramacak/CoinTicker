@@ -63,6 +63,7 @@
             android:layout_marginHorizontal="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:errorEnabled="true"
             app:layout_constraintTop_toBottomOf="@+id/eMailLayout">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -70,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/password"
+                android:inputType="numberPassword"
                 android:hint=" Password" />
 
 
@@ -83,7 +85,7 @@
             android:layout_marginTop="20dp"
             android:paddingVertical="18dp"
             android:text="LOGIN"
-            android:onClick="@{(V) -> login.login(V,eMailEdt.getText().toString(),passwEdt.getText().toString())}"
+            android:onClick="@{() -> login.login(eMailEdt.getText().toString(),passwEdt.getText().toString())}"
             android:backgroundTint="#82B0C5"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"

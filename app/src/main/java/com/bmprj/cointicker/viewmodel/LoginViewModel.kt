@@ -29,12 +29,7 @@ class LoginViewModel @Inject constructor(
     val currentUser: FirebaseUser?
         get() = repository.currentUser
 
-    init{
-        if(repository.currentUser != null){
-            _login.value = Resource.Success(repository.currentUser!!)
-        }
-    }
-    fun login(view: View, email:String, password:String) = viewModelScope.launch {
+    fun login(email:String, password:String) = viewModelScope.launch {
 
             _login.value= Resource.loading
             val result =  repository.login(email,password)

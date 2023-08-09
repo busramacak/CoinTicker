@@ -23,10 +23,9 @@ class RegisterViewModel @Inject constructor(
     val signup: LiveData<Resource<FirebaseUser>?> = _signup
 
 
-    fun signup(view: View, name: String, email: String, password: String) = viewModelScope.launch {
+    fun signup(name: String, email: String, password: String) = viewModelScope.launch {
         _signup.value = Resource.loading
         val result = repository.signup(name, email, password)
         _signup.value = result
-        Toast.makeText(view.context, "signUPppp", Toast.LENGTH_LONG).show()
     }
 }

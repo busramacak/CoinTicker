@@ -54,8 +54,8 @@
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/person"
                 android:hint=" Name"
-                android:inputType="text"
-                app:errorEnabled="true" />
+                app:errorEnabled="true"
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,6 +87,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            app:errorEnabled="true"
+            app:passwordToggleEnabled="true"
             android:layout_marginHorizontal="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/password"
                 android:hint=" Password"
+                android:lines="1"
                 android:inputType="numberPassword"
                 app:passwordToggleEnabled="true"
                 app:errorEnabled="true" />
@@ -113,7 +116,7 @@
             android:layout_marginTop="20dp"
             android:paddingVertical="18dp"
             android:text="SIGN UP"
-            android:onClick="@{(V)->register.signup(V,nameEdt.getText().toString(),eMailEdt.getText().toString(),passwEdt.getText().toString())}"
+            android:onClick="@{()->register.signup(nameEdt.getText().toString(),eMailEdt.getText().toString(),passwEdt.getText().toString())}"
             android:backgroundTint="#82B0C5"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"

@@ -47,8 +47,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     fun signUp(view:View){
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)
     }
-    fun login(view: View, email:String, password:String){
-        viewModel.login(view,email, password)
+    fun login(email:String, password:String){
+        viewModel.login(email, password)
 
     }
 
