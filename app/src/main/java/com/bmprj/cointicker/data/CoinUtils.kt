@@ -9,19 +9,8 @@ import javax.inject.Inject
 
 class CoinUtils @Inject constructor(private val api :CoinApiService){
 
-//    companion object{
-
-//        private val BASE_URL ="https://api.coingecko.com/api/v3"
-
-//        private val api = Retrofit.Builder()
-//            .baseUrl(BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//            .create(CoinApiService::class.java)
-//    }
-
-    suspend fun getCoins(vs_currency:String) : Response<List<CoinMarketItem>> {
-        return api.getCoins(vs_currency)
+    suspend fun getCoins() : Response<List<CoinMarketItem>> {
+        return api.getCoins()
 
     }
 }

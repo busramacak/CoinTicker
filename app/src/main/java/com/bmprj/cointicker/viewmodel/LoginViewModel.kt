@@ -8,8 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.auth.AuthRepository
 import com.bmprj.cointicker.data.auth.Resource
+import com.bmprj.cointicker.data.auth.Resource.Failure
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,10 +35,10 @@ class LoginViewModel @Inject constructor(
         }
     }
     fun login(view: View, email:String, password:String) = viewModelScope.launch {
-        _login.value= Resource.loading
-        val result =  repository.login(email,password)
-        _login.value=result
 
-        Toast.makeText(view.context,"logggg", Toast.LENGTH_LONG).show()
+            _login.value= Resource.loading
+            val result =  repository.login(email,password)
+            _login.value=result
+
     }
 }

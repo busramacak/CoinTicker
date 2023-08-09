@@ -24,23 +24,26 @@ class CoinListViewModel @Inject constructor(
 
 
 
-    fun getData(vs_currency:String){
+    fun getData(){
         viewModelScope.launch{
-            val t=apiUtils.getCoins(vs_currency).body()?.get(0)!!
-            println(t)
+            val r=apiUtils.getCoins().body()
+            println(apiUtils.getCoins().errorBody())
+            val list = ArrayList<CoinMarketItem>()
 
-//            val list = ArrayList<CoinMarketItem>()
-//            val c = CoinMarketItem(
-//                t.currentPrice,
-//                t.high24h,
-//                t.id,t.image,
-//                t.lastUpdated,
-//                t.low24h,t.name,
-//                t.priceChange24h,
-//                t.priceChangePercentage24h,t.symbol)
-//            list.add(c)
-//
-//            coins.value=list
+            for(i in 0 until r?.size!!){
+                val v = r.get(i)
+                val c = CoinMarketItem(
+                    v.currentPrice,
+                    v.high24h,
+                    v.id,v.image,
+                    v.lastUpdated,
+                    v.low24h,v.name,
+                    v.priceChange24h,
+                    v.priceChangePercentage24h,v.symbol)
+                list.add(c)
+            }
+
+            coins.value=list
         }
     }
 }

@@ -2,6 +2,7 @@ package com.bmprj.cointicker.data.auth
 
 import com.google.firebase.auth.FirebaseUser
 
+
 interface AuthRepository {
     val currentUser : FirebaseUser?
     suspend fun login(email:String, password:String): Resource<FirebaseUser>

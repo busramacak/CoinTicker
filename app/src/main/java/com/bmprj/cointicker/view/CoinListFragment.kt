@@ -28,7 +28,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         binding.coinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.coinListRecyclerView.adapter=adapter
 
-        viewModel.getData("usd")
+        viewModel.getData()
         observeLiveData()
     }
 

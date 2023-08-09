@@ -16,7 +16,7 @@ data class CoinMarketItem(
     @SerialName("image")
     val image: String,
     @SerialName("last_updated")
-    val lastUpdated: String,
+    val lastUpdated: String?,
     @SerialName("low_24h")
     val low24h: Double,
     @SerialName("name")

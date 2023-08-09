@@ -6,10 +6,9 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+// Data provided by CoinGecko ->> www.coingecko.com/en/api
 interface CoinApiService {
 
-    @GET("coins/markets")
-    suspend fun getCoins(
-        @Query("vs_currency") vs_currency:String
-    ) : Response<List<CoinMarketItem>>
+    @GET("coins/markets?vs_currency=usd")
+    suspend fun getCoins() : Response<List<CoinMarketItem>>
 }

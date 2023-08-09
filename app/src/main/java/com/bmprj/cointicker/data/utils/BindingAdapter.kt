@@ -7,7 +7,7 @@ import androidx.databinding.BindingAdapter
 import com.bmprj.cointicker.R
 import com.bumptech.glide.Glide
 
-class BindingAdapter {
+
 
     @BindingAdapter("loadFromUrl")
     fun ImageView.loadFromUrl(imgUrl:String){
@@ -33,4 +33,3 @@ class BindingAdapter {
             else R.drawable.down
         )
     }
-}
