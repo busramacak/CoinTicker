@@ -30,10 +30,23 @@
         android:id="@+id/coinListFragment"
         android:name="com.bmprj.cointicker.view.CoinListFragment"
         android:label="fragment_coin_list"
-        tools:layout="@layout/fragment_coin_list" />
+        tools:layout="@layout/fragment_coin_list" >
+        <action
+            android:id="@+id/action_coinListFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favCoinsFragment"
         android:name="com.bmprj.cointicker.view.FavCoinsFragment"
         android:label="fragment_fav_coins"
-        tools:layout="@layout/fragment_fav_coins" />
+        tools:layout="@layout/fragment_fav_coins" >
+        <action
+            android:id="@+id/action_favCoinsFragment_to_coinDetailFragment"
+            app:destination="@id/coinDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/coinDetailFragment"
+        android:name="com.bmprj.cointicker.CoinDetailFragment"
+        android:label="fragment_coin_detail"
+        tools:layout="@layout/fragment_coin_detail" />
 </navigation>

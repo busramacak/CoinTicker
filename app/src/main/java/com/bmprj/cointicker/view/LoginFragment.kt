@@ -1,12 +1,7 @@
 package com.bmprj.cointicker.view
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
@@ -15,7 +10,6 @@ import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.view.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.LoginViewModel
 import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,10 +41,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     fun signUp(view:View){
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)
     }
-    fun login(email:String, password:String){
-        viewModel.login(email, password)
 
+    fun login(email:String, password:String){
+
+            viewModel.login(email, password)
     }
+
+
 
     fun observeLiveData(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
@@ -96,3 +93,5 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
 
 }
+
+

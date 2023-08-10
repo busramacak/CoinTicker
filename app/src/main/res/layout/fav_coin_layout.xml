@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="coinList"
-            type="com.bmprj.cointicker.model.CoinMarketItem" />
+
 
     </data>
 
@@ -22,8 +20,8 @@
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/img"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="15dp"
                 loadFromUrl="@{coinList.image}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -54,45 +52,14 @@
                 tools:text="btc" />
 
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/linearLayout"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                setPriceBackground="@{coinList.priceChange24h}"
-                android:text="@{`$` + coinList.currentPrice}"
-                tools:text="$17273638"
-                android:padding="2dp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout2"
-                android:layout_width="130dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="15dp"
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/openn"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    setArrow="@{coinList.priceChangePercentage24h}" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{String.format("%.1f",coinList.priceChangePercentage24h) + `%`}'
-                    tools:text="0.065%" />
-
-
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

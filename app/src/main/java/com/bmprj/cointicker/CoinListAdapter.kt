@@ -12,6 +12,14 @@ class CoinListAdapter(override var list:ArrayList<CoinMarketItem>):BaseAdapter<C
         binding.apply {
             coinList=item
             executePendingBindings()
+
+            binding.cardV.setOnClickListener {
+                cardVClick()
+            }
         }
+    }
+
+    fun cardVClick(){
+
     }
 }

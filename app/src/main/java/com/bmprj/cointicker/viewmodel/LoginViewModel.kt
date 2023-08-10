@@ -1,14 +1,18 @@
 package com.bmprj.cointicker.viewmodel
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bmprj.cointicker.R
 import com.bmprj.cointicker.data.auth.AuthRepository
 import com.bmprj.cointicker.data.auth.Resource
 import com.bmprj.cointicker.data.auth.Resource.Failure
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseUser
@@ -28,6 +32,7 @@ class LoginViewModel @Inject constructor(
 
     val currentUser: FirebaseUser?
         get() = repository.currentUser
+
 
     fun login(email:String, password:String) = viewModelScope.launch {
 
