@@ -1,24 +1,18 @@
 package com.bmprj.cointicker.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bmprj.cointicker.data.CoinUtils
+import com.bmprj.cointicker.data.coin.CoinUtils
 import com.bmprj.cointicker.model.CoinMarketItem
-import com.bmprj.cointicker.view.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ViewModelScoped
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    private val apiUtils:CoinUtils) :ViewModel() {
+    private val apiUtils: CoinUtils
+) :ViewModel() {
 
     val coins = MutableLiveData<ArrayList<CoinMarketItem>>()
 
@@ -31,7 +25,7 @@ class CoinListViewModel @Inject constructor(
             val list = ArrayList<CoinMarketItem>()
 
             for(i in 0 until r?.size!!){
-                val v = r.get(i)
+                val v = r[i]
                 val c = CoinMarketItem(
                     v.currentPrice,
                     v.high24h,

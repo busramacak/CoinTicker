@@ -46,7 +46,11 @@
     </fragment>
     <fragment
         android:id="@+id/coinDetailFragment"
-        android:name="com.bmprj.cointicker.CoinDetailFragment"
+        android:name="com.bmprj.cointicker.view.CoinDetailFragment"
         android:label="fragment_coin_detail"
-        tools:layout="@layout/fragment_coin_detail" />
+        tools:layout="@layout/fragment_coin_detail" >
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

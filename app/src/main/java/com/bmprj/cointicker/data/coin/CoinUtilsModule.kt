@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.data
+package com.bmprj.cointicker.data.coin
 
 import dagger.Module
 import dagger.Provides
@@ -14,13 +14,13 @@ object CoinUtilsModule {
 
     @Provides
     @Singleton
-    fun provideCoinUtils(api:CoinApiService) : CoinUtils{
+    fun provideCoinUtils(api: CoinApiService) : CoinUtils {
         return CoinUtils(api)
     }
 
     @Provides
     @Singleton
-    fun provideCoinApiService():CoinApiService{
+    fun provideCoinApiService(): CoinApiService {
         val BASE_URL ="https://api.coingecko.com/api/v3/"
 
         return Retrofit.Builder()
