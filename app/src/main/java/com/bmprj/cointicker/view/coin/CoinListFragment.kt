@@ -1,16 +1,12 @@
-package com.bmprj.cointicker.view
+package com.bmprj.cointicker.view.coin
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.CoinListAdapter
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.databinding.FragmentCoinListBinding
-import com.bmprj.cointicker.view.base.BaseFragment
+import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.CoinListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.view
+package com.bmprj.cointicker.view.coin
 
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -7,12 +7,12 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.data.utils.loadFromUrl
 import com.bmprj.cointicker.data.utils.setArrow
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
-import com.bmprj.cointicker.view.base.BaseFragment
+import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.CoinDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CoinDetailFragment :BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail){
+class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail){
     val bundle: CoinDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<CoinDetailViewModel>()
 

@@ -6,14 +6,14 @@
     <data>
         <variable
             name="login"
-            type="com.bmprj.cointicker.view.LoginFragment" />
+            type="com.bmprj.cointicker.view.auth.LoginFragment" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.LoginFragment">
+        tools:context=".view.auth.LoginFragment">
 
         <ImageView
             android:id="@+id/img"

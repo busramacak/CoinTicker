@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.view
+package com.bmprj.cointicker.view.coin
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

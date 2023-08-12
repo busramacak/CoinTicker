@@ -5,14 +5,14 @@
     <data>
         <variable
             name="fav"
-            type="com.bmprj.cointicker.view.FavCoinsFragment" />
+            type="com.bmprj.cointicker.view.coin.FavCoinsFragment" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.FavCoinsFragment">
+        tools:context=".view.coin.FavCoinsFragment">
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

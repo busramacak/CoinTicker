@@ -4,10 +4,11 @@ import android.view.View
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.databinding.CoinListLayoutBinding
 import com.bmprj.cointicker.model.CoinMarketItem
-import com.bmprj.cointicker.view.CoinListFragmentDirections
-import com.bmprj.cointicker.view.base.BaseAdapter
+import com.bmprj.cointicker.base.BaseAdapter
+import com.bmprj.cointicker.view.coin.CoinListFragmentDirections
 
-class CoinListAdapter(override var list:ArrayList<CoinMarketItem>):BaseAdapter<CoinListLayoutBinding,CoinMarketItem>(list) {
+class CoinListAdapter(override var list:ArrayList<CoinMarketItem>):
+    BaseAdapter<CoinListLayoutBinding, CoinMarketItem>(list) {
     override val layoutId: Int
         get() = R.layout.coin_list_layout
 

@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.view
+package com.bmprj.cointicker.view.auth
 
 import android.view.View
 import android.widget.Toast
@@ -7,7 +7,7 @@ import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.data.auth.Resource
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
-import com.bmprj.cointicker.view.base.BaseFragment
+import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.LoginViewModel
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
