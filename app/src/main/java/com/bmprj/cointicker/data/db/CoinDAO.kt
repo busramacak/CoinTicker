@@ -9,12 +9,12 @@ import com.bmprj.cointicker.model.CoinMarketItem
 interface CoinDAO {
 
     @Insert
-    suspend fun insertAllCoins(coinList:List<CoinMarketItem>)
+    suspend fun insertAllCoins(coinList:List<Entity>)
 
     @Query("SELECT * FROM coin")
-    suspend fun getCoins():List<CoinMarketItem>
+    suspend fun getCoins():List<Entity>
 
     @Query("Select * FROM coin WHERE symbol LIKE :q || '%' OR name LIKE :q || '%'")
-    suspend fun getCoin(q : String)
+    suspend fun getCoin(q : String) : List<Entity>
 
 }

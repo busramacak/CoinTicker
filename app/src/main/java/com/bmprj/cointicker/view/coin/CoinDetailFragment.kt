@@ -25,7 +25,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
         viewModel.getCoin(id)
 
-        observeLiveData()
+//        observeLiveData()
 
 
 

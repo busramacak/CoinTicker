@@ -5,6 +5,7 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -14,11 +15,11 @@ class DbModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context):CoinDatabase{
+    fun provideDatabase(@ApplicationContext context: Context):CoinDatabase{
         return Room.databaseBuilder(
             context.applicationContext,
             CoinDatabase::class.java,
-            "coin").build()
+                "coin").build()
     }
 
 
