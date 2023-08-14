@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 
-@Entity(tableName = "coin")
 @Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
 data class CoinMarketItem(
@@ -14,7 +13,6 @@ data class CoinMarketItem(
     val currentPrice: Double,
     @SerialName("high_24h")
     val high24h: Double,
-    @PrimaryKey(autoGenerate = false)
     @SerialName("id")
     val id: String,
     @SerialName("image")
