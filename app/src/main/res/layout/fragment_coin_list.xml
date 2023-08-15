@@ -10,15 +10,10 @@
 
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".view.coin.CoinListFragment">
-
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar"
@@ -33,8 +28,7 @@
                     android:id="@+id/search_bar"
                     style="@style/Widget.Material3.SearchBar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end" />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -46,7 +40,13 @@
                 app:layout_anchor="@id/search_bar"
                 tools:ignore="NotSibling">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/searchRecy"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
             </com.google.android.material.search.SearchView>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/coinListRecyclerView"
@@ -58,8 +58,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.drawerlayout.widget.DrawerLayout>
 
 
 </layout>

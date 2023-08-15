@@ -2,13 +2,14 @@ package com.bmprj.cointicker.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.bmprj.cointicker.model.CoinMarketItem
 
 @Dao
 interface CoinDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllCoins(coinList:List<Entity>)
 
     @Query("SELECT * FROM coin")
