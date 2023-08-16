@@ -6,13 +6,13 @@ import com.google.firebase.auth.FirebaseUser
 
 interface CloudRepository {
 
-    suspend fun addFavourite(user:FirebaseUser,favouriteCoin:FavouriteCoin): Resource<Unit>
+    suspend fun addFavourite(userID:String,favouriteCoin:FavouriteCoin): Resource<Unit>
 
-    suspend fun getFavourite(user:FirebaseUser, coinId:String) : Resource<Boolean>
+    suspend fun getFavourite(userID:String, coinId:String) : Resource<Boolean>
 
-    suspend fun getAllFavourites(user:FirebaseUser): Resource<List<FavouriteCoin>>
+    suspend fun getAllFavourites(userID:String): Resource<List<FavouriteCoin>>
 
-    suspend fun delete(user:FirebaseUser,coinId:String): Resource<Unit>
+    suspend fun delete(userID:String,coinId:String): Resource<Unit>
 
 
 

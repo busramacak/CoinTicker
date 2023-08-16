@@ -11,13 +11,13 @@ class CloudRepositoryImpl @Inject constructor(
     private val firebaseCloud: FirebaseFirestore
 ) : CloudRepository {
     override suspend fun addFavourite(
-        user: FirebaseUser,
+        userID:String,
         favouriteCoin: FavouriteCoin,
     ): Resource<Unit> {
         return try{
             firebaseCloud
                 .collection("coins")
-                .document(user.uid)
+                .document(userID)
                 .collection("favouriteList")
                 .document(favouriteCoin.id)
                 .set(favouriteCoin)
@@ -30,13 +30,13 @@ class CloudRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFavourite(
-        user: FirebaseUser,
+        userID:String,
         coinId: String
     ): Resource<Boolean> {
         return try{
             val snapsot = firebaseCloud
                 .collection("coins")
-                .document(user.uid)
+                .document(userID)
                 .collection("favouriteList")
                 .document(coinId)
                 .get().await()
@@ -49,12 +49,12 @@ class CloudRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllFavourites(
-        user: FirebaseUser
+        userID:String
     ): Resource<List<FavouriteCoin>> {
         return try{
             val snaps = firebaseCloud
                 .collection("coins")
-                .document(user.uid)
+                .document(userID)
                 .collection("favouriteList")
                 .get().await()
 
@@ -72,12 +72,12 @@ class CloudRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun delete(user: FirebaseUser, coinId: String): Resource<Unit> {
+    override suspend fun delete(userID:String, coinId: String): Resource<Unit> {
         return try {
             firebaseCloud
                 .collection("coins")
-                .document(user.uid)
-                .collection("favourşteList")
+                .document(userID)
+                .collection("favouriteList")
                 .document(coinId).delete().await()
 
             Resource.Success(Unit)

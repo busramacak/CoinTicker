@@ -41,10 +41,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
     fun favClick(view:View){
         if(!isFav){
-            viewModel.addFavourite(viewModel.coinDetail.value!!)
+            viewModel.addFavourite(uuid,viewModel.coinDetail.value!!)
         }else{
 
+            viewModel.delete(uuid,coinId)
         }
+
+        isFav=!isFav
     }
 
     private fun observeLiveData(){
