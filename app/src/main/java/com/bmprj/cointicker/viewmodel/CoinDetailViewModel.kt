@@ -16,6 +16,9 @@ class CoinDetailViewModel @Inject constructor(
 
     val coinDetail = MutableLiveData<CoinDetail?>()
 
+    val isFavourite = MutableLiveData<Boolean>()
+
+
     fun getCoin(id:String){
         viewModelScope.launch {
 

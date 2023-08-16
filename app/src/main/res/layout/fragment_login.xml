@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/mail"
-                android:hint=" Email" />
+                android:hint="@string/emailHint" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -75,7 +75,7 @@
                 android:drawableStart="@drawable/password"
                 android:inputType="numberPassword"
                 app:passwordToggleEnabled="true"
-                android:hint=" Password" />
+                android:hint="@string/passwordHint" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +87,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             android:paddingVertical="18dp"
-            android:text="LOGIN"
+            android:text="@string/loginBtn"
             android:onClick="@{()-> login.login(eMailEdt.getText().toString(), passwEdt.getText().toString())}"
             android:backgroundTint="#82B0C5"
             app:cornerRadius="5dp"
@@ -101,7 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Don't have an account?"
+            android:text="@string/dontHave"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toStartOf="@+id/signUp"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="70dp"
-            android:text="Sign Up"
+            android:text="@string/signUptxt"
             android:onClick="@{(V)->login.signUp(V)}"
             android:textStyle="bold"
             android:textColor="#0DA8EC"
@@ -125,7 +125,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="Powered by "
+            android:text="@string/powered"
+            android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/materialTextView5" />
 
@@ -134,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="CoinGecko API"
+            android:text="@string/coingecko"
             android:textColor="#1587BA"
             android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toBottomOf="parent"

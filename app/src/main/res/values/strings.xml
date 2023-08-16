@@ -1,5 +1,42 @@
 <resources>
     <string name="app_name">CoinTicker</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lowestTxt">Lowest (24h)   ➩</string>
+    <string name="highestTxt">Highest (24h)  ➩</string>
+    <string name="descriptionTxt">Description</string>
+    <string name="searchHint">Search something</string>
+
+    <string name="name">Name</string>
+    <string name="emailHint"> Email</string>
+    <string name="passwordHint"> Password</string>
+    <string name="loginBtn">LOGIN</string>
+    <string name="loginTxt">Login</string>
+    <string name="dontHave">Don\'t have an account?</string>
+    <string name="signUptxt">Sign Up</string>
+    <string name="signUpBtn">SIGN UP</string>
+    <string name="powered">Powered by </string>
+    <string name="coingecko">CoinGecko API</string>
+    <string name="alreadyHave">Already have an account?</string>
+
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+
+
+
+
+
+
+
+
 </resources>

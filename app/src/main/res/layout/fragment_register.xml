@@ -53,7 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/person"
-                android:hint=" Name"
+                android:hint="@string/name"
                 app:errorEnabled="true"
                 android:inputType="text" />
 
@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableStart="@drawable/mail"
-                android:hint=" Email"
+                android:hint="@string/emailHint"
                 android:inputType="textEmailAddress"
                 app:errorEnabled="true" />
 
@@ -87,7 +87,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:errorEnabled="true"
             app:passwordToggleEnabled="true"
             android:layout_marginHorizontal="30dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/password"
-                android:hint=" Password"
+                android:hint="@string/passwordHint"
                 android:lines="1"
                 android:inputType="numberPassword"
                 app:passwordToggleEnabled="true" />
@@ -114,12 +113,11 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             android:paddingVertical="18dp"
-            android:text="SIGN UP"
+            android:text="@string/signUpBtn"
             android:onClick="@{()->register.signup(nameEdt.getText().toString(),eMailEdt.getText().toString(),passwEdt.getText().toString())}"
             android:backgroundTint="#82B0C5"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.733"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwLayout" />
 
@@ -128,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Don't have an account?"
+            android:text="@string/alreadyHave"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toStartOf="@+id/login"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
@@ -139,33 +137,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="70dp"
-            android:text="Sign Up"
+            android:text="@string/loginTxt"
             android:onClick="@{(V) -> register.login(V)}"
             android:textStyle="bold"
             android:textColor="#0DA8EC"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
-
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Powered by "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/materialTextView5" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/materialTextView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="CoinGecko API"
-            android:textColor="#1587BA"
-            android:layout_marginEnd="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

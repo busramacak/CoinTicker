@@ -90,8 +90,6 @@
                     android:layout_height="wrap_content"
                     android:text='@{String.format("%.1f",coinList.priceChangePercentage24h) + `%`}'
                     tools:text="0.065%" />
-
-
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
