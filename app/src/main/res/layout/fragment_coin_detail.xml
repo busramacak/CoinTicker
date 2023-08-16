@@ -66,6 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
+                    android:onClick="@{(V)-> detail.favClick(V)}"
                     android:src="@drawable/empty_fav"
                     app:layout_constraintBottom_toTopOf="@+id/coinsymbol"
                     app:layout_constraintEnd_toEndOf="parent"

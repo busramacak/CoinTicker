@@ -1,13 +1,11 @@
 package com.bmprj.cointicker.viewmodel
 
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bmprj.cointicker.data.auth.AuthRepository
-import com.bmprj.cointicker.data.auth.Resource
+import com.bmprj.cointicker.data.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.firebase.di.Resource
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

@@ -5,6 +5,8 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.CoinListAdapter
 import com.bmprj.cointicker.R
@@ -21,10 +23,14 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     private val adapter = CoinListAdapter(arrayListOf())
     private val adapter1 = SearchListAdapter(arrayListOf())
     private val viewModel by viewModels<CoinListViewModel>()
+    val bundle : CoinListFragmentArgs by navArgs()
+    private lateinit var uuid :String
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
         binding.coins=this
+
+        uuid=bundle.uid
 
         binding.coinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.coinListRecyclerView.adapter=adapter
@@ -46,6 +52,8 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             override fun afterTextChanged(p0: Editable?) {}
 
         })
+
+     //   adapter.setOnItem
 
 
         viewModel.filteredCoins.observe(viewLifecycleOwner){entity->

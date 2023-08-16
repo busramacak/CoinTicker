@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
-import com.bmprj.cointicker.data.auth.Resource
+import com.bmprj.cointicker.data.firebase.di.Resource
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.LoginViewModel
@@ -34,7 +34,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private fun reload(view:View){
         Toast.makeText(requireContext(),"Hoşgeldiniz, "+viewModel.currentUser?.displayName,Toast.LENGTH_LONG).show()
-        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
+        val gecis = LoginFragmentDirections.actionLoginFragmentToCoinListFragment(viewModel.currentUser?.uid!!)
+        Navigation.findNavController(view).navigate(gecis)
     }
 
 
@@ -52,7 +53,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     fun observeLiveData(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
             when(resource){
-                is Resource.Success ->{
+                is Resource.Success->{
                     reload(view)
                 }
                 is Resource.Failure -> {

@@ -1,22 +1,16 @@
 package com.bmprj.cointicker.view.auth
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
-import com.bmprj.cointicker.data.auth.Resource
+import com.bmprj.cointicker.data.firebase.di.Resource
 import com.bmprj.cointicker.databinding.FragmentRegisterBinding
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.viewmodel.RegisterViewModel
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.AndroidEntryPoint

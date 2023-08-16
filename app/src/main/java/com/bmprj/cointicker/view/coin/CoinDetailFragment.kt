@@ -15,21 +15,32 @@ import dagger.hilt.android.AndroidEntryPoint
 class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail){
     val bundle: CoinDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<CoinDetailViewModel>()
+    private var isFav :Boolean=false
+    private lateinit var coinId:String
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
 //        binding.detail=this
 
-        val id = bundle.id
-        println(id)
+        coinId= bundle.id
+//        val uuid = bundle.userID
 
-        viewModel.getCoin(id)
+
+        viewModel.getCoin(coinId)
 
 //        observeLiveData()
 
 
 
 
+    }
+
+    fun favClick(view:View){
+        if(!isFav){
+            viewModel.addFavourite(viewModel.coinDetail.value!!)
+        }else{
+
+        }
     }
 
     private fun observeLiveData(){

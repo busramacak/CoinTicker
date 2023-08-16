@@ -4,20 +4,31 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.coin.CoinUtils
+import com.bmprj.cointicker.data.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.model.CoinDetail
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
-    private val apiUtil: CoinUtils
+    private val apiUtil: CoinUtils,
+    private val cloudRepo:CloudRepository
 ) :ViewModel(){
 
-    val coinDetail = MutableLiveData<CoinDetail?>()
+    val coinDetail = MutableLiveData<CoinDetail>()
+
 
     val isFavourite = MutableLiveData<Boolean>()
 
+
+    fun addFavourite(coinDetail: CoinDetail){
+//        cloudRepo.addFavourite()
+
+
+    }
 
     fun getCoin(id:String){
         viewModelScope.launch {
