@@ -2,13 +2,18 @@ package com.bmprj.cointicker
 
 import android.view.View
 import androidx.navigation.Navigation
+import com.bmprj.cointicker.base.BaseAdapter
 import com.bmprj.cointicker.databinding.CoinListLayoutBinding
 import com.bmprj.cointicker.model.CoinMarketItem
-import com.bmprj.cointicker.base.BaseAdapter
 import com.bmprj.cointicker.view.coin.CoinListFragmentDirections
 
-class CoinListAdapter(override var list:ArrayList<CoinMarketItem>):
-    BaseAdapter<CoinListLayoutBinding, CoinMarketItem>(list) {
+class CoinListAdapter(
+    private var onItemClicked:(CoinMarketItem) ->Unit,
+    override var list:ArrayList<CoinMarketItem>):
+    BaseAdapter<CoinListLayoutBinding, CoinMarketItem>(onItemClicked,list) {
+
+
+
     override val layoutId: Int
         get() = R.layout.coin_list_layout
 
@@ -18,13 +23,18 @@ class CoinListAdapter(override var list:ArrayList<CoinMarketItem>):
             executePendingBindings()
 
             binding.cardV.setOnClickListener {
-                cardVClick(binding.root,binding.coinList!!.id)
+                onItemClicked(item)
+//                cardVClick(binding.root,binding.coinList!!.id)
             }
         }
     }
 
-    fun cardVClick(view: View, id:String){
-        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(id)
-        Navigation.findNavController(view).navigate(gecis)
+    interface OnItemClickListener {
+        fun onItemClick(model: CoinMarketItem)
     }
+
+//    fun cardVClick(view: View, id:String){
+//        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(id)
+//        Navigation.findNavController(view).navigate(gecis)
+//    }
 }

@@ -53,6 +53,9 @@
         android:label="fragment_coin_detail"
         tools:layout="@layout/fragment_coin_detail" >
         <argument
+            android:name="userID"
+            app:argType="string"/>
+        <argument
             android:name="id"
             app:argType="string" />
     </fragment>

@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.CoinListAdapter
@@ -13,6 +14,8 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.SearchListAdapter
 import com.bmprj.cointicker.databinding.FragmentCoinListBinding
 import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.data.db.Entity
+import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.viewmodel.CoinListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,8 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
 
-    private val adapter = CoinListAdapter(arrayListOf())
-    private val adapter1 = SearchListAdapter(arrayListOf())
+    private lateinit var adapter : CoinListAdapter
+    private val adapter1 = SearchListAdapter(onItemClicked = {item -> onEntityItemClicked(item)},arrayListOf())
     private val viewModel by viewModels<CoinListViewModel>()
     val bundle : CoinListFragmentArgs by navArgs()
     private lateinit var uuid :String
@@ -31,6 +34,11 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         binding.coins=this
 
         uuid=bundle.uid
+
+        adapter= CoinListAdapter(
+            onItemClicked = {item -> onCoinItemClicked(item)},
+            list = arrayListOf()
+        )
 
         binding.coinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.coinListRecyclerView.adapter=adapter
@@ -53,7 +61,6 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
         })
 
-     //   adapter.setOnItem
 
 
         viewModel.filteredCoins.observe(viewLifecycleOwner){entity->
@@ -75,5 +82,14 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             }
 
         }
+    }
+
+    private fun onEntityItemClicked(item: Entity) {
+        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(uuid,item.id)
+        Navigation.findNavController(requireView()).navigate(gecis)
+    }
+    private fun onCoinItemClicked(item: CoinMarketItem) {
+        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(uuid,item.id)
+        Navigation.findNavController(requireView()).navigate(gecis)
     }
 }

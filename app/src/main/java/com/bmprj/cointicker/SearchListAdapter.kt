@@ -5,10 +5,13 @@ import androidx.navigation.Navigation
 import com.bmprj.cointicker.base.BaseAdapter
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.databinding.SearchListLayoutBinding
+import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.view.coin.CoinListFragmentDirections
 
-class SearchListAdapter(override var list:ArrayList<Entity>):
-    BaseAdapter<SearchListLayoutBinding, Entity>(list) {
+class SearchListAdapter(
+    private var onItemClicked:(Entity) ->Unit,
+    override var list:ArrayList<Entity>):
+    BaseAdapter<SearchListLayoutBinding, Entity>(onItemClicked,list) {
     override val layoutId: Int
         get() = R.layout.search_list_layout
 
@@ -17,14 +20,14 @@ class SearchListAdapter(override var list:ArrayList<Entity>):
             coinList=item
             executePendingBindings()
 
-            binding.cardV.setOnClickListener {
-                cardVClick(binding.root,binding.coinList!!.id)
-            }
+//            binding.cardV.setOnClickListener {
+//                cardVClick(binding.root,binding.coinList!!.id)
+//            }
         }
     }
 
-    fun cardVClick(view: View, id:String){
-        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(id)
-        Navigation.findNavController(view).navigate(gecis)
-    }
+//    fun cardVClick(view: View, id:String){
+//        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(id)
+//        Navigation.findNavController(view).navigate(gecis)
+//    }
 }

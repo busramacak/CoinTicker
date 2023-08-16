@@ -17,16 +17,20 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private val viewModel by viewModels<CoinDetailViewModel>()
     private var isFav :Boolean=false
     private lateinit var coinId:String
+    private lateinit var uuid:String
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
 //        binding.detail=this
 
         coinId= bundle.id
-//        val uuid = bundle.userID
+        uuid = bundle.userID
+
+        println(coinId)
+        println(uuid)
 
 
-        viewModel.getCoin(coinId)
+//        viewModel.getCoin(coinId)
 
 //        observeLiveData()
 
