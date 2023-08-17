@@ -180,7 +180,7 @@
             android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/highestTxt"
-            tools:text="@string/descriptionTxt" />
+            android:text="@string/descriptionTxt" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/description"

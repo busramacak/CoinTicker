@@ -22,19 +22,11 @@ class CoinListAdapter(
             coinList=item
             executePendingBindings()
 
-            binding.cardV.setOnClickListener {
-                onItemClicked(item)
-//                cardVClick(binding.root,binding.coinList!!.id)
-            }
+            binding.cardV.setOnClickListener { onItemClicked(item) }
+
         }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(model: CoinMarketItem)
-    }
 
-//    fun cardVClick(view: View, id:String){
-//        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(id)
-//        Navigation.findNavController(view).navigate(gecis)
-//    }
+
 }

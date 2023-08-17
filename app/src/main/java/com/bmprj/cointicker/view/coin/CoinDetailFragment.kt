@@ -65,16 +65,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     is Resource.Success ->{
                         isFav = isFavourite.result
                         if(isFavourite.result){
-                            println("truuuu döndü")
                             binding.imageView2.setImageResource(R.drawable.fav)
                         }else{
                             binding.imageView2.setImageResource(R.drawable.empty_fav)
-                            println("false döndü")
                         }
 
                     }
                     is Resource.Failure ->{
-                        println("favoride değil")
                         isFav=false
                         binding.imageView2.setImageResource(R.drawable.empty_fav)
 
@@ -89,10 +86,10 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             favDelete?.let {
                 when(favDelete){
                     is Resource.Success ->{
-                        println("Favoriden silindi")
+                        println("Favoriden silindi") //toast yapıcam
                     }
                     is Resource.Failure ->{
-                        println("Hata oluştu. silinemedi")
+                        println("Hata oluştu. silinemedi") //toast yapıcam
                     }
                     else ->{}
                 }
@@ -103,10 +100,10 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             favouriteAdd?.let {
                 when(favouriteAdd){
                     is Resource.Success ->{
-                        println("favoriyeEklendi")
+                        println("favoriyeEklendi")//toasssssssssstt
                     }
                     is Resource.Failure ->{
-                        println("Bir hata oluştu. eklenemedi")
+                        println("Bir hata oluştu. eklenemedi")//toastttt
                     }
                     else ->{
 
