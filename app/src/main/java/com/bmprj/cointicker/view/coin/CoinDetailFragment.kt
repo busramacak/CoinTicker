@@ -52,19 +52,25 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             viewModel.delete(uuid,coinId)
         }
 
+
         isFav=!isFav
+        viewModel.isFavourite.value = Resource.Success(isFav)
     }
 
     private fun observeLiveData(){
 
         viewModel.isFavourite.observe(viewLifecycleOwner){isFavourite->
             isFavourite?.let {
-
                 when(isFavourite){
                     is Resource.Success ->{
-                        println("favoridee")
-                        isFav=true
-                        binding.imageView2.setImageResource(R.drawable.fav)
+                        isFav = isFavourite.result
+                        if(isFavourite.result){
+                            println("truuuu döndü")
+                            binding.imageView2.setImageResource(R.drawable.fav)
+                        }else{
+                            binding.imageView2.setImageResource(R.drawable.empty_fav)
+                            println("false döndü")
+                        }
 
                     }
                     is Resource.Failure ->{
@@ -84,11 +90,9 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                 when(favDelete){
                     is Resource.Success ->{
                         println("Favoriden silindi")
-//                        viewModel.isFavourite.value=false
                     }
                     is Resource.Failure ->{
                         println("Hata oluştu. silinemedi")
-//                        viewModel.isFavourite.value=true
                     }
                     else ->{}
                 }
@@ -100,10 +104,8 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                 when(favouriteAdd){
                     is Resource.Success ->{
                         println("favoriyeEklendi")
-//                        viewModel.isFavourite.value=true
                     }
                     is Resource.Failure ->{
-//                        viewModel.isFavourite.value=false
                         println("Bir hata oluştu. eklenemedi")
                     }
                     else ->{
@@ -123,7 +125,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 //                binding.precentage24hText.text= String.format("%.1f",it.marketData.priceChangePercentage24h.toString()+"%")
 //                binding.lowest.text=it.marketData.low24h.usd.toString()
 //                binding.highest.text=it.marketData.high24h.usd.toString()
-//                binding.description.text=it.description.en
+                binding.description.text=it.description.en
             }
 
         }

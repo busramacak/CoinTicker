@@ -12,7 +12,7 @@ class CoinUtils @Inject constructor(private val api : CoinApiService){
 
     }
 
-    suspend fun getCoin(id:String) : Response<List<CoinDetail>>{
+    suspend fun getCoin(id:String) : Response<CoinDetail>{
         return  api.getCoin(id)
     }
 }

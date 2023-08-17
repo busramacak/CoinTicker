@@ -6,6 +6,7 @@ import com.bmprj.cointicker.model.CurrentPrice
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 // Data provided by CoinGecko ->> www.coingecko.com/en/api
@@ -14,8 +15,8 @@ interface CoinApiService {
     @GET("coins/markets?vs_currency=usd")
     suspend fun getCoins() : Response<List<CoinMarketItem>>
 
-    @GET("coins/")
+    @GET("coins/{id}")
     suspend fun getCoin(
-        @Query("id") id:String
-    ) : Response<List<CoinDetail>>
+        @Path("id") id:String
+    ) : Response<CoinDetail>
 }
