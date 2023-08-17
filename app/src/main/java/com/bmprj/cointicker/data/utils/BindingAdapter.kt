@@ -1,11 +1,14 @@
 package com.bmprj.cointicker.data.utils
 
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bmprj.cointicker.R
 import com.bumptech.glide.Glide
+
+
 
 
     @BindingAdapter("loadFromUrl")

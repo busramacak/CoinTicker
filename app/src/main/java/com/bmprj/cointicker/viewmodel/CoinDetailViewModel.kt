@@ -27,7 +27,7 @@ class CoinDetailViewModel @Inject constructor(
     val favouriteDelete = _favouriteDelete
 
 
-    val isFavourite = MutableLiveData<Boolean>()
+    val isFavourite = MutableLiveData<Resource<Boolean>>()
 
 
     fun addFavourite(uuid: String, coinDetaill: CoinDetail){
@@ -46,6 +46,17 @@ class CoinDetailViewModel @Inject constructor(
         }
     }
 
+    fun getFavourite(uuid: String,coinId: String){
+        viewModelScope.launch {
+            val result = cloudRepo.getFavourite(uuid,coinId)
+
+            println(result)
+
+            isFavourite.value=result
+
+        }
+    }
+
     fun delete(uuid: String,coinId:String){
         viewModelScope.launch {
 
@@ -59,9 +70,10 @@ class CoinDetailViewModel @Inject constructor(
 
 //            CoinDetail(id=bitcoin, name=Bitcoin, image=İmage(large=https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579, small=https://assets.coingecko.com/coins/images/1/small/bitcoin.png?1547033579, thumb=https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579), lastUpdated=null, marketData=null, description=null, symbol=btc)
 //                2023-08-11 16:07:27.431 19254-19254
-            val r = apiUtil.getCoin(id).body()?.get(0)
+            val r = apiUtil.getCoin(id).body()?.get(3)
 
 
+            println(r)
 //            val list = ArrayList<CoinDetail>()
 //            val c = CoinDetail(r?.id!!,r.name,r.image,r.lastUpdated,r.marketData,r.description,r.symbol)
 //            list.add(c)

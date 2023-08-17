@@ -86,10 +86,12 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
     private fun onEntityItemClicked(item: Entity) {
         val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(uuid,item.id)
+        println(item.id)
         Navigation.findNavController(requireView()).navigate(gecis)
     }
     private fun onCoinItemClicked(item: CoinMarketItem) {
         val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(uuid,item.id)
+        println(item.id)
         Navigation.findNavController(requireView()).navigate(gecis)
     }
 }
