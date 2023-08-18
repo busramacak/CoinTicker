@@ -1,11 +1,9 @@
-package com.bmprj.cointicker
+package com.bmprj.cointicker.view.adapter
 
-import android.view.View
-import androidx.navigation.Navigation
-import com.bmprj.cointicker.base.BaseAdapter
+import com.bmprj.cointicker.R
+import com.bmprj.cointicker.view.base.BaseAdapter
 import com.bmprj.cointicker.databinding.CoinListLayoutBinding
 import com.bmprj.cointicker.model.CoinMarketItem
-import com.bmprj.cointicker.view.coin.CoinListFragmentDirections
 
 class CoinListAdapter(
     private var onItemClicked:(CoinMarketItem) ->Unit,

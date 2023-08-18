@@ -21,7 +21,7 @@
             android:id="@+id/img"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:src="@drawable/logo"
+            android:src="@drawable/iconnew"
             android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:id="@+id/txt"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:src="@drawable/logotxt"
+            android:src="@drawable/iconnewtxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img" />
@@ -115,7 +115,7 @@
             android:paddingVertical="18dp"
             android:text="@string/signUpBtn"
             android:onClick="@{()->register.signup(nameEdt.getText().toString(),eMailEdt.getText().toString(),passwEdt.getText().toString())}"
-            android:backgroundTint="#82B0C5"
+            android:backgroundTint="#FFCAC1EA"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +141,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{(V) -> register.login(V)}"
             android:textStyle="bold"
-            android:textColor="#0DA8EC"
+            android:textColor="#FF938CB1"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
 

@@ -10,8 +10,8 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.data.utils.loadFromUrl
 import com.bmprj.cointicker.data.utils.setArrow
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
-import com.bmprj.cointicker.base.BaseFragment
-import com.bmprj.cointicker.data.firebase.di.Resource
+import com.bmprj.cointicker.view.base.BaseFragment
+import com.bmprj.cointicker.data.remote.firebase.di.Resource
 import com.bmprj.cointicker.viewmodel.CoinDetailViewModel
 import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint

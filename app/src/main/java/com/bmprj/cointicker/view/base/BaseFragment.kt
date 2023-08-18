@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.base
+package com.bmprj.cointicker.view.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

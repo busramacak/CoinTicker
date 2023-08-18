@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.data.coin
+package com.bmprj.cointicker.data.remote.coin
 
 import dagger.Module
 import dagger.Provides

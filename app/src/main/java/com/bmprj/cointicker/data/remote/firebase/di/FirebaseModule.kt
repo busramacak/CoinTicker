@@ -1,9 +1,9 @@
-package com.bmprj.cointicker.data.firebase.di
+package com.bmprj.cointicker.data.remote.firebase.di
 
-import com.bmprj.cointicker.data.firebase.auth.AuthRepository
-import com.bmprj.cointicker.data.firebase.auth.AuthRepositoryImpl
-import com.bmprj.cointicker.data.firebase.cloud.CloudRepository
-import com.bmprj.cointicker.data.firebase.cloud.CloudRepositoryImpl
+import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepositoryImpl
+import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
+import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepositoryImpl
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -26,5 +26,5 @@ class FirebaseModule {
     fun provideFirebaseFirestore():FirebaseFirestore = FirebaseFirestore.getInstance()
 
     @Provides
-    fun provideFirestoreRepo(impl:CloudRepositoryImpl):CloudRepository=impl
+    fun provideFirestoreRepo(impl: CloudRepositoryImpl): CloudRepository =impl
 }

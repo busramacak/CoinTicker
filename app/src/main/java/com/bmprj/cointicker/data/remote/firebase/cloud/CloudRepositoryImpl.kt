@@ -1,6 +1,6 @@
-package com.bmprj.cointicker.data.firebase.cloud
+package com.bmprj.cointicker.data.remote.firebase.cloud
 
-import com.bmprj.cointicker.data.firebase.di.Resource
+import com.bmprj.cointicker.data.remote.firebase.di.Resource
 import com.bmprj.cointicker.data.utils.await
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.google.firebase.auth.FirebaseUser

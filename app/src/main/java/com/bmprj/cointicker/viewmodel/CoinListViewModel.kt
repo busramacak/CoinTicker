@@ -3,11 +3,11 @@ package com.bmprj.cointicker.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bmprj.cointicker.data.coin.CoinUtils
+import com.bmprj.cointicker.data.remote.coin.CoinUtils
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
-import com.bmprj.cointicker.data.firebase.auth.AuthRepository
-import com.bmprj.cointicker.data.firebase.cloud.CloudRepository
+import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.model.CoinMarketItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

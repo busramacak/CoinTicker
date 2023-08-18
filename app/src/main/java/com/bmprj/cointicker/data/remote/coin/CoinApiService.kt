@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.data.coin
+package com.bmprj.cointicker.data.remote.coin
 
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.model.CoinMarketItem

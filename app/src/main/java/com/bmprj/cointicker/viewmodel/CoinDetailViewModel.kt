@@ -3,10 +3,10 @@ package com.bmprj.cointicker.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bmprj.cointicker.data.coin.CoinUtils
-import com.bmprj.cointicker.data.firebase.auth.AuthRepository
-import com.bmprj.cointicker.data.firebase.cloud.CloudRepository
-import com.bmprj.cointicker.data.firebase.di.Resource
+import com.bmprj.cointicker.data.remote.coin.CoinUtils
+import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
+import com.bmprj.cointicker.data.remote.firebase.di.Resource
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.model.FavouriteCoin
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CoinDetailViewModel @Inject constructor(
     private val repository: AuthRepository,
     private val apiUtil: CoinUtils,
-    private val cloudRepo:CloudRepository
+    private val cloudRepo: CloudRepository
 ) :ViewModel(){
 
     val coinDetail = MutableLiveData<CoinDetail?>()
@@ -44,7 +44,7 @@ class CoinDetailViewModel @Inject constructor(
                 coinDetaill.symbol
             )
 
-            favouriteAdd.value=Resource.loading
+            favouriteAdd.value= Resource.loading
             val result = cloudRepo.addFavourite(currentUserId,favList)
             favouriteAdd.value=result
         }

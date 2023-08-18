@@ -3,25 +3,17 @@ package com.bmprj.cointicker.view.coin
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.Window
-import androidx.core.view.WindowCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager.widget.ViewPager.DecorView
-import com.bmprj.cointicker.CoinListAdapter
+import com.bmprj.cointicker.view.adapter.CoinListAdapter
 import com.bmprj.cointicker.R
-import com.bmprj.cointicker.SearchListAdapter
+import com.bmprj.cointicker.view.adapter.SearchListAdapter
 import com.bmprj.cointicker.databinding.FragmentCoinListBinding
-import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.view.base.BaseFragment
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.viewmodel.CoinListViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

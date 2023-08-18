@@ -18,8 +18,9 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:fitsSystemWindows="true"
+                android:background="#FFE6DEFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -28,8 +29,9 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="4dp"
                     android:onClick="@{(V) -> coins.logOut(V)}"
-                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:background="?android:attr/selectableItemBackground"
                     android:src="@drawable/logout"/>
 
                 <com.google.android.material.textview.MaterialTextView

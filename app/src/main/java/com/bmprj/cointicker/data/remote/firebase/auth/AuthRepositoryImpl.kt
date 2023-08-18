@@ -1,6 +1,6 @@
-package com.bmprj.cointicker.data.firebase.auth
+package com.bmprj.cointicker.data.remote.firebase.auth
 
-import com.bmprj.cointicker.data.firebase.di.Resource
+import com.bmprj.cointicker.data.remote.firebase.di.Resource
 import com.bmprj.cointicker.data.utils.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
