@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CoinTicker</string>
     <string name="favScreenTitle">Favourites</string>
+    <string name="coinScreenTitle">Coins</string>
     <string name="lowestTxt">Lowest (24h)   ➩</string>
     <string name="highestTxt">Highest (24h)  ➩</string>
     <string name="descriptionTxt">Description</string>

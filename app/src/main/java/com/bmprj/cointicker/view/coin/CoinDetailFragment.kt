@@ -3,7 +3,9 @@ package com.bmprj.cointicker.view.coin
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.data.utils.loadFromUrl
 import com.bmprj.cointicker.data.utils.setArrow
@@ -123,6 +125,10 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             }
 
         }
+    }
+
+    fun backButton(view: View){
+        Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_coinListFragment)
     }
 
 

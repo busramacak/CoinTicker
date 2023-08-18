@@ -4,7 +4,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-import coil.load
 import com.bmprj.cointicker.R
 import com.bumptech.glide.Glide
 
