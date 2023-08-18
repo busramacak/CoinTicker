@@ -113,6 +113,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="70dp"
             android:text="@string/signUptxt"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{(V)->login.signUp(V)}"
             android:textStyle="bold"
             android:textColor="#0DA8EC"

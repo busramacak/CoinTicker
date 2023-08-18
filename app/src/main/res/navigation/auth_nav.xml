@@ -55,8 +55,5 @@
         <argument
             android:name="id"
             app:argType="string" />
-        <action
-            android:id="@+id/action_coinDetailFragment_to_coinListFragment"
-            app:destination="@id/coinListFragment" />
     </fragment>
 </navigation>

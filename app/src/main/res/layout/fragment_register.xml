@@ -138,6 +138,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="70dp"
             android:text="@string/loginTxt"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{(V) -> register.login(V)}"
             android:textStyle="bold"
             android:textColor="#0DA8EC"

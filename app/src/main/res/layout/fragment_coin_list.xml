@@ -29,6 +29,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{(V) -> coins.logOut(V)}"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@drawable/logout"/>
 
                 <com.google.android.material.textview.MaterialTextView

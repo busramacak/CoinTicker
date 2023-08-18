@@ -33,9 +33,10 @@
                     android:layout_height="wrap_content"
                     android:onClick="@{(V) -> detail.backButton(V)}"
                     android:src="@drawable/back"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:layout_margin="10dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/coinName"
