@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.coin.CoinUtils
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
+import com.bmprj.cointicker.data.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.model.CoinMarketItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -13,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
+    private val repository: AuthRepository,
     private val apiUtils: CoinUtils,
     private val coinDAO: CoinDAO
 ) :ViewModel() {
@@ -22,6 +25,7 @@ class CoinListViewModel @Inject constructor(
     val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
 
 
+    val currentUser = repository.currentUser
 
 
 
@@ -77,8 +81,9 @@ class CoinListViewModel @Inject constructor(
            val aList = ArrayList<Entity>(coinDAO.getCoin(query))
             filteredCoins.value=aList
         }
+    }
 
-
-
+    fun logOut(){
+        repository.logout()
     }
 }

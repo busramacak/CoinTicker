@@ -86,6 +86,11 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         }
     }
 
+    fun logOut(view: View){
+        viewModel.logOut()
+        Navigation.findNavController(view).navigate(R.id.action_coinListFragment_to_loginFragment)
+    }
+
     private fun onEntityItemClicked(item: Entity) {
         val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id)
         Navigation.findNavController(requireView()).navigate(gecis)
