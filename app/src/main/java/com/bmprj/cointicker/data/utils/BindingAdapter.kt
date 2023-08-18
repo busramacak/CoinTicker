@@ -1,18 +1,17 @@
 package com.bmprj.cointicker.data.utils
 
-import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import coil.load
 import com.bmprj.cointicker.R
 import com.bumptech.glide.Glide
 
 
-
-
-    @BindingAdapter("loadFromUrl")
+@BindingAdapter("loadFromUrl")
     fun ImageView.loadFromUrl(imgUrl:String){
+
         imgUrl.let{
             Glide.with(this)
                 .load(it.toUri().buildUpon().scheme("https").build())

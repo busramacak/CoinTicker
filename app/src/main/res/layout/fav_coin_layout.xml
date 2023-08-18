@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <ImageView
                 android:id="@+id/img"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
@@ -57,7 +57,6 @@
 
             <ImageView
                 android:id="@+id/openDetailBtn"
-                android:onClick="@{(V) -> favCoin.openDetailClick(V)}"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/openn"

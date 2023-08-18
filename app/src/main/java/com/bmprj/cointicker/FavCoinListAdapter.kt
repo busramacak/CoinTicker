@@ -13,9 +13,10 @@ class FavCoinListAdapter(
 
     override fun bind(binding: FavCoinLayoutBinding, item: FavouriteCoin) {
         binding.apply {
-            binding.cardV.setOnClickListener { onItemClicked(item) }
+            favCoin=item
+            binding.executePendingBindings()
 
-            binding.openDetailBtn.setOnClickListener{ onItemClicked(item)}
+            binding.cardV.setOnClickListener { onItemClicked(item) }
         }
     }
 

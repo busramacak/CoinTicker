@@ -20,21 +20,18 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private val viewModel by viewModels<CoinDetailViewModel>()
     private var isFav :Boolean=false
     private lateinit var coinId:String
-    private lateinit var uuid:String
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
         binding.detail=this
 
         coinId= bundle.id
-        uuid = bundle.userID
 
         println(coinId)
-        println(uuid)
 
 
         viewModel.getCoin(coinId)
-        viewModel.getFavourite(uuid,coinId)
+        viewModel.getFavourite(coinId)
 
         observeLiveData()
 
@@ -46,10 +43,10 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     fun favClick(view:View){
         if(!isFav){
             println("fav diyildi fav oldu")
-            viewModel.addFavourite(uuid,viewModel.coinDetail.value!!)
+            viewModel.addFavourite(viewModel.coinDetail.value!!)
         }else{
             println("favdı fav değil oldu")
-            viewModel.delete(uuid,coinId)
+            viewModel.delete(coinId)
         }
 
 
@@ -115,7 +112,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             coinDetail?.let {
                 binding.coinName.text=it.name
                 binding.coinsymbol.text=it.symbol
-                binding.imageView.loadFromUrl(it.image.thumb)
+                binding.imageView.loadFromUrl(it.image.large)
 //                binding.lastUpdate.text=it.lastUpdated
 //                binding.priceChange24h.text=it.marketData.priceChange24h.toString()
 //                binding.arrow.setArrow(it.marketData.priceChangePercentage24h)

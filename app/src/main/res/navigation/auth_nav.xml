@@ -34,9 +34,6 @@
         <action
             android:id="@+id/action_coinListFragment_to_coinDetailFragment"
             app:destination="@id/coinDetailFragment" />
-        <argument
-            android:name="uid"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/favCoinsFragment"
@@ -52,9 +49,6 @@
         android:name="com.bmprj.cointicker.view.coin.CoinDetailFragment"
         android:label="fragment_coin_detail"
         tools:layout="@layout/fragment_coin_detail" >
-        <argument
-            android:name="userID"
-            app:argType="string"/>
         <argument
             android:name="id"
             app:argType="string" />

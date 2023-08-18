@@ -68,6 +68,7 @@ dependencies {
     implementation ("com.google.dagger:hilt-android:2.47")
     implementation("androidx.room:room-ktx:2.5.2")
     implementation("com.google.firebase:firebase-firestore-ktx:24.7.0")
+    implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
     kapt ("androidx.room:room-compiler:2.6.0-alpha03")
     kapt ("com.google.dagger:hilt-android-compiler:2.47")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")

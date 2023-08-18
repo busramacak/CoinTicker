@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.coin.CoinUtils
+import com.bmprj.cointicker.data.firebase.auth.AuthRepository
 import com.bmprj.cointicker.data.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.data.firebase.di.Resource
 import com.bmprj.cointicker.model.CoinDetail
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
+    private val repository: AuthRepository,
     private val apiUtil: CoinUtils,
     private val cloudRepo:CloudRepository
 ) :ViewModel(){
@@ -29,8 +31,10 @@ class CoinDetailViewModel @Inject constructor(
 
     val isFavourite = MutableLiveData<Resource<Boolean>>()
 
+    val currentUserId = repository.currentUser?.uid!!
 
-    fun addFavourite(uuid: String, coinDetaill: CoinDetail){
+
+    fun addFavourite(coinDetaill: CoinDetail){
 
         viewModelScope.launch {
             val favList = FavouriteCoin(
@@ -41,26 +45,23 @@ class CoinDetailViewModel @Inject constructor(
             )
 
             favouriteAdd.value=Resource.loading
-            val result = cloudRepo.addFavourite(uuid,favList)
+            val result = cloudRepo.addFavourite(currentUserId,favList)
             favouriteAdd.value=result
         }
     }
 
-    fun getFavourite(uuid: String,coinId: String){
+    fun getFavourite(coinId: String){
         viewModelScope.launch {
-            val result = cloudRepo.getFavourite(uuid,coinId)
-
-            println(result.toString()+"dddddddddddddddddd")
-
+            val result = cloudRepo.getFavourite(currentUserId,coinId)
             isFavourite.value=result
 
         }
     }
 
-    fun delete(uuid: String,coinId:String){
+    fun delete(coinId:String){
         viewModelScope.launch {
 
-            val result= cloudRepo.delete(uuid,coinId)
+            val result= cloudRepo.delete(currentUserId,coinId)
             favouriteDelete.value=result
         }
     }
@@ -73,7 +74,7 @@ class CoinDetailViewModel @Inject constructor(
             val r = apiUtil.getCoin(id).body()
 
 
-            println(r)
+//            println(r)
 //            val list = ArrayList<CoinDetail>()
 //            val c = CoinDetail(r?.id!!,r.name,r.image,r.lastUpdated,r.marketData,r.description,r.symbol)
 //            list.add(c)

@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,13 +23,14 @@ class MainActivity : AppCompatActivity() {
         binding=DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.main=this
 
-
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        navController = navHostFragment.navController
+        NavigationUI.setupWithNavController(binding.bottomNav,navHostFragment.navController)
 
-        navController.addOnDestinationChangedListener{_,nd:NavDestination,_->
+        navController=navHostFragment.navController
 
-            if(nd.id== R.id.registerFragment || nd.id== R.id.loginFragment){
+        navHostFragment.navController.addOnDestinationChangedListener{_,nd:NavDestination,_->
+
+            if(nd.id== R.id.registerFragment || nd.id== R.id.loginFragment || nd.id == R.id.coinDetailFragment){
                 hideBottomNav()
             }else{
                 showBottomNav()
@@ -36,8 +38,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
-//        observeLiveData()
     }
 
     private fun hideBottomNav(){
@@ -50,9 +50,5 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    fun observeLiveData(){
-
     }
 }

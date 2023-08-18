@@ -34,8 +34,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private fun reload(view:View){
         Toast.makeText(requireContext(),"Hoşgeldiniz, "+viewModel.currentUser?.displayName,Toast.LENGTH_LONG).show()
-        val gecis = LoginFragmentDirections.actionLoginFragmentToCoinListFragment(viewModel.currentUser?.uid!!)
-        Navigation.findNavController(view).navigate(gecis)
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
     }
 
 
