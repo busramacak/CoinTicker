@@ -28,6 +28,5 @@ class LoginViewModel @Inject constructor(
             _login.value= Resource.loading
             val result =  repository.login(email,password)
             _login.value=result
-
     }
 }

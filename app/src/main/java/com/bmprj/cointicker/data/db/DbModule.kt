@@ -19,7 +19,9 @@ class DbModule {
         return Room.databaseBuilder(
             context.applicationContext,
             CoinDatabase::class.java,
-                "coin").build()
+                "coin")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
 

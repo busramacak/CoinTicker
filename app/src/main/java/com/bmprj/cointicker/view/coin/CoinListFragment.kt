@@ -20,19 +20,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
 
-    private lateinit var adapter : CoinListAdapter
+    private val adapter = CoinListAdapter(onItemClicked = {item -> onCoinItemClicked(item)}, list = arrayListOf())
     private val adapter1 = SearchListAdapter(onItemClicked = {item -> onEntityItemClicked(item)},arrayListOf())
     private val viewModel by viewModels<CoinListViewModel>()
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
         binding.coins=this
-
-
-        adapter= CoinListAdapter(
-            onItemClicked = {item -> onCoinItemClicked(item)},
-            list = arrayListOf()
-        )
 
         binding.coinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.coinListRecyclerView.adapter=adapter
@@ -48,13 +42,10 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 
                 viewModel.getDataFromDatabase(p0.toString())
-
             }
 
             override fun afterTextChanged(p0: Editable?) {}
-
         })
-
 
 
         viewModel.filteredCoins.observe(viewLifecycleOwner){entity->
@@ -74,7 +65,6 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
                 adapter.updateList(coinItem)
                 viewModel.insertCoins(coinItem)
             }
-
         }
     }
 

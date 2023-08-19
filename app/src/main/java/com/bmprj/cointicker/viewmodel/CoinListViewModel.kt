@@ -25,10 +25,6 @@ class CoinListViewModel @Inject constructor(
     val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
 
 
-    val currentUser = repository.currentUser
-
-
-
     fun getData(){
         viewModelScope.launch{
             val r=apiUtils.getCoins().body()
@@ -63,14 +59,9 @@ class CoinListViewModel @Inject constructor(
         return marketItemList.map {
             Entity(
                 it.currentPrice,
-                it.high24h,
                 it.id,
                 it.image,
-                it.lastUpdated,
-                it.low24h,
                 it.name,
-                it.priceChange24h,
-                it.priceChangePercentage24h,
                 it.symbol)
         }
     }

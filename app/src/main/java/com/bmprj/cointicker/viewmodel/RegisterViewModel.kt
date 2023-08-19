@@ -16,7 +16,6 @@ class RegisterViewModel @Inject constructor(
     private val repository: AuthRepository
 ) : ViewModel() {
 
-
     private val _signup = MutableLiveData<Resource<FirebaseUser>?>()
     val signup: LiveData<Resource<FirebaseUser>?> = _signup
 

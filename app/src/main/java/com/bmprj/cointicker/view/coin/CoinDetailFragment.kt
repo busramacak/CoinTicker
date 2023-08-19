@@ -1,19 +1,17 @@
 package com.bmprj.cointicker.view.coin
 
-import android.graphics.drawable.Drawable
+
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.data.utils.loadFromUrl
-import com.bmprj.cointicker.data.utils.setArrow
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.view.base.BaseFragment
 import com.bmprj.cointicker.data.remote.firebase.di.Resource
 import com.bmprj.cointicker.viewmodel.CoinDetailViewModel
-import com.google.firebase.firestore.FirebaseFirestoreException
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,15 +40,12 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
     }
 
-    fun favClick(view:View){
+    fun favClick(){
         if(!isFav){
-            println("fav diyildi fav oldu")
             viewModel.addFavourite(viewModel.coinDetail.value!!)
         }else{
-            println("favdı fav değil oldu")
             viewModel.delete(coinId)
         }
-
 
         isFav=!isFav
         viewModel.isFavourite.value = Resource.Success(isFav)
@@ -78,17 +73,16 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     else->{}
                 }
             }
-
         }
 
         viewModel.favouriteDelete.observe(viewLifecycleOwner){favDelete->
             favDelete?.let {
                 when(favDelete){
                     is Resource.Success ->{
-                        println("Favoriden silindi") //toast yapıcam
+                        Toast.makeText(context,getString(R.string.delFavSuccess),Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Failure ->{
-                        println("Hata oluştu. silinemedi") //toast yapıcam
+                        Toast.makeText(context,getString(R.string.delFavFail),Toast.LENGTH_SHORT).show()
                     }
                     else ->{}
                 }
@@ -99,19 +93,18 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             favouriteAdd?.let {
                 when(favouriteAdd){
                     is Resource.Success ->{
-                        println("favoriyeEklendi")//toasssssssssstt
+                        Toast.makeText(context,getString(R.string.addFavSuccess),Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Failure ->{
-                        println("Bir hata oluştu. eklenemedi")//toastttt
+                        Toast.makeText(context,getString(R.string.addFavFail),Toast.LENGTH_SHORT).show()
                     }
-                    else ->{
-
-                    }
+                    else ->{}
                 }
             }
         }
         viewModel.coinDetail.observe(viewLifecycleOwner){ coinDetail->
             coinDetail?.let {
+                println(it)
                 binding.coinName.text=it.name
                 binding.coinsymbol.text=it.symbol
                 binding.imageView.loadFromUrl(it.image.large)
@@ -130,6 +123,4 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     fun backButton(view: View){
         Navigation.findNavController(view).navigateUp()
     }
-
-
 }

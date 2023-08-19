@@ -19,10 +19,13 @@
     <string name="coingecko">CoinGecko API</string>
     <string name="alreadyHave">Already have an account?</string>
 
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
+
+<!--    toast-->
+
+    <string name="addFavSuccess">Successfully added to favorite</string>
+    <string name="addFavFail">Something went wrong. Could not be added to favourite.</string>
+    <string name="delFavSuccess">Successfully deleted from favorite</string>
+    <string name="delFavFail">Something went wrong. Could not be deleted from favourite.</string>
 <!--    <string name=""></string>-->
 <!--    <string name=""></string>-->
 <!--    <string name=""></string>-->

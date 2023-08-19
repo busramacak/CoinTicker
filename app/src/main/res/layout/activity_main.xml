@@ -33,6 +33,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:menu="@menu/coin_menu"
+            app:itemTextColor="#FF605A7C"
+            app:itemIconTint="#FF605A7C"
             app:labelVisibilityMode="selected"
             app:layout_constraintStart_toStartOf="parent" />
 

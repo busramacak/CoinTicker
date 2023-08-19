@@ -1,5 +1,6 @@
 package com.bmprj.cointicker.view.coin
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -17,18 +18,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment_fav_coins) {
 
-    private lateinit var adapter : FavCoinListAdapter
+    private val adapter= FavCoinListAdapter(onItemClicked = {item -> onCoinItemClicked(item)}, arrayListOf())
     private val viewModel by viewModels<FavCoinsViewModel>()
     override fun setUpViews(view: View) {
         super.setUpViews(view)
         binding.fav=this
-
-
-
-        adapter= FavCoinListAdapter(
-            onItemClicked = {item -> onCoinItemClicked(item)},
-            arrayListOf()
-        )
 
         binding.favCoinListRecyclerView.adapter=adapter
         binding.favCoinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
@@ -45,7 +39,7 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
                     adapter.updateList(ArrayList(resource.result))
                 }
                 is Resource.Failure ->{
-                    println(resource.exception.message)
+                    Log.e("exception",resource.exception.message!!)
                 }
                 else ->{}
             }
@@ -54,12 +48,7 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
 
 
     private fun onCoinItemClicked(item: FavouriteCoin) {
-
         val gecis = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id)
-        println(item.id)
         Navigation.findNavController(requireView()).navigate(gecis)
     }
-
-
-
 }
