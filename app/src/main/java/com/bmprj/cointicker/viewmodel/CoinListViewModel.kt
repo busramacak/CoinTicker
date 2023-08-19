@@ -44,6 +44,7 @@ class CoinListViewModel @Inject constructor(
                     v.priceChangePercentage24h,v.symbol)
                 list.add(c)
             }
+            println(list)
 
             coins.value=list
         }

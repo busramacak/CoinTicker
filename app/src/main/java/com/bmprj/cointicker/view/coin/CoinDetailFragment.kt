@@ -11,6 +11,7 @@ import com.bmprj.cointicker.data.utils.loadFromUrl
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.view.base.BaseFragment
 import com.bmprj.cointicker.data.remote.firebase.di.Resource
+import com.bmprj.cointicker.data.utils.setArrow
 import com.bmprj.cointicker.viewmodel.CoinDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -104,16 +105,15 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         }
         viewModel.coinDetail.observe(viewLifecycleOwner){ coinDetail->
             coinDetail?.let {
-                println(it)
                 binding.coinName.text=it.name
                 binding.coinsymbol.text=it.symbol
                 binding.imageView.loadFromUrl(it.image.large)
-//                binding.lastUpdate.text=it.lastUpdated
-//                binding.priceChange24h.text=it.marketData.priceChange24h.toString()
-//                binding.arrow.setArrow(it.marketData.priceChangePercentage24h)
-//                binding.precentage24hText.text= String.format("%.1f",it.marketData.priceChangePercentage24h.toString()+"%")
-//                binding.lowest.text=it.marketData.low24h.usd.toString()
-//                binding.highest.text=it.marketData.high24h.usd.toString()
+                binding.lastUpdate.text=it.lastUpdated
+                binding.priceChange24h.text=it.marketData.currentPrice.usd.toDouble().toString() + "$"
+                binding.arrow.setArrow(it.marketData.priceChangePercentage24h)
+                binding.precentage24hText.text= String.format("%.1f",it.marketData.priceChangePercentage24h.toFloat())+"%"
+                binding.lowest.text=it.marketData.low24h.usd.toDouble().toString()
+                binding.highest.text=it.marketData.high24h.usd.toDouble().toString()
                 binding.description.text=it.description.en
             }
 

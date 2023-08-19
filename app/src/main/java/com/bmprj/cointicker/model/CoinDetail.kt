@@ -1,6 +1,7 @@
 package com.bmprj.cointicker.model
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -8,24 +9,24 @@ import kotlinx.serialization.Serializable
 data class CoinDetail(
 
 
-    @SerialName("id")
+    @SerializedName("id")
     val id: String,
 
-    @SerialName("name")
+    @SerializedName("name")
     val name: String,
 
-    @SerialName("image")
+    @SerializedName("image")
     val image: İmage,
 
-    @SerialName("last_updated")
+    @SerializedName("last_updated")
     val lastUpdated: String,
 
-    @SerialName("market_data")
+    @SerializedName("market_data")
     val marketData: MarketData,
 
-    @SerialName("description")
+    @SerializedName("description")
     val description: Description,
 
-    @SerialName("symbol")
+    @SerializedName("symbol")
     val symbol: String,
 )

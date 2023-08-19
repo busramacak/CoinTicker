@@ -1,15 +1,16 @@
 package com.bmprj.cointicker.model
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 
 data class İmage(
-    @SerialName("large")
+    @SerializedName("large")
     val large: String,
-    @SerialName("small")
+    @SerializedName("small")
     val small: String,
-    @SerialName("thumb")
+    @SerializedName("thumb")
     val thumb: String
 )

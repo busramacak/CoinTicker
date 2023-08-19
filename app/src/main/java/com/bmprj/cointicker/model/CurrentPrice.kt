@@ -1,12 +1,13 @@
 package com.bmprj.cointicker.model
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class CurrentPrice(
 
-    @SerialName("usd")
+    @SerializedName("usd")
     val usd: Int,
 )

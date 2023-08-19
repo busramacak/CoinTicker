@@ -1,10 +1,11 @@
 package com.bmprj.cointicker.model
 
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 
 
 data class Description(
-    @SerialName("en")
+    @SerializedName("en")
     val en: String
 )
