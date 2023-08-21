@@ -9,5 +9,5 @@ import kotlinx.serialization.Serializable
 data class CurrentPrice(
 
     @SerializedName("usd")
-    val usd: Int,
+    val usd: Double,
 )

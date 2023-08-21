@@ -8,5 +8,5 @@ import kotlinx.serialization.Serializable
 data class High24h(
 
     @SerializedName("usd")
-    val usd: Int,
+    val usd: Double,
 )
