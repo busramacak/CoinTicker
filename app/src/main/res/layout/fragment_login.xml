@@ -89,10 +89,8 @@
             android:paddingVertical="18dp"
             android:text="@string/loginBtn"
             android:onClick="@{()-> login.login(eMailEdt.getText().toString(), passwEdt.getText().toString())}"
-            android:backgroundTint="#FFCAC1EA"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.733"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwLayout" />
 
@@ -116,7 +114,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{(V)->login.signUp(V)}"
             android:textStyle="bold"
-            android:textColor="#FF938CB1"
+            android:textColor="#8868AD"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
 

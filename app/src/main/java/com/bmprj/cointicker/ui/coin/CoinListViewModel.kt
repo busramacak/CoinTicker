@@ -8,6 +8,7 @@ import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.model.CoinMarketItem
+import com.bmprj.cointicker.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -22,7 +23,7 @@ class CoinListViewModel @Inject constructor(
     private val coinDAO: CoinDAO
 ) :ViewModel() {
 
-    val coins = MutableLiveData<ArrayList<CoinMarketItem>>()
+    val coins = MutableLiveData<Resource<ArrayList<CoinMarketItem>>>()
 
     val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
 
@@ -30,11 +31,14 @@ class CoinListViewModel @Inject constructor(
     fun getData() =  viewModelScope.launch{
 
         coinRepository.getCoins()
+            .onStart {
+                coins.value=Resource.loading
+            }
             .catch {
-                it.printStackTrace()
+                coins.value=Resource.Failure(it)
             }
             .collect{
-                coins.value=ArrayList(it)
+                coins.value=Resource.Success(ArrayList(it))
             }
 
 //                val list = ArrayList<CoinMarketItem>()

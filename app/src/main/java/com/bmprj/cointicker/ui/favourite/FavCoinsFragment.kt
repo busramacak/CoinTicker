@@ -33,13 +33,15 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
     private fun observeLiveData(){
         viewModel.favCoins.observe(viewLifecycleOwner){resource->
             when(resource){
+                is Resource.loading ->{
+
+                }
                 is Resource.Success ->{
                     adapter.updateList(ArrayList(resource.result))
                 }
                 is Resource.Failure ->{
                     Log.e("exception",resource.exception.message!!)
                 }
-                else ->{}
             }
         }
     }

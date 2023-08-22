@@ -1,6 +1,7 @@
 package com.bmprj.cointicker.ui.detail
 
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -10,6 +11,7 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.setArrow
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +22,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private val viewModel by viewModels<CoinDetailViewModel>()
     private var isFav :Boolean=false
     private lateinit var coinId:String
+    private lateinit var coindetail :CoinDetail
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
@@ -40,7 +43,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
     fun favClick(){
         if(!isFav){
-            viewModel.addFavourite(viewModel.coinDetail.value?.data!!)
+            viewModel.addFavourite(coindetail)
         }else{
             viewModel.delete(coinId)
         }
@@ -52,12 +55,12 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private fun observeLiveData(){
 
         viewModel.isFavourite.observe(viewLifecycleOwner){isFavourite->
-            isFavourite?.let {
                 when(isFavourite){
                     is Resource.loading ->{
-
+                        print("loading")
                     }
                     is Resource.Success ->{
+                        print(isFavourite.result)
                         isFav = isFavourite.result
                         if(isFavourite.result){
                             binding.imageView2.setImageResource(R.drawable.fav)
@@ -67,12 +70,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
                     }
                     is Resource.Failure ->{
+                        print(isFavourite.exception.message)
                         isFav=false
                         binding.imageView2.setImageResource(R.drawable.empty_fav)
 
                     }
                 }
-            }
+
         }
 
         viewModel.favouriteDelete.observe(viewLifecycleOwner){favDelete->
@@ -112,16 +116,17 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
                 }
                 is Resource.Success ->{
-                    binding.coinName.text=coinDetail.result?.name
-                    binding.coinsymbol.text=coinDetail.result?.symbol
-                    binding.imageView.loadFromUrl(coinDetail.result?.image?.large!!)
-                    binding.lastUpdate.text=coinDetail.result?.lastUpdated
-                    binding.priceChange24h.text=coinDetail.result?.marketData?.currentPrice?.usd.toString() + "$"
-                    binding.arrow.setArrow(coinDetail.result?.marketData?.priceChangePercentage24h!!)
-                    binding.precentage24hText.text= String.format("%.1f",coinDetail.result?.marketData.priceChangePercentage24h.toFloat())+"%"
-                    binding.lowest.text=coinDetail.result?.marketData.low24h.usd.toString()
-                    binding.highest.text=coinDetail.result?.marketData.high24h.usd.toString()
-                    binding.description.text=coinDetail.result?.description?.en
+                    coindetail=coinDetail.result
+                    binding.coinName.text=coinDetail.result.name
+                    binding.coinsymbol.text=coinDetail.result.symbol
+                    binding.imageView.loadFromUrl(coinDetail.result.image.large)
+                    binding.lastUpdate.text=coinDetail.result.lastUpdated
+                    binding.priceChange24h.text=getString(R.string.priceChange24hText,coinDetail.result.marketData.currentPrice.usd.toString())
+                    binding.arrow.setArrow(coinDetail.result.marketData.priceChangePercentage24h)
+                    binding.precentage24hText.text= getString(R.string.precentage24hText,coinDetail.result.marketData.priceChangePercentage24h.toFloat())
+                    binding.lowest.text=coinDetail.result.marketData.low24h.usd.toString()
+                    binding.highest.text=coinDetail.result.marketData.high24h.usd.toString()
+                    binding.description.text=coinDetail.result.description.en
 
                 }
                 is Resource.Failure ->{

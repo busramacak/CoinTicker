@@ -11,6 +11,7 @@ import com.bmprj.cointicker.databinding.FragmentCoinListBinding
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.model.CoinMarketItem
+import com.bmprj.cointicker.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,9 +55,20 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
     private fun observeLiveData(){
         viewModel.coins.observe(viewLifecycleOwner){coinItem->
-            coinItem?.let {
-                adapter.updateList(coinItem)
-                viewModel.insertCoins(coinItem)
+
+            when(coinItem) {
+                is Resource.loading ->{
+
+                }
+                is Resource.Success ->{
+                    adapter.updateList(coinItem.result)
+                    viewModel.insertCoins(coinItem.result)
+
+                }
+                is Resource.Failure ->{
+
+                }
+
             }
         }
         viewModel.filteredCoins.observe(viewLifecycleOwner){entity->

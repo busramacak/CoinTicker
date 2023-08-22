@@ -18,6 +18,14 @@
     <string name="powered">Powered by </string>
     <string name="coingecko">CoinGecko API</string>
     <string name="alreadyHave">Already have an account?</string>
+    <string name="priceChange24hText">%1$s $</string>
+    <string name="precentage24hText">%.1f %%</string>
+
+<!--    alerDialog-->
+
+    <string name="areYouSure">Are you sure you want to log out?</string>
+    <string name="logoutbtn">Logout</string>
+    <string name="no">No</string>
 
 
 <!--    toast-->

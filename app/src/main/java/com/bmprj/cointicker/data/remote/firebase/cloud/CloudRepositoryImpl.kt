@@ -3,7 +3,6 @@
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
 import com.bmprj.cointicker.utils.Resource
-import com.bmprj.cointicker.utils.await
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -34,12 +33,12 @@ class CloudRepositoryImpl @Inject constructor(
         coinId: String
     ): Flow<Boolean> = flow {
 
-        emit( firebaseCloud
+        emit(firebaseCloud
             .collection("coins")
             .document(userID)
             .collection("favouriteList")
             .document(coinId)
-            .get().result.exists())
+            .get().await().exists())
     }
 
     override suspend fun getAllFavourites(
@@ -50,7 +49,7 @@ class CloudRepositoryImpl @Inject constructor(
             .collection("coins")
             .document(userID)
             .collection("favouriteList")
-            .get().result.documents.mapNotNull { document ->
+            .get().await().documents.mapNotNull { document ->
                 document.toObject(FavouriteCoin::class.java)
             })
     }
