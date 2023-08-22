@@ -1,5 +1,6 @@
 package com.bmprj.cointicker.ui.coin
 
+import android.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -12,6 +13,7 @@ import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.Resource
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -79,8 +81,29 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     }
 
     fun logOut(view: View){
-        viewModel.logOut()
-        Navigation.findNavController(view).navigate(R.id.action_coinListFragment_to_loginFragment)
+
+        val viewv = layoutInflater.inflate(R.layout.logout_dialog,null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(viewv)
+            .setCancelable(false)
+            .create()
+
+        dialog.setOnShowListener {
+            val btnp = viewv.findViewById<MaterialButton>(R.id.poz)
+            val btnn = viewv.findViewById<MaterialButton>(R.id.neg)
+
+            btnp.setOnClickListener {
+                viewModel.logOut()
+                Navigation.findNavController(view).navigate(R.id.action_coinListFragment_to_loginFragment)
+
+            }
+            btnn.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+
+        dialog.show()
+
     }
 
     private fun onEntityItemClicked(item: Entity) {

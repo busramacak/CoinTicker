@@ -23,7 +23,7 @@
 
 <!--    alerDialog-->
 
-    <string name="areYouSure">Are you sure you want to log out?</string>
+    <string name="areYouSure">Are you sure?</string>
     <string name="logoutbtn">Logout</string>
     <string name="no">No</string>
 
