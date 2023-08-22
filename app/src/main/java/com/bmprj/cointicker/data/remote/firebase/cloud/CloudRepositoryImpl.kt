@@ -1,10 +1,15 @@
+@file:Suppress("Since15")
+
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
-import com.bmprj.cointicker.data.remote.firebase.di.Resource
-import com.bmprj.cointicker.data.utils.await
+import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.await
 import com.bmprj.cointicker.model.FavouriteCoin
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class CloudRepositoryImpl @Inject constructor(
@@ -13,76 +18,53 @@ class CloudRepositoryImpl @Inject constructor(
     override suspend fun addFavourite(
         userID:String,
         favouriteCoin: FavouriteCoin,
-    ): Resource<Unit> {
-        return try{
-            firebaseCloud
-                .collection("coins")
-                .document(userID)
-                .collection("favouriteList")
-                .document(favouriteCoin.id)
-                .set(favouriteCoin)
+    ): Flow<Boolean> =flow{
 
-            Resource.Success(Unit)
-        }catch (e:Exception){
-            Resource.Failure(e)
+        emit(firebaseCloud
+            .collection("coins")
+            .document(userID)
+            .collection("favouriteList")
+            .document(favouriteCoin.id)
+            .set(favouriteCoin).isSuccessful)
 
-        }
     }
 
     override suspend fun getFavourite(
         userID:String,
         coinId: String
-    ): Resource<Boolean> {
-        return try{
-            val snapsot = firebaseCloud
-                .collection("coins")
-                .document(userID)
-                .collection("favouriteList")
-                .document(coinId)
-                .get().await()
+    ): Flow<Boolean> = flow {
 
-            Resource.Success(snapsot.exists())
-
-        }catch (e:Exception){
-            Resource.Failure(e)
-        }
+        emit( firebaseCloud
+            .collection("coins")
+            .document(userID)
+            .collection("favouriteList")
+            .document(coinId)
+            .get().result.exists())
     }
 
     override suspend fun getAllFavourites(
         userID:String
-    ): Resource<List<FavouriteCoin>> {
-        return try{
-            val snaps = firebaseCloud
-                .collection("coins")
-                .document(userID)
-                .collection("favouriteList")
-                .get().await()
+    ): Flow<List<FavouriteCoin>> =flow{
 
-            val fav = snaps.documents.mapNotNull { document ->
+        emit(firebaseCloud
+            .collection("coins")
+            .document(userID)
+            .collection("favouriteList")
+            .get().result.documents.mapNotNull { document ->
                 document.toObject(FavouriteCoin::class.java)
-            }
-
-            Resource.Success(fav)
-
-
-        }catch (e:Exception){
-            Resource.Failure(e)
-
-        }
-
+            })
     }
 
-    override suspend fun delete(userID:String, coinId: String): Resource<Unit> {
-        return try {
-            firebaseCloud
-                .collection("coins")
-                .document(userID)
-                .collection("favouriteList")
-                .document(coinId).delete().await()
+    override suspend fun delete(
+        userID:String,
+        coinId: String
+    ): Flow<Boolean> = flow{
 
-            Resource.Success(Unit)
-        }catch (e:Exception){
-            Resource.Failure(e)
-        }
+        emit(
+            firebaseCloud
+            .collection("coins")
+            .document(userID)
+            .collection("favouriteList")
+            .document(coinId).delete().isSuccessful)
     }
 }

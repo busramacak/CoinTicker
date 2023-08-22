@@ -6,14 +6,14 @@
     <data>
         <variable
             name="coins"
-            type="com.bmprj.cointicker.view.coin.CoinListFragment" />
+            type="com.bmprj.cointicker.ui.coin.CoinListFragment" />
 
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.coin.CoinListFragment">
+            tools:context=".ui.coin.CoinListFragment">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar"

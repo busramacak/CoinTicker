@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.bmprj.cointicker.view.auth.LoginFragment"
+        android:name="com.bmprj.cointicker.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.bmprj.cointicker.view.auth.RegisterFragment"
+        android:name="com.bmprj.cointicker.ui.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/coinListFragment"
-        android:name="com.bmprj.cointicker.view.coin.CoinListFragment"
+        android:name="com.bmprj.cointicker.ui.coin.CoinListFragment"
         android:label="fragment_coin_list"
         tools:layout="@layout/fragment_coin_list" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/favCoinsFragment"
-        android:name="com.bmprj.cointicker.view.coin.FavCoinsFragment"
+        android:name="com.bmprj.cointicker.ui.favourite.FavCoinsFragment"
         android:label="fragment_fav_coins"
         tools:layout="@layout/fragment_fav_coins" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/coinDetailFragment"
-        android:name="com.bmprj.cointicker.view.coin.CoinDetailFragment"
+        android:name="com.bmprj.cointicker.ui.detail.CoinDetailFragment"
         android:label="fragment_coin_detail"
         tools:layout="@layout/fragment_coin_detail" >
         <argument

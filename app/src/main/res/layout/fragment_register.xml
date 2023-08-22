@@ -8,14 +8,14 @@
         <import type="android.text.TextUtils"/>
         <variable
             name="register"
-            type="com.bmprj.cointicker.view.auth.RegisterFragment" />
+            type="com.bmprj.cointicker.ui.register.RegisterFragment" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.auth.RegisterFragment">
+        tools:context=".ui.register.RegisterFragment">
 
         <ImageView
             android:id="@+id/img"

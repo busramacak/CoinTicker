@@ -6,7 +6,7 @@
     <data>
         <variable
             name="detail"
-            type="com.bmprj.cointicker.view.coin.CoinDetailFragment" />
+            type="com.bmprj.cointicker.ui.detail.CoinDetailFragment" />
 
     </data>
 
@@ -17,7 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".view.coin.CoinDetailFragment"
+            tools:context=".ui.detail.CoinDetailFragment"
             android:background="#FFFFFFFF">
 
             <com.google.android.material.appbar.MaterialToolbar

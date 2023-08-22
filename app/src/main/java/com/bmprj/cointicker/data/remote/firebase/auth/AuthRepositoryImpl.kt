@@ -1,10 +1,13 @@
 package com.bmprj.cointicker.data.remote.firebase.auth
 
-import com.bmprj.cointicker.data.remote.firebase.di.Resource
-import com.bmprj.cointicker.data.utils.await
+import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -13,29 +16,19 @@ class AuthRepositoryImpl @Inject constructor(
     override val currentUser: FirebaseUser?
         get() = firebaseAuth.currentUser
 
-    override suspend fun login(email: String, password: String): Resource<FirebaseUser> {
-        return try {
-            val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            Resource.Success(result.user!!)
-        }catch (e:Exception){
-            e.printStackTrace()
-            Resource.Failure(e)
-        }
+    override suspend fun login(email: String, password: String): Flow<FirebaseUser> =flow{
+
+        emit(firebaseAuth.signInWithEmailAndPassword(email,password).result.user!!)
     }
 
     override suspend fun signup(
         name: String,
         email: String,
         password: String,
-    ): Resource<FirebaseUser> {
-        return try {
-            val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            result?.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())?.await()
-            Resource.Success(result.user!!)
-        }catch (e:Exception){
-            e.printStackTrace()
-            Resource.Failure(e)
-        }
+    ): Flow<FirebaseUser> =flow {
+        val result = firebaseAuth.createUserWithEmailAndPassword(email, password)
+        result.result.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())
+        emit(result.result.user!!)
     }
 
     override fun logout() {
