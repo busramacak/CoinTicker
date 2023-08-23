@@ -1,20 +1,21 @@
 package com.bmprj.cointicker.ui.detail
 
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.bmprj.cointicker.R
-import com.bmprj.cointicker.utils.loadFromUrl
-import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.utils.setArrow
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail){
@@ -26,6 +27,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+
+                Navigation.findNavController(view).navigateUp()
+            }
+
+        })
         binding.detail=this
 
         coinId= bundle.id
@@ -130,8 +138,8 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     binding.priceChange24h.text=getString(R.string.priceChange24hText,coinDetail.result.marketData.currentPrice.usd.toString())
                     binding.arrow.setArrow(coinDetail.result.marketData.priceChangePercentage24h)
                     binding.precentage24hText.text= getString(R.string.precentage24hText,coinDetail.result.marketData.priceChangePercentage24h.toFloat())
-                    binding.lowest.text=coinDetail.result.marketData.low24h.usd.toString()
-                    binding.highest.text=coinDetail.result.marketData.high24h.usd.toString()
+                    binding.lowest.text=getString(R.string.h24h,coinDetail.result.marketData.low24h.usd.toString())
+                    binding.highest.text=getString(R.string.h24h,coinDetail.result.marketData.high24h.usd.toString())
                     binding.description.text=coinDetail.result.description.en
                     binding.progress.visibility=View.GONE
 
@@ -146,6 +154,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
         }
     }
+
 
     fun backButton(view: View){
         Navigation.findNavController(view).navigateUp()

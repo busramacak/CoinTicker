@@ -28,7 +28,6 @@ class LoginViewModel @Inject constructor(
 
     fun login(email:String, password:String) = viewModelScope.launch {
 
-            _login.value= Resource.loading
             authRepository.login(email,password)
                 .onStart {
                     _login.value=Resource.loading

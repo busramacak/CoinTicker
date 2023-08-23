@@ -21,6 +21,9 @@
     <string name="priceChange24hText">%1$s $</string>
     <string name="precentage24hText">%.1f %%</string>
 
+    <string name="h24h">%1$s $ </string>
+
+
 <!--    alerDialog-->
 
     <string name="areYouSure">Are you sure?</string>
