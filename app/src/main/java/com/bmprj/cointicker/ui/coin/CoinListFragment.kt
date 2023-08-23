@@ -60,14 +60,19 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
             when(coinItem) {
                 is Resource.loading ->{
+                    binding.progress.visibility=View.VISIBLE
 
                 }
                 is Resource.Success ->{
+                    binding.progress.visibility=View.GONE
                     adapter.updateList(coinItem.result)
                     viewModel.insertCoins(coinItem.result)
 
+
                 }
                 is Resource.Failure ->{
+                    binding.progress.visibility=View.GONE
+                    //TODO fail için dialog ekle
 
                 }
 
@@ -95,7 +100,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             btnp.setOnClickListener {
                 viewModel.logOut()
                 Navigation.findNavController(view).navigate(R.id.action_coinListFragment_to_loginFragment)
-
+                dialog.dismiss()
             }
             btnn.setOnClickListener {
                 dialog.dismiss()

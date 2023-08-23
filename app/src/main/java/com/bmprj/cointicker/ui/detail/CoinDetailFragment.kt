@@ -57,20 +57,21 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         viewModel.isFavourite.observe(viewLifecycleOwner){isFavourite->
                 when(isFavourite){
                     is Resource.loading ->{
-                        print("loading")
+                        binding.favprogress.visibility=View.VISIBLE
                     }
                     is Resource.Success ->{
-                        print(isFavourite.result)
                         isFav = isFavourite.result
                         if(isFavourite.result){
                             binding.imageView2.setImageResource(R.drawable.fav)
                         }else{
                             binding.imageView2.setImageResource(R.drawable.empty_fav)
                         }
+                        binding.favprogress.visibility=View.GONE
 
                     }
                     is Resource.Failure ->{
-                        print(isFavourite.exception.message)
+                        //TODO fail dialog eklenecek
+                        binding.favprogress.visibility=View.GONE
                         isFav=false
                         binding.imageView2.setImageResource(R.drawable.empty_fav)
 
@@ -83,12 +84,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             favDelete?.let {
                 when(favDelete){
                     is Resource.loading ->{
-
+                        binding.favprogress.visibility=View.VISIBLE
                     }
                     is Resource.Success ->{
+                        binding.favprogress.visibility=View.GONE
                         Toast.makeText(context,getString(R.string.delFavSuccess),Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Failure ->{
+                        binding.favprogress.visibility=View.GONE
                         Toast.makeText(context,getString(R.string.delFavFail),Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -99,12 +102,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             favouriteAdd?.let {
                 when(favouriteAdd){
                     is Resource.loading ->{
-
+                        binding.favprogress.visibility=View.VISIBLE
                     }
                     is Resource.Success ->{
+                        binding.favprogress.visibility=View.GONE
                         Toast.makeText(context,getString(R.string.addFavSuccess),Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Failure ->{
+                        binding.favprogress.visibility=View.GONE
                         Toast.makeText(context,getString(R.string.addFavFail),Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -113,6 +118,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         viewModel.coinDetail.observe(viewLifecycleOwner){ coinDetail->
             when(coinDetail) {
                 is Resource.loading ->{
+                    binding.progress.visibility=View.VISIBLE
 
                 }
                 is Resource.Success ->{
@@ -127,10 +133,12 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     binding.lowest.text=coinDetail.result.marketData.low24h.usd.toString()
                     binding.highest.text=coinDetail.result.marketData.high24h.usd.toString()
                     binding.description.text=coinDetail.result.description.en
+                    binding.progress.visibility=View.GONE
 
                 }
                 is Resource.Failure ->{
-
+                    binding.progress.visibility=View.GONE
+                    //TODO fail dialog eklenecek
                 }
 
 

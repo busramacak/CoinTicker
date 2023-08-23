@@ -40,16 +40,18 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         viewModel.signup.observe(viewLifecycleOwner){resource->
             when(resource){
                 is Resource.Success ->{
-                    Toast.makeText(view.context,"Hesap oluşturma başarılı.",Toast.LENGTH_SHORT).show()
+                    binding.progress.visibility=View.GONE
+                    Toast.makeText(view.context,getString(R.string.succesmsg1),Toast.LENGTH_SHORT).show()
                     Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
                 }
                 is Resource.Failure -> {
+                    binding.progress.visibility=View.GONE
                     when (resource.exception) {
                         is FirebaseAuthWeakPasswordException -> {
                             // Zayıf bir şifre kullanıldı
                             Toast.makeText(
                                 view.context,
-                                "Daha güçlü bir şifre seçin.",
+                                getString(R.string.failmsg5),
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -59,7 +61,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                             // Geçersiz kimlik bilgileri
                             Toast.makeText(
                                 view.context,
-                                "Geçersiz e-posta adresi veya şifre.",
+                                getString(R.string.failmsg6),
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -69,7 +71,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                             // Kullanıcı zaten mevcut
                             Toast.makeText(
                                 view.context,
-                                "Bu e-posta adresiyle kayıtlı bir hesap zaten var.",
+                                getString(R.string.failmsg7),
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -79,7 +81,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                             // İnternet bağlantısı yok veya sunucuya erişilemiyor
                             Toast.makeText(
                                 view.context,
-                                "İnternet bağlantısı yok veya sunucuya erişilemiyor.",
+                                getString(R.string.failmsg8),
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -89,7 +91,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                             // Diğer hatalar
                             Toast.makeText(
                                 view.context,
-                                "Bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+                                getString(R.string.failmsg9),
                                 Toast.LENGTH_SHORT
                             ).show()
 
@@ -97,7 +99,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                     }
 
                 }
-                Resource.loading->{
+                is Resource.loading->{
+                    binding.progress.visibility=View.VISIBLE
 
                 }
 

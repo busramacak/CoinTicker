@@ -34,16 +34,19 @@
     <string name="addFavFail">Something went wrong. Could not be added to favourite.</string>
     <string name="delFavSuccess">Successfully deleted from favorite</string>
     <string name="delFavFail">Something went wrong. Could not be deleted from favourite.</string>
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
+<!--    login-->
+    <string name="failmsg1">Kullanıcı bulunamadı veya hesap etkin değil.</string>
+    <string name="failmsg2">Kullanıcı adı veya şifre hatalı.</string>
+    <string name="failmsg3">İnternet bağlantı hatası. Sunucuya erişilemiyor.</string>
+    <string name="failmsg4">Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</string>
+<!--    register-->
+        <string name="succesmsg1">Hesap oluşturma başarılı.</string>
+    <string name="failmsg5">Daha güçlü bir şifre seçin.</string>
+    <string name="failmsg6">Geçersiz e-posta adresi veya şifre.</string>
+    <string name="failmsg7">Bu e-posta adresiyle kayıtlı bir hesap zaten var.</string>
+    <string name="failmsg8">İnternet bağlantısı yok veya sunucuya erişilemiyor.</string>
+    <string name="failmsg9">Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</string>
+
 
 
 

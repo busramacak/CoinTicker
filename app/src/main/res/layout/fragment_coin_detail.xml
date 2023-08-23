@@ -12,13 +12,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFFFF"
+        tools:context=".ui.detail.CoinDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.detail.CoinDetailFragment"
-            android:background="#FFFFFFFF">
+            android:layout_height="match_parent">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar2"
@@ -90,6 +90,16 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <ProgressBar
+                        android:id="@+id/favprogress"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_margin="35dp"
+                        android:progressDrawable="@drawable/progres"
+                        app:layout_constraintBottom_toTopOf="@+id/coinsymbol"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/lastUpdate"
                         android:layout_width="wrap_content"
@@ -142,6 +152,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:indeterminateDrawable="@drawable/progres"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/lowestTxt"

@@ -51,37 +51,38 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     fun observeLiveData(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
             when(resource){
+                is Resource.loading->{
+                    binding.progress.visibility=View.VISIBLE
+                }
                 is Resource.Success->{
+                    binding.progress.visibility=View.GONE
                     reload(view)
                 }
                 is Resource.Failure -> {
+                    binding.progress.visibility=View.GONE
                     when (resource.exception) {
                         is FirebaseAuthInvalidUserException -> {
                             // Kullanıcı bulunamadı veya etkin değil
-                            Toast.makeText(view.context,"Kullanıcı bulunamadı veya hesap etkin değil.",Toast.LENGTH_LONG).show()
+                            Toast.makeText(view.context,getString(R.string.failmsg1),Toast.LENGTH_LONG).show()
                         }
                         is FirebaseAuthInvalidCredentialsException -> {
                             // Geçersiz kimlik bilgileri
-                            Toast.makeText(view.context,"Kullanıcı adı veya şifre hatalı.",Toast.LENGTH_LONG).show()
+                            Toast.makeText(view.context,getString(R.string.failmsg2),Toast.LENGTH_LONG).show()
 
                         }
 
                         is FirebaseNetworkException -> {
                             // İnternet bağlantısı yok veya sunucuya erişilemiyor
-                            Toast.makeText(view.context,"İnternet bağlantı hatası. Sunucuya erişilemiyor.",Toast.LENGTH_LONG).show()
+                            Toast.makeText(view.context,getString(R.string.failmsg3),Toast.LENGTH_LONG).show()
 
                         }
 
                         else -> {
                             // Diğer hatalar
-                            Toast.makeText(view.context,"Bir hata oluştu. Lütfen daha sonra tekrar deneyin.",Toast.LENGTH_LONG).show()
+                            Toast.makeText(view.context,getString(R.string.failmsg4),Toast.LENGTH_LONG).show()
 
                         }
-
                     }
-                }
-                Resource.loading->{
-
                 }
 
                 else -> {}

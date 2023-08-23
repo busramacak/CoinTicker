@@ -7,8 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
-import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.databinding.FragmentFavCoinsBinding
+import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.FavouriteCoin
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -34,12 +34,15 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
         viewModel.favCoins.observe(viewLifecycleOwner){resource->
             when(resource){
                 is Resource.loading ->{
-
+                    binding.progress.visibility=View.VISIBLE
                 }
                 is Resource.Success ->{
+                    binding.progress.visibility=View.GONE
                     adapter.updateList(ArrayList(resource.result))
                 }
                 is Resource.Failure ->{
+                    binding.progress.visibility=View.GONE
+                    //TODO fail dialog eklenecek
                     Log.e("exception",resource.exception.message!!)
                 }
             }

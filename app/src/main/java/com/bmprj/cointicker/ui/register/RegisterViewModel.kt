@@ -23,7 +23,6 @@ class RegisterViewModel @Inject constructor(
 
 
     fun signup(name: String, email: String, password: String) = viewModelScope.launch {
-        _signup.value = Resource.loading
         authRepository.signup(name, email, password)
             .onStart {
                 _signup.value=Resource.loading
