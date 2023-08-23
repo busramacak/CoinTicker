@@ -107,7 +107,7 @@
                         android:layout_margin="10dp"
                         android:textColor="@color/white"
                         tools:text="12-07-2021"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -20,8 +20,8 @@
     <string name="alreadyHave">Already have an account?</string>
     <string name="priceChange24hText">%1$s $</string>
     <string name="precentage24hText">%.1f %%</string>
-
     <string name="h24h">%1$s $ </string>
+    <string name="lastupdate">%1$s/%2$s/%3$s,  %4$s:%5$s:%6$s</string>
 
 
 <!--    alerDialog-->

@@ -15,6 +15,8 @@ import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.utils.setArrow
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 @AndroidEntryPoint
@@ -134,7 +136,25 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     binding.coinName.text=coinDetail.result.name
                     binding.coinsymbol.text=coinDetail.result.symbol
                     binding.imageView.loadFromUrl(coinDetail.result.image.large)
-                    binding.lastUpdate.text=coinDetail.result.lastUpdated
+                    val date = coinDetail.result.lastUpdated
+
+                    val inFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    val dat: Date = inFormat.parse(date) as Date
+                    val outFormatDays = SimpleDateFormat("yyyy")
+                    val goal: String = outFormatDays.format(dat)
+                    val outFormatMonth = SimpleDateFormat("MM")
+                    val month:String = outFormatMonth.format(dat)
+                    val outFormatDay = SimpleDateFormat("dd")
+                    val dy : String = outFormatDay.format(dat)
+
+                    val outFormatHour = SimpleDateFormat("HH")
+                    val hour: String = outFormatHour.format(dat)
+                    val outFormatMinute = SimpleDateFormat("mm")
+                    val minute: String = outFormatMinute.format(dat)
+                    val outFormatSecond = SimpleDateFormat("ss")
+                    val second: String = outFormatSecond.format(dat)
+
+                    binding.lastUpdate.text=getString(R.string.lastupdate,goal,month,dy,hour,minute,second)
                     binding.priceChange24h.text=getString(R.string.priceChange24hText,coinDetail.result.marketData.currentPrice.usd.toString())
                     binding.arrow.setArrow(coinDetail.result.marketData.priceChangePercentage24h)
                     binding.precentage24hText.text= getString(R.string.precentage24hText,coinDetail.result.marketData.priceChangePercentage24h.toFloat())
