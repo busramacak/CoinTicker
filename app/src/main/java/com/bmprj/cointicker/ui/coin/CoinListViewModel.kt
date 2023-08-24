@@ -7,8 +7,11 @@ import com.bmprj.cointicker.data.remote.coin.CoinRepositoryImpl
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.domain.coin.CoinEntity
+import com.bmprj.cointicker.domain.coin.GetCoinsUseCase
 import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -19,47 +22,27 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val coinRepository: CoinRepositoryImpl,
+    private val coinsUseCase: GetCoinsUseCase,
     private val coinDAO: CoinDAO
 ) :ViewModel() {
 
-    val coins = MutableLiveData<Resource<ArrayList<CoinMarketItem>>>()
+    val coins = MutableLiveData<UiState<CoinEntity>>()
 
     val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
 
 
     fun getData() =  viewModelScope.launch{
 
-        coinRepository.getCoins()
+        coinsUseCase.getCoins()
             .onStart {
-                coins.value=Resource.loading
+                coins.value=UiState.Loading
             }
             .catch {
-                coins.value=Resource.Failure(it)
+                coins.value=UiState.Error(it)
             }
             .collect{
-                coins.value=Resource.Success(ArrayList(it))
+                coins.value=it
             }
-
-//                val list = ArrayList<CoinMarketItem>()
-//
-//                for(i in 0 until r?.size!!){
-//                    val v = r[i]
-//
-//                    val c = CoinMarketItem(
-//                        v.currentPrice,
-//                        v.high24h,
-//                        v.id,v.image,
-//                        v.lastUpdated,
-//                        v.low24h,v.name,
-//                        v.priceChange24h,
-//                        v.priceChangePercentage24h,v.symbol)
-//                    list.add(c)
-//                }
-//                println(list)
-//
-//                coins.value=list
-
     }
 
     fun insertCoins(list : ArrayList<CoinMarketItem>) =  viewModelScope.launch {

@@ -6,9 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.remote.coin.CoinRepositoryImpl
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
+import com.bmprj.cointicker.domain.coins.CoinDetailEntity
+import com.bmprj.cointicker.domain.coins.GetCoinUseCase
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.model.FavouriteCoin
+import com.bmprj.cointicker.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -19,11 +22,11 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
     private val authRepository: AuthRepository,
-    private val coinRepository: CoinRepositoryImpl,
+    private val coinUseCase: GetCoinUseCase,
     private val cloudRepository: CloudRepository
 ) :ViewModel(){
 
-    val coinDetail = MutableLiveData<Resource<CoinDetail>>()
+    val coinDetail = MutableLiveData<UiState<CoinDetailEntity>>()
 
     private val _favouriteAdd = MutableLiveData<Resource<Boolean>>()
     val favouriteAdd = _favouriteAdd
@@ -91,15 +94,15 @@ class CoinDetailViewModel @Inject constructor(
 
     fun getCoin(id:String) = viewModelScope.launch {
 
-        coinRepository.getCoin(id)
+        coinUseCase.getCoin(id)
             .onStart {
-                coinDetail.value=Resource.loading
+                coinDetail.value=UiState.Loading
             }
             .catch {
-                coinDetail.value=Resource.Failure(it)
+                coinDetail.value=UiState.Error(it)
             }
             .collect{
-                coinDetail.value=Resource.Success(it)
+                coinDetail.value=it
             }
     }
 }

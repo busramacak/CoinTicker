@@ -37,7 +37,7 @@ abstract class BaseAdapter<DB:ViewDataBinding,T:Any>(
         holder.itemView.setOnClickListener{onItemClicked(list[position])}
     }
 
-    fun updateList(newList:ArrayList<T>){
+    fun updateList(newList:List<T>){
         list.clear()
         list.addAll(newList)
         notifyDataSetChanged()

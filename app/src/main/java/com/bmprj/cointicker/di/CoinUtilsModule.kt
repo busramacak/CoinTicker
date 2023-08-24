@@ -2,6 +2,7 @@ package com.bmprj.cointicker.di
 
 import com.bmprj.cointicker.data.remote.coin.CoinApiService
 import com.bmprj.cointicker.data.remote.coin.CoinRepositoryImpl
+import com.bmprj.cointicker.utils.NetworkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +17,10 @@ object CoinUtilsModule {
 
     @Provides
     @Singleton
-    fun provideCoinUtils(api: CoinApiService) : CoinRepositoryImpl {
-        return CoinRepositoryImpl(api)
+    fun provideCoinUtils(api: CoinApiService,
+                         networkManager: NetworkManager
+    ) : CoinRepositoryImpl {
+        return CoinRepositoryImpl(api,networkManager)
     }
 
     @Provides

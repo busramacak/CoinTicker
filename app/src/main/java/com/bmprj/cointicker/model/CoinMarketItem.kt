@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import com.google.gson.annotations.SerializedName
 
+class CoinListResponseModel : ArrayList<CoinMarketItem>()
 @Suppress("DEPRECATED_ANNOTATION")
 @Parcelize
 data class CoinMarketItem(

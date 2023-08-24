@@ -10,8 +10,10 @@ import androidx.navigation.fragment.navArgs
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
+import com.bmprj.cointicker.domain.coins.CoinDetailEntity
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.UiState
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.utils.setArrow
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +27,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private val viewModel by viewModels<CoinDetailViewModel>()
     private var isFav :Boolean=false
     private lateinit var coinId:String
-    private lateinit var coindetail :CoinDetail
+    private lateinit var coindetail :CoinDetailEntity
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
@@ -52,14 +54,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     }
 
     fun favClick(){
-        if(!isFav){
-            viewModel.addFavourite(coindetail)
-        }else{
-            viewModel.delete(coinId)
-        }
-
-        isFav=!isFav
-        viewModel.isFavourite.value = Resource.Success(isFav)
+//        if(!isFav){
+//            viewModel.addFavourite(coindetail)
+//        }else{
+//            viewModel.delete(coinId)
+//        }
+//
+//        isFav=!isFav
+//        viewModel.isFavourite.value = Resource.Success(isFav)
     }
 
     private fun observeLiveData(){
@@ -127,11 +129,11 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         }
         viewModel.coinDetail.observe(viewLifecycleOwner){ coinDetail->
             when(coinDetail) {
-                is Resource.loading ->{
+                is UiState.Loading ->{
                     binding.progress.visibility=View.VISIBLE
 
                 }
-                is Resource.Success ->{
+                is UiState.Success ->{
                     coindetail=coinDetail.result
                     binding.coinName.text=coinDetail.result.name
                     binding.coinsymbol.text=coinDetail.result.symbol
@@ -164,7 +166,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     binding.progress.visibility=View.GONE
 
                 }
-                is Resource.Failure ->{
+                is UiState.Error->{
                     binding.progress.visibility=View.GONE
                     //TODO fail dialog eklenecek
                 }
