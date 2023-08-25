@@ -8,6 +8,7 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.utils.FirebaseAuthError
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

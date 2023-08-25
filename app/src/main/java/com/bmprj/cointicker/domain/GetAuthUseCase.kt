@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 
-class GetLoginUseCase @Inject constructor(
+class GetAuthUseCase @Inject constructor(
     private val authRepository: AuthRepository
 ) {
 
@@ -24,6 +24,40 @@ class GetLoginUseCase @Inject constructor(
             .onStart {
                 emit(UiState.Loading)
             }.catch {
+                emit(UiState.Error(it))
+            }
+            .collect{
+                when(it){
+                    is FirebaseAuthResources.Success ->{
+                        emit(UiState.Success(it.result.user!!))
+                    }
+                    is FirebaseAuthResources.Failure ->{
+                        val uiStateError = when(it.exception){
+                            is FirebaseAuthError.NoInternetError ->{
+                                UiState.Error(Throwable("İnternetinizi kontroledin"))
+                            }
+                            is FirebaseAuthError.ServerError ->{
+                                UiState.Error(Throwable("bişiler yanlış gdiyor."))
+                            }
+                            is FirebaseAuthError.InvalidCredential->
+                                UiState.Error(Throwable("email veya şifre hatalı."))
+                            is FirebaseAuthError.UnKnown->{
+                                UiState.Error(Throwable("Beklenmedik bir hata oluştu"))
+                            }
+                        }
+                        emit(uiStateError)
+                    }
+                }
+            }
+    }
+
+
+    suspend fun signUp(name:String,email: String,password: String):Flow<UiState<FirebaseUser>> = flow{
+        authRepository.signup(name, email, password)
+            .onStart {
+                emit(UiState.Loading)
+            }
+            .catch {
                 emit(UiState.Error(it))
             }
             .collect{

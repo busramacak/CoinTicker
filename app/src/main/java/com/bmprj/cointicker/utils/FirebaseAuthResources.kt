@@ -16,11 +16,15 @@ sealed class FirebaseAuthError(val errorMessage: String? = null) {
     data class ServerError(val authResult: AuthResult) : FirebaseAuthError(handleFirebaseAuthErrorCode(authResult))
     data class InvalidCredential(val errorCode: String,val errormessage: String) : FirebaseAuthError(errormessage)
 
+
     class UnKnown() : FirebaseAuthError()
 }
 private fun handleFirebaseAuthErrorCode(authResult: AuthResult): String {
     return when(authResult.additionalUserInfo?.username){
+        "invalid-email" -> "Geçersiz email formatı"
+        "invalid-password" -> "Parola en az 6 karakter olmalıdır"
         "user-not-found" -> "kullanıcı bulunamadı veya etkin değil"
+        "email-already-exists" ->"Bu e posta adresi ile kayıtlı bir kullanıcı zaten var"
         else -> "Bir hata oluştu. Lütfen daha sonra tekrar deneyin"
     }
 }

@@ -33,10 +33,13 @@ class AuthRepositoryImpl @Inject constructor(
         name: String,
         email: String,
         password: String,
-    ): Flow<FirebaseUser> =flow {
-        val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-        result.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())
-        emit(result.user!!)
+    ): Flow<FirebaseAuthResources<AuthResult>> =flow {
+        val response = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+        val isNetworkAvailable = networkManager.checkNetworkAvailable()
+        val isSuccess = response.user!=null
+        val result = handleAuthResult(isSuccess,response,isNetworkAvailable)
+        response.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())
+        emit(result)
     }
 
     override fun logout() {

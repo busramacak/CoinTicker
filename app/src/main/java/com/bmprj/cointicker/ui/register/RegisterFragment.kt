@@ -8,6 +8,7 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.databinding.FragmentRegisterBinding
 import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -39,14 +40,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
     private fun observeLiveData(view: View){
         viewModel.signup.observe(viewLifecycleOwner){resource->
             when(resource){
-                is Resource.Success ->{
+                is UiState.Success->{
                     binding.progress.visibility=View.GONE
                     Toast.makeText(view.context,getString(R.string.succesmsg1),Toast.LENGTH_SHORT).show()
                     Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
                 }
-                is Resource.Failure -> {
+                is UiState.Error-> {
                     binding.progress.visibility=View.GONE
-                    when (resource.exception) {
+                    when (resource.error) {
                         is FirebaseAuthWeakPasswordException -> {
                             // Zayıf bir şifre kullanıldı
                             Toast.makeText(
@@ -99,7 +100,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                     }
 
                 }
-                is Resource.loading->{
+                is UiState.Loading->{
                     binding.progress.visibility=View.VISIBLE
 
                 }
