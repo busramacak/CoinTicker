@@ -4,6 +4,7 @@ import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepositoryImpl
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepositoryImpl
+import com.bmprj.cointicker.utils.NetworkManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
@@ -19,7 +20,7 @@ class FirebaseModule {
     fun provideFirebaseAuth():FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
-    fun provideAuthRepo(impl: AuthRepositoryImpl): AuthRepository = impl
+    fun provideAuthRepo(firebaseAuth: FirebaseAuth,networkManager: NetworkManager): AuthRepository = AuthRepositoryImpl(firebaseAuth,networkManager)
 
 
     @Provides

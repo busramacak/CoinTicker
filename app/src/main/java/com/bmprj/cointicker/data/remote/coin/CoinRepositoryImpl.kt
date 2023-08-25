@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import javax.inject.Inject
 
-class CoinRepositoryImpl  (
+class CoinRepositoryImpl @Inject constructor (
     private val api: CoinApiService,
     private val networkManager: NetworkManager
 ) : CoinRepository {

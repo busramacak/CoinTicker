@@ -8,6 +8,7 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.base.BaseFragment
+import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -51,16 +52,16 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     fun observeLiveData(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
             when(resource){
-                is Resource.loading->{
+                is UiState.Loading->{
                     binding.progress.visibility=View.VISIBLE
                 }
-                is Resource.Success->{
+                is UiState.Success->{
                     binding.progress.visibility=View.GONE
                     reload(view)
                 }
-                is Resource.Failure -> {
+                is UiState.Error -> {
                     binding.progress.visibility=View.GONE
-                    when (resource.exception) {
+                    when (resource.error) {
                         is FirebaseAuthInvalidUserException -> {
                             // Kullanıcı bulunamadı veya etkin değil
                             Toast.makeText(view.context,getString(R.string.failmsg1),Toast.LENGTH_LONG).show()

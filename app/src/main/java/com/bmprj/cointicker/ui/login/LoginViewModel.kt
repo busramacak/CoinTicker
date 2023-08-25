@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.domain.GetLoginUseCase
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -16,27 +18,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val loginUseCase: GetLoginUseCase
 ):ViewModel() {
 
-    private val _login = MutableLiveData<Resource<FirebaseUser>?>()
-    val login : LiveData<Resource<FirebaseUser>?> = _login
+    private val _login = MutableLiveData<UiState<FirebaseUser>?>()
+    val login : LiveData<UiState<FirebaseUser>?> = _login
 
     val currentUser: FirebaseUser?
-        get() = authRepository.currentUser
+        get() = loginUseCase.currentUser
 
 
     fun login(email:String, password:String) = viewModelScope.launch {
 
-            authRepository.login(email,password)
+            loginUseCase.login(email,password)
                 .onStart {
-                    _login.value=Resource.loading
+                    _login.value=UiState.Loading
                 }
                 .catch {
-                    _login.value=Resource.Failure(it)
+                    _login.value=UiState.Error(it)
                 }
                 .collect{
-                    _login.value=Resource.Success(it)
+                    _login.value=it
                 }
     }
 }

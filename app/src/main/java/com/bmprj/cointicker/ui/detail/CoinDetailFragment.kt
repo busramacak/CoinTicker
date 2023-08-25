@@ -11,6 +11,7 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.domain.coins.CoinDetailEntity
+import com.bmprj.cointicker.domain.coins.asCoinDetail
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.UiState
@@ -54,14 +55,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     }
 
     fun favClick(){
-//        if(!isFav){
-//            viewModel.addFavourite(coindetail)
-//        }else{
-//            viewModel.delete(coinId)
-//        }
-//
-//        isFav=!isFav
-//        viewModel.isFavourite.value = Resource.Success(isFav)
+        if(!isFav){
+            viewModel.addFavourite(coindetail.asCoinDetail())
+        }else{
+            viewModel.delete(coinId)
+        }
+
+        isFav=!isFav
+        viewModel.isFavourite.value = Resource.Success(isFav)
     }
 
     private fun observeLiveData(){
