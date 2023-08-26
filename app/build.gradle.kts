@@ -67,9 +67,9 @@ dependencies {
 
     implementation ("com.google.dagger:hilt-android:2.47")
     implementation("androidx.room:room-ktx:2.5.2")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.7.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.7.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
-    kapt ("androidx.room:room-compiler:2.6.0-alpha03")
+    kapt ("androidx.room:room-compiler:2.6.0-beta01")
     kapt ("com.google.dagger:hilt-android-compiler:2.47")
     kapt ("androidx.hilt:hilt-compiler:1.0.0")
 
@@ -79,9 +79,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation ("com.squareup.okhttp3:okhttp:4.9.2")
+    implementation ("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-
+    implementation("androidx.core:core-splashscreen:1.0.1")
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
