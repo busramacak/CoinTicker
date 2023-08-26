@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bmprj.cointicker.domain.GetAuthUseCase
+import com.bmprj.cointicker.domain.auth.GetAuthUseCase
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel

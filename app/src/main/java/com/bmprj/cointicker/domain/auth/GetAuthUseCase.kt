@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.domain
+package com.bmprj.cointicker.domain.auth
 
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.utils.FirebaseAuthError

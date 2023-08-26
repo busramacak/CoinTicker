@@ -2,10 +2,8 @@
 
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
-import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -19,12 +17,13 @@ class CloudRepositoryImpl @Inject constructor(
         favouriteCoin: FavouriteCoin,
     ): Flow<Boolean> =flow{
 
-        emit(firebaseCloud
+        val snap = firebaseCloud
             .collection("coins")
             .document(userID)
             .collection("favouriteList")
             .document(favouriteCoin.id)
-            .set(favouriteCoin).isSuccessful)
+            .set(favouriteCoin).isSuccessful
+        emit(snap)
 
     }
 
@@ -33,25 +32,28 @@ class CloudRepositoryImpl @Inject constructor(
         coinId: String
     ): Flow<Boolean> = flow {
 
-        emit(firebaseCloud
+        val snap = firebaseCloud
             .collection("coins")
             .document(userID)
             .collection("favouriteList")
             .document(coinId)
-            .get().await().exists())
+            .get().await().exists()
+
+        emit(snap)
     }
 
     override suspend fun getAllFavourites(
         userID:String
-    ): Flow<List<FavouriteCoin>> =flow{
+    ):Flow<List<FavouriteCoin>> =flow{
 
-        emit(firebaseCloud
+        val snap = firebaseCloud
             .collection("coins")
             .document(userID)
             .collection("favouriteList")
             .get().await().documents.mapNotNull { document ->
-                document.toObject(FavouriteCoin::class.java)
-            })
+            document.toObject(FavouriteCoin::class.java)}
+
+        emit(snap)
     }
 
     override suspend fun delete(
