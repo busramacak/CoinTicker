@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "600556571605",
+    "project_id": "coin-ticker-e022d",
+    "storage_bucket": "coin-ticker-e022d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600556571605:android:fc435bf06c559d015a8b5c",
+        "android_client_info": {
+          "package_name": "com.bmprj.cointicker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600556571605-arug3j5bubuarugprfr2vhvirtd4e1l4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bmprj.cointicker",
+            "certificate_hash": "ad81450bf86d2458068bc50b2bfef0094bac35f3"
+          }
+        },
+        {
+          "client_id": "600556571605-16gl7ojd6049qt35ib6vucig1c1odrkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8IdADVb2SVF_n6J6dUR95fpqcszounk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600556571605-16gl7ojd6049qt35ib6vucig1c1odrkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
