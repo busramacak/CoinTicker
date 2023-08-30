@@ -18,5 +18,5 @@ MaterialSearchView, Glide, MVVM Architecture(Model, View, ViewModel), LiveData, 
 <img width="200" src="https://github.com/busramacak/CoinTicker/assets/115944594/3d3f7ce6-05e3-4c88-b627-b9b57c74775a" />
 <img width="200" src="https://github.com/busramacak/CoinTicker/assets/115944594/a2443aa1-19ea-45a3-8d39-7b3f31749d6a" />
 
-<img width="450" src="https://github.com/busramacak/CoinTicker/assets/115944594/5ae8312c-0df9-4cf1-9bc0-4d273c68f45f" />
+<img width="400" src="https://github.com/busramacak/CoinTicker/assets/115944594/5ae8312c-0df9-4cf1-9bc0-4d273c68f45f" />
 
