@@ -10,61 +10,11 @@
 
     </data>
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.coin.CoinListFragment">
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/materialToolbar"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:fitsSystemWindows="true"
-                android:background="#FFE6DEFF"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:elevation="5dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="4dp"
-                    android:onClick="@{(V) -> coins.logOut(V)}"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/logout"/>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="22sp"
-                    android:text="@string/coinScreenTitle"/>
-
-
-                <com.google.android.material.search.SearchBar
-                    android:id="@+id/search_bar"
-                    style="@style/Widget.Material3.SearchBar"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_height="wrap_content" />
-
-            </com.google.android.material.appbar.MaterialToolbar>
-
-            <com.google.android.material.search.SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/searchHint"
-                app:layout_anchor="@id/search_bar"
-                tools:ignore="NotSibling">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/searchRecy"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </com.google.android.material.search.SearchView>
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -84,9 +34,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
 
 </layout>

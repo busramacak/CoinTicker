@@ -13,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/loginFragment"
         tools:context=".ui.login.LoginFragment">
 
         <ImageView
@@ -147,8 +148,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{()->login.openCoinGecko()}"
             android:text="@string/coingecko"
-            android:textColor="#FF938CB1"
+            android:textColor="#8868AD"
             android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

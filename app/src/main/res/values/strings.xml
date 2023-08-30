@@ -24,6 +24,10 @@
     <string name="lastupdate">%1$s/%2$s/%3$s,  %4$s:%5$s:%6$s</string>
 
 
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 <!--    alerDialog-->
 
     <string name="areYouSure">Are you sure?</string>

@@ -1,19 +1,20 @@
 package com.bmprj.cointicker.ui.login
 
+import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
-import com.bmprj.cointicker.utils.Resource
-import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.base.BaseFragment
-import com.bmprj.cointicker.utils.FirebaseAuthError
+import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
@@ -47,8 +48,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
             viewModel.login(email, password)
     }
-
-
 
     fun observeLiveData(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
@@ -93,6 +92,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         }
     }
 
+    fun openCoinGecko(){
+
+        val uri = Uri.parse("https://www.coingecko.com/tr/api") // missing 'http://' will cause crashed
+
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
+    }
 
 }
 

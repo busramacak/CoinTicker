@@ -67,7 +67,5 @@ class CoinListViewModel @Inject constructor(
         filteredCoins.value=aList
     }
 
-    fun logOut(){
-        authRepository.logout()
-    }
+
 }
