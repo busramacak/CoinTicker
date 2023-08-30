@@ -8,5 +8,5 @@ trading volume, and price trends.
 Features: 
 
 Made with Coingecko API, Google Firebase(Authentication, Firestore Database), Splash Screen, Dependency Injection(Hilt),
-Coroutines, Room DB, Retrofit, DataBinding, Base(Fragment, Adapter, ViewHolder),Material Design, Navigation Component(NavGraph, BottomNav), 
+Coroutines, Room DB, Retrofit, DataBinding, Base(Fragment, Adapter, ViewHolder),Material Design, Navigation Component(NavGraph, BottomNav, Drawer), 
 MaterialSearchView, Glide, MVVM Architecture(Model, View, ViewModel), LiveData, Flow,
