@@ -75,7 +75,6 @@
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/password"
                 android:inputType="numberPassword"
-                app:passwordToggleEnabled="true"
                 android:hint="@string/passwordHint" />
 
 

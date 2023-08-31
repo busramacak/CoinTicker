@@ -1,7 +1,7 @@
 package com.bmprj.cointicker.di
 
-import com.bmprj.cointicker.data.remote.firebase.StorageRepository
-import com.bmprj.cointicker.data.remote.firebase.StorageRepositoryImpl
+import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepository
+import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepositoryImpl
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepositoryImpl
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
@@ -37,5 +37,5 @@ class FirebaseModule {
     fun provideFirebaseStorage():FirebaseStorage = FirebaseStorage.getInstance()
 
     @Provides
-    fun provideStorageRepo(impl:StorageRepositoryImpl):StorageRepository =impl
+    fun provideStorageRepo(impl: StorageRepositoryImpl): StorageRepository =impl
 }

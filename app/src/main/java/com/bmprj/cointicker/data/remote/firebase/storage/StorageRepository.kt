@@ -1,4 +1,4 @@
-package com.bmprj.cointicker.data.remote.firebase
+package com.bmprj.cointicker.data.remote.firebase.storage
 
 import android.net.Uri
 import kotlinx.coroutines.flow.Flow

@@ -33,6 +33,13 @@
     <string name="logoutbtn">Logout</string>
     <string name="no">No</string>
 
+    <string name="enterYourName">Enter your name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="enterNewPassword">Enter new password</string>
+    <string name="newPassword">New Password</string>
+    <string name="newPasswordConfirm">Confirm new password</string>
+
 
     <!--    toast-->
 
@@ -40,6 +47,7 @@
     <string name="addFavFail">Something went wrong. Could not be added to favourite.</string>
     <string name="delFavSuccess">Successfully deleted from favorite</string>
     <string name="delFavFail">Something went wrong. Could not be deleted from favourite.</string>
+    <string name="getPhotoFail">Something went wrong. Could not be get profile photo.</string>
     <!--    login-->
     <string name="failmsg1">Kullanıcı bulunamadı veya hesap etkin değil.</string>
     <string name="failmsg2">Kullanıcı adı veya şifre hatalı.</string>

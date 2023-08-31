@@ -1,4 +1,4 @@
-package com.bmprj.cointicker
+package com.bmprj.cointicker.ui.settings
 
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
@@ -9,6 +9,8 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentSettingsBinding
 import com.bmprj.cointicker.utils.Resource
@@ -27,8 +29,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         super.setUpViews(view)
 
         binding.settings=this
-
-//        binding.shapeableImageView.setImage
         binding.name.text=viewModel.currentUser?.displayName
 
         viewModel.getPhoto()
@@ -39,19 +39,27 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         viewModel.query.observe(viewLifecycleOwner){resource->
             when(resource){
                 is Resource.loading ->{
-
+                    binding.progress.visibility=View.VISIBLE
                 }
                 is Resource.Success -> {
                     binding.shapeableImageView.loadFromUrl(resource.result.toString())
+                    binding.progress.visibility=View.GONE
                 }
 
                 is Resource.Failure -> {
-
+                    binding.progress.visibility=View.GONE
+                    Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
                 }
             }
 
         }
     }
+
+    fun backClick(view: View){
+        Navigation.findNavController(view).navigateUp()
+
+    }
+
 
     fun setPhotoClick(){
         selectImage()

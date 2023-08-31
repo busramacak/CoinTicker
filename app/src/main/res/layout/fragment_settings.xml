@@ -6,7 +6,7 @@
     <data>
         <variable
             name="settings"
-            type="com.bmprj.cointicker.SettingsFragment" />
+            type="com.bmprj.cointicker.ui.settings.SettingsFragment" />
 
     </data>
 
@@ -28,10 +28,11 @@
                 android:id="@+id/back"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_width="wrap_content"
+                android:onClick="@{(V) -> settings.backClick(V)}"
                 android:layout_height="wrap_content"
                 android:src="@drawable/back"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Profil"
@@ -73,7 +74,7 @@
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,9 +83,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:indeterminateDrawable="@drawable/progres"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:id="@+id/linearL"
             android:onClick="@{(V) -> settings.userNameClick(V)}"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -94,7 +108,7 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/nameTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -105,7 +119,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +131,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/uyariTxt"
                 android:layout_width="330dp"
                 android:layout_height="wrap_content"
@@ -139,7 +153,7 @@
             app:layout_constraintTop_toTopOf="@id/linearL" />
 
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -153,6 +167,7 @@
             android:id="@+id/linearLL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:onClick="@{(V) ->settings.passwordClick(V)}"
@@ -161,7 +176,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearL">
 
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

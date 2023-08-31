@@ -124,11 +124,13 @@ class MainActivity : AppCompatActivity() {
 
                 if(nd.id==R.id.coinListFragment){
                     binding.toolbar.title="Coins"
+                    binding.navigationView.visibility=View.VISIBLE
                     binding.searchView.visibility= View.VISIBLE
                     binding.searchBar.visibility= View.VISIBLE
                 }
                 else if(nd.id == R.id.favCoinsFragment){
                     binding.toolbar.title="Favourites"
+                    binding.navigationView.visibility=View.GONE
                     binding.searchView.visibility= View.GONE
                     binding.searchBar.visibility= View.GONE
                 }

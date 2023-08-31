@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
-import com.bmprj.cointicker.data.remote.firebase.StorageRepository
-import com.bmprj.cointicker.data.remote.firebase.StorageRepositoryImpl
-import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepositoryImpl
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
 import com.bmprj.cointicker.utils.Resource
 import com.google.firebase.auth.FirebaseUser
