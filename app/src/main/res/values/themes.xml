@@ -7,6 +7,9 @@
     </style>
 
     <style name="Theme.CoinTicker" parent="Base.Theme.CoinTicker" />
+    <style name="ShapeAppearanceOverlay.App.CornerSize10Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
 
     <style name="LauncherFullScreen">   <!-- PARENT ZORUNLU DEĞİL  -->
         <item name="android:windowBackground">@drawable/splash</item>

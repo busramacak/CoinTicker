@@ -2,8 +2,10 @@
 
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
+import android.net.Uri
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await

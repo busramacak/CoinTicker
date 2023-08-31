@@ -21,7 +21,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    private val authRepository: AuthRepository,
     private val coinsUseCase: GetCoinsUseCase,
     private val coinDAO: CoinDAO
 ) :ViewModel() {

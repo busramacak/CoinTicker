@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_coinListFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_coinListFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favCoinsFragment"
@@ -56,4 +59,8 @@
             android:name="id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.bmprj.cointicker.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

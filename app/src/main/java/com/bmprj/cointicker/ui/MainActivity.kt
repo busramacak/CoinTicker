@@ -7,6 +7,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -23,7 +25,10 @@ import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.databinding.ActivityMainBinding
 import com.bmprj.cointicker.ui.coin.CoinListFragmentDirections
 import com.bmprj.cointicker.ui.coin.SearchListAdapter
+import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.loadFromUrl
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,6 +40,10 @@ class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
     private val adapter1 = SearchListAdapter(onItemClicked = {item -> onEntityItemClicked(item)},arrayListOf())
 
+    private lateinit var photo :ShapeableImageView
+    private lateinit var name  : TextView
+
+
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_CoinTicker)
@@ -44,6 +53,9 @@ class MainActivity : AppCompatActivity() {
         binding=DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.main=this
 
+        val view =  binding.navigationView.getHeaderView(0)
+        photo = view.findViewById(R.id.shapeableImageView)
+        name = view.findViewById(R.id.drawer_baslik_title)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         NavigationUI.setupWithNavController(binding.bottomNav,navHostFragment.navController)
@@ -51,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         navController=navHostFragment.navController
 
 
-
+        viewModel.getUserInfo()
         val toggle = ActionBarDrawerToggle(
             this,
             binding.drawer,
@@ -61,7 +73,8 @@ class MainActivity : AppCompatActivity() {
         )
         binding.drawer.addDrawerListener(toggle)
         toggle.syncState()
-        binding.navigationView.inflateHeaderView(R.layout.drawer_baslik)
+
+
 
 
         binding.navigationView.setNavigationItemSelectedListener { item->
@@ -73,6 +86,7 @@ class MainActivity : AppCompatActivity() {
                     println("logoutt")
                 }
                 R.id.settings->{
+                    navController.navigate(R.id.action_coinListFragment_to_settingsFragment)
                     println("settinnnngs")
                 }
             }
@@ -102,7 +116,8 @@ class MainActivity : AppCompatActivity() {
 
         navHostFragment.navController.addOnDestinationChangedListener{_,nd:NavDestination,_->
 
-            if(nd.id== R.id.registerFragment || nd.id== R.id.loginFragment || nd.id == R.id.coinDetailFragment){
+            if(nd.id== R.id.registerFragment || nd.id== R.id.loginFragment
+                || nd.id == R.id.settingsFragment || nd.id == R.id.coinDetailFragment){
 
                 hideBottomNav()
             }else{
@@ -126,10 +141,28 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun observeLiveData(){
+
         viewModel.filteredCoins.observe(this){entity->
             entity?.let {
                 adapter1.updateList(entity)
             }
+        }
+
+        viewModel.userInfo.observe(this){resource->
+            when(resource){
+                is Resource.Failure ->{
+
+                }
+                is Resource.Success -> {
+                    photo.loadFromUrl(resource.result.toString())
+                    name.text=viewModel.currentUser?.displayName
+                }
+                Resource.loading -> {
+
+
+                }
+            }
+
         }
     }
 

@@ -1,7 +1,9 @@
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
+import android.net.Uri
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.FavouriteCoin
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.Flow
 
 interface CloudRepository {
@@ -13,8 +15,6 @@ interface CloudRepository {
     suspend fun getAllFavourites(userID:String): Flow<List<FavouriteCoin>>
 
     suspend fun delete(userID:String,coinId:String): Flow<Boolean>
-
-
 
 
 }
