@@ -18,7 +18,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         app:cardElevation="3dp"
-        app:cardBackgroundColor="#FFF5EEFF">
+        app:cardBackgroundColor="@color/cardV">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:textColor="#90323131"
+                android:textColor="@color/itemTextColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/img"
                 app:layout_constraintTop_toBottomOf="@+id/coinName"

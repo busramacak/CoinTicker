@@ -127,7 +127,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:onClick="@{(V)->login.signUp(V)}"
             android:textStyle="bold"
-            android:textColor="#8868AD"
+            android:textColor="@color/textColor1"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
             app:layout_constraintTop_toBottomOf="@+id/materialButton" />
 
@@ -150,7 +150,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:onClick="@{()->login.openCoinGecko()}"
             android:text="@string/coingecko"
-            android:textColor="#8868AD"
+            android:textColor="@color/textColor1"
             android:layout_marginEnd="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

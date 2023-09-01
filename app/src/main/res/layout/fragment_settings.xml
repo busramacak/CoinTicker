@@ -13,13 +13,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E5DDFE">
+        android:background="@color/white">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/materialToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#C8BFE8"
+            android:background="@color/settingsbackG"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -28,8 +28,8 @@
                 android:id="@+id/back"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_width="wrap_content"
-                android:onClick="@{(V) -> settings.backClick(V)}"
                 android:layout_height="wrap_content"
+                android:onClick="@{(V) -> settings.backClick(V)}"
                 android:src="@drawable/back"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -44,7 +44,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="#C9C0E9"
+            android:background="@color/settingsbackG"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/materialToolbar">
@@ -55,7 +55,7 @@
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_launcher_background"
+                tools:src="@drawable/ic_launcher_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

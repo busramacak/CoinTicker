@@ -8,7 +8,10 @@ import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepositoryImpl
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
+import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.UiState
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -24,24 +27,40 @@ class MainViewModel @Inject constructor(
 ):ViewModel(){
     val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
     val userInfo = MutableLiveData<Resource<Uri>>()
+    val logOut = MutableLiveData<UiState<FirebaseAuthResources<Unit>>>()
     val currentUser: FirebaseUser?
         get() = authUseCase.currentUser
 
     fun logOut() = viewModelScope.launch{
+        println("mainviewmodel")
         authUseCase.logout()
+            .onStart {
+                logOut.value=UiState.Loading
+
+            }
+            .catch {
+                logOut.value=UiState.Error(it)
+            }
+            .collect{
+                logOut.value=it
+            }
     }
 
     fun getUserInfo() = viewModelScope.launch{
-        storageRepository.getPhoto(currentUser?.uid!!)
-            .onStart {
-                userInfo.value= Resource.loading
-            }
-            .catch {
-                userInfo.value=Resource.Failure(it)
-            }
-            .collect{
-                userInfo.value=Resource.Success(it)
-            }
+
+        if(authUseCase.currentUser!=null){
+            storageRepository.getPhoto(currentUser?.uid!!)
+                .onStart {
+                    userInfo.value= Resource.loading
+                }
+                .catch {
+                    userInfo.value=Resource.Failure(it)
+                }
+                .collect{
+                    userInfo.value=Resource.Success(it)
+                }
+        }
+
     }
 
     fun getDataFromDatabase(query:String) =  viewModelScope.launch {

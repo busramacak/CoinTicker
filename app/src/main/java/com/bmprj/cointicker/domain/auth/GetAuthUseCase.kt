@@ -2,13 +2,16 @@ package com.bmprj.cointicker.domain.auth
 
 import android.net.Uri
 import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
+import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepositoryImpl
 import com.bmprj.cointicker.utils.FirebaseAuthError
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.UiState
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.tasks.await
@@ -90,7 +93,14 @@ class GetAuthUseCase @Inject constructor(
 
 
     suspend fun logout() = flow{
-       emit( authRepository.logout())
+       authRepository.logout()
+           .onStart {
+               emit(UiState.Loading)
+           }.catch {
+               emit(UiState.Error(it))
+           }.collect{
+               emit(UiState.Success(it))
+           }
     }
 
 

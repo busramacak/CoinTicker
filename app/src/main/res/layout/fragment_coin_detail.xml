@@ -13,7 +13,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFFFF"
+        android:background="@color/cardV"
         tools:context=".ui.detail.CoinDetailFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +24,7 @@
                 android:id="@+id/materialToolbar2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#6750A3"
+                android:background="@color/button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -63,7 +63,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
-                        android:textColor="#9CFFFFFF"
+                        android:textColor="@color/textColorFlu"
                         android:textSize="24sp"
                         app:layout_constraintStart_toEndOf="@+id/coinName"
                         app:layout_constraintTop_toTopOf="parent"

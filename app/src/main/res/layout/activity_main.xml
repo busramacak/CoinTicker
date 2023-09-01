@@ -24,7 +24,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFE6DEFF"
+                android:background="@color/toolbar"
                 app:titleCentered="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
 
                 <com.google.android.material.search.SearchBar
                     android:id="@+id/search_bar"
-                    style="@style/Widget.Material3.SearchBar"
+                    style="@style/Widget.Material3.Search.ActionButton.Overflow"
                     android:layout_width="wrap_content"
                     android:layout_gravity="end"
                     android:layout_height="40dp" />
@@ -74,8 +74,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:menu="@menu/coin_menu"
-                app:itemTextColor="#FF605A7C"
-                app:itemIconTint="#FF605A7C"
+                android:background="@color/toolbar"
+                app:itemTextColor="@color/itemTextColor"
+                app:itemIconTint="@color/itemTextColor"
                 app:labelVisibilityMode="selected"
                 app:layout_constraintStart_toStartOf="parent" />
 

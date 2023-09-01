@@ -26,10 +26,12 @@ import com.bmprj.cointicker.databinding.ActivityMainBinding
 import com.bmprj.cointicker.ui.coin.CoinListFragmentDirections
 import com.bmprj.cointicker.ui.coin.SearchListAdapter
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.UiState
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -63,7 +65,10 @@ class MainActivity : AppCompatActivity() {
         navController=navHostFragment.navController
 
 
+
         viewModel.getUserInfo()
+
+
         val toggle = ActionBarDrawerToggle(
             this,
             binding.drawer,
@@ -144,6 +149,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeLiveData(){
 
+        viewModel.logOut.observe(this){logout->
+            when(logout){
+                is UiState.Loading -> {
+
+                }
+                is UiState.Success -> {
+
+                    navController.navigate(R.id.action_coinListFragment_to_loginFragment)
+
+                }
+                is UiState.Error -> {
+
+                }
+            }
+        }
         viewModel.filteredCoins.observe(this){entity->
             entity?.let {
                 adapter1.updateList(entity)
@@ -184,7 +204,6 @@ class MainActivity : AppCompatActivity() {
             btnp.setOnClickListener {
                 viewModel.logOut()
 
-                navController.navigate(R.id.action_coinListFragment_to_loginFragment)
                 dialog.dismiss()
             }
             btnn.setOnClickListener {

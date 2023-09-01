@@ -2,10 +2,7 @@
 
 package com.bmprj.cointicker.utils
 
-import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
 
 sealed class FirebaseAuthResources<out R> {
     data class Success<out R>(val result: R) : FirebaseAuthResources<R>()

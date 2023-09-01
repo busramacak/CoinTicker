@@ -1,10 +1,8 @@
 package com.bmprj.cointicker.data.remote.firebase.auth
 
-import com.bmprj.cointicker.utils.ApiResources
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.NetworkManager
 import com.bmprj.cointicker.utils.handleAuthResult
-import com.bmprj.cointicker.utils.handleResponse
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -42,7 +40,11 @@ class AuthRepositoryImpl @Inject constructor(
         emit(result)
     }
 
-    override fun logout() {
-        firebaseAuth.signOut()
+    override fun logout():Flow<FirebaseAuthResources<Unit>> = flow{
+        println("implll")
+        val response = firebaseAuth.signOut()
+
+        emit(FirebaseAuthResources.Success(response))
+
     }
 }
