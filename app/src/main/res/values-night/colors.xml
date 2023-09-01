@@ -3,15 +3,18 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#EA0000</color>
-    <color name="green">#3DCA00</color>
+    <color name="redcustom">#AF0202</color>
+    <color name="greencustom">#568002</color>
 
-    <color name="button">#6750A3</color>
-    <color name="toolbar">#FFE6DEFF</color>
-    <color name="textColor1">#8868AD</color>
-    <color name="itemTextColor">#FF605A7C</color>
-    <color name="cardV">#FFF5EEFF</color>
-    <color name="settingsbackG">#C9C0E9</color>
+    <color name="button">#CFBBFE</color>
+    <color name="customwhite">#FF262529</color>
+    <color name="toolbar">#2A2831</color>
+    <color name="textColor1">#CFBBFE</color>
+    <color name="itemTextColor">#FFFFFF</color>
+    <color name="cardV">#2A2831</color>
+    <color name="settingsbackG">#1C1B1F</color>
     <color name="textColor2">#605A7C</color>
     <color name="textColorFlu">#9CFFFFFF</color>
+    <color name="textColorFlu2">#9CFFFFFF</color>
+    <color name="settingTextC">#BFACA9B8</color>
 </resources>

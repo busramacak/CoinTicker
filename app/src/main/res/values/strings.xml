@@ -22,7 +22,8 @@
     <string name="precentage24hText">%.1f %%</string>
     <string name="h24h">%1$s $ </string>
     <string name="lastupdate">%1$s/%2$s/%3$s,  %4$s:%5$s:%6$s</string>
-
+    <string name="settingsname">Kullanıcı adınız ya da anahtarınız değildir. Size daha iyi bir deneyim sunmak için kullanılacaktır.</string>
+    <string name="settingspassword">Şifrenizi güvenliğiniz için kimse ile paylaşmayınız.</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
