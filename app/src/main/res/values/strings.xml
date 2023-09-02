@@ -1,4 +1,6 @@
 <resources>
+
+    <string name="locale">tr</string>
     <string name="app_name">CoinTicker</string>
     <string name="favScreenTitle">Favoriler</string>
     <string name="coinScreenTitle">Coinler</string>
@@ -63,6 +65,7 @@
     <string name="failmsg9">Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</string>
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
     <string name="welcome">Hoşgeldiniz, %1$s</string>
+    <string name="settings">Ayarlar</string>
 
 
 </resources>

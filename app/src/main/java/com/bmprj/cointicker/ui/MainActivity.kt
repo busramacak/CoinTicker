@@ -127,12 +127,12 @@ class MainActivity : AppCompatActivity() {
             }else{
 
                 if(nd.id==R.id.coinListFragment){
-                    binding.toolbar.title="Coins"
+                    binding.toolbar.title=getString(R.string.coinScreenTitle)
                     binding.searchBar.visibility=View.VISIBLE
                     binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 else if(nd.id == R.id.favCoinsFragment){
-                    binding.toolbar.title="Favourites"
+                    binding.toolbar.title=getString(R.string.favScreenTitle)
                     binding.searchBar.visibility=View.GONE
                     binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
@@ -215,12 +215,14 @@ class MainActivity : AppCompatActivity() {
     private fun hideBottomNav(){
         binding.bottomNav.visibility= View.GONE
         binding.toolbar.visibility=View.GONE
+        binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
     }
     private fun showBottomNav(){
 
         binding.bottomNav.visibility=View.VISIBLE
         binding.toolbar.visibility=View.VISIBLE
+
 
     }
 

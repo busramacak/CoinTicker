@@ -1,4 +1,5 @@
 <resources>
+    <string name="locale">en</string>
     <string name="app_name">CoinTicker</string>
     <string name="favScreenTitle">Favourites</string>
     <string name="coinScreenTitle">Coins</string>
@@ -64,4 +65,5 @@
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
 
     <string name="welcome">Welcome, %1$s</string>
+    <string name="settings">Settings</string>
 </resources>

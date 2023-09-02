@@ -16,7 +16,7 @@ class GetCoinUseCase @Inject constructor(private val coinRepository: CoinReposit
 
     suspend fun getCoin(id:String): Flow<UiState<CoinDetailEntity>> {
        return flow<UiState<CoinDetailEntity>> {
-            coinRepository.getCoin(id)
+            coinRepository.getCoin(id,)
                 .onStart {
                     emit(UiState.Loading)
                 }

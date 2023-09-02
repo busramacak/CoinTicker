@@ -13,10 +13,11 @@ import retrofit2.http.Query
 // Data provided by CoinGecko ->> www.coingecko.com/en/api
 interface CoinApiService {
     @GET("coins/markets?vs_currency=usd")
-    suspend fun getCoins() : Response<CoinListResponseModel>
+    suspend fun getCoins(
+    ) : Response<CoinListResponseModel>
 
     @GET("coins/{id}")
     suspend fun getCoin(
-        @Path("id") id:String
+        @Path("id") id:String,
     ) : Response<CoinDetail>
 }

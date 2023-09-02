@@ -7,5 +7,7 @@ import kotlinx.serialization.SerialName
 
 data class Description(
     @SerializedName("en")
-    val en: String
+    val en: String,
+    @SerializedName("tr")
+    val tr:String
 )
