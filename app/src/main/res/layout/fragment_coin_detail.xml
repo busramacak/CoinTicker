@@ -18,7 +18,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolbar2"
@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/back"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -43,14 +43,15 @@
                         android:layout_marginTop="10dp"
                         android:padding="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:importantForAccessibility="no" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/coinName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/customwhite"
                         android:textSize="24sp"
                         android:layout_marginTop="15dp"
                         app:layout_constraintStart_toEndOf="@+id/back"
@@ -69,7 +70,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="Btc" />
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imageView"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -78,9 +79,10 @@
                         android:layout_marginBottom="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/back" />
+                        app:layout_constraintTop_toBottomOf="@id/back"
+                        android:importantForAccessibility="no" />
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imageView2"
                         android:background="?android:attr/selectableItemBackground"
                         android:layout_width="wrap_content"
@@ -107,7 +109,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/customwhite"
                         tools:text="12-07-2021"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -119,7 +121,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/customwhite"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="@id/imageView"
@@ -137,7 +139,7 @@
                         app:layout_constraintStart_toEndOf="@id/imageView"
                         app:layout_constraintTop_toBottomOf="@+id/priceChange24h">
 
-                        <ImageView
+                        <com.google.android.material.imageview.ShapeableImageView
                             android:id="@+id/arrow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
@@ -146,7 +148,7 @@
                             android:id="@+id/precentage24hText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
+                            android:textColor="@color/customwhite"
                             android:textSize="20sp"
                             tools:text="0.065%" />
 

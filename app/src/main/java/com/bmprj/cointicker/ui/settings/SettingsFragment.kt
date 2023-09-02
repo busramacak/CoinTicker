@@ -111,6 +111,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             val btnp = viewv.findViewById<MaterialTextView>(R.id.save_button)
             val btnn = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
             val editText = viewv.findViewById<TextInputEditText>(R.id.nameEdt)
+
             editText.text?.replace(0, editText.text?.length ?: 0, viewModel.currentUser?.displayName)
 
             btnp.setOnClickListener {

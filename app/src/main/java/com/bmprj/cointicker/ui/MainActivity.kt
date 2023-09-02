@@ -5,9 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -15,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -31,7 +30,6 @@ import com.bmprj.cointicker.utils.loadFromUrl
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -129,15 +127,13 @@ class MainActivity : AppCompatActivity() {
 
                 if(nd.id==R.id.coinListFragment){
                     binding.toolbar.title="Coins"
-                    binding.navigationView.visibility=View.VISIBLE
-                    binding.searchView.visibility= View.VISIBLE
-                    binding.searchBar.visibility= View.VISIBLE
+                    binding.searchBar.visibility=View.VISIBLE
+                    binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 else if(nd.id == R.id.favCoinsFragment){
                     binding.toolbar.title="Favourites"
-                    binding.navigationView.visibility=View.GONE
-                    binding.searchView.visibility= View.GONE
-                    binding.searchBar.visibility= View.GONE
+                    binding.searchBar.visibility=View.GONE
+                    binding.drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
                 showBottomNav()
             }
@@ -173,14 +169,14 @@ class MainActivity : AppCompatActivity() {
         viewModel.userInfo.observe(this){resource->
             when(resource){
                 is Resource.Failure ->{
-
+                    photo.setImageResource(R.drawable.error)
                 }
                 is Resource.Success -> {
                     photo.loadFromUrl(resource.result.toString())
                     name.text=viewModel.currentUser?.displayName
                 }
                 Resource.loading -> {
-
+                    photo.setImageResource(R.drawable.progres)
 
                 }
             }

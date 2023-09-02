@@ -9,6 +9,7 @@
     <color name="customwhite">#FFFFFF</color>
     <color name="toolbar">#FFE6DEFF</color>
     <color name="textColor1">#8868AD</color>
+    <color name="negativeButtonColor">#FF605A7C</color>
     <color name="itemTextColor">#FF605A7C</color>
     <color name="cardV">#FFF5EEFF</color>
     <color name="settingsbackG">#C9C0E9</color>
@@ -16,6 +17,7 @@
     <color name="textColorFlu">#9CFFFFFF</color>
     <color name="textColorFlu2">#90323131</color>
     <color name="settingTextC">#BF605A7C</color>
+    <color name="settingsIconColor">#FF000000</color>
 <!--    <color name=""></color>-->
 <!--    <color name=""></color>-->
 <!--    <color name=""></color>-->

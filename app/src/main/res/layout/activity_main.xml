@@ -89,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            app:itemIconTint="@color/itemTextColor"
             app:headerLayout="@layout/drawer_baslik"
             app:menu="@menu/other_menu" />
 
