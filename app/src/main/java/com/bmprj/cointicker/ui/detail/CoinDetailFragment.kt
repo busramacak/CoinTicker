@@ -12,7 +12,6 @@ import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.domain.coins.CoinDetailEntity
 import com.bmprj.cointicker.domain.coins.asCoinDetail
-import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.UiState
 import com.bmprj.cointicker.utils.loadFromUrl

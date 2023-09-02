@@ -159,7 +159,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
                     viewModel.changePassword(nextP.text.toString())
                     dialog.dismiss()
                 }else{
-                    Toast.makeText(requireContext(),"Yeni şifre ve şifre onayı birbirine uymuyor.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),getString(R.string.notmatch),Toast.LENGTH_SHORT).show()
                 }
 
 

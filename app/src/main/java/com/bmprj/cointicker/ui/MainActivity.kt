@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -170,6 +171,7 @@ class MainActivity : AppCompatActivity() {
             when(resource){
                 is Resource.Failure ->{
                     photo.setImageResource(R.drawable.error)
+                    Log.e("userInfoError",resource.exception.message.toString())
                 }
                 is Resource.Success -> {
                     photo.loadFromUrl(resource.result.toString())

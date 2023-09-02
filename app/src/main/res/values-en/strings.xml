@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">CoinTicker</string>
+    <string name="favScreenTitle">Favourites</string>
+    <string name="coinScreenTitle">Coins</string>
+    <string name="lowestTxt">Lowest (24h)   ➩</string>
+    <string name="highestTxt">Highest (24h)  ➩</string>
+    <string name="descriptionTxt">Description</string>
+    <string name="searchHint">Search something</string>
+
+    <string name="name">Name</string>
+    <string name="emailHint"> Email</string>
+    <string name="passwordHint"> Password</string>
+    <string name="loginBtn">LOGIN</string>
+    <string name="loginTxt">Login</string>
+    <string name="dontHave">Don\'t have an account?</string>
+    <string name="signUptxt">Sign Up</string>
+    <string name="signUpBtn">SIGN UP</string>
+    <string name="powered">Powered by </string>
+    <string name="coingecko">CoinGecko API</string>
+    <string name="alreadyHave">Already have an account?</string>
+    <string name="priceChange24hText">%1$s $</string>
+    <string name="precentage24hText">%.1f %%</string>
+    <string name="h24h">%1$s $ </string>
+    <string name="lastupdate">%1$s/%2$s/%3$s,  %4$s:%5$s:%6$s</string>
+    <string name="settingsname">It is not your username or your key. It will be used to give you a better experience.</string>
+    <string name="settingspassword">Do not share your password with anyone for your security.</string>
+    <string name="profile">Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--    alerDialog-->
+
+    <string name="areYouSure">Are you sure?</string>
+    <string name="logoutbtn">Logout</string>
+    <string name="no">Cancel</string>
+
+    <string name="enterYourName">Enter your name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="enterNewPassword">Enter new password</string>
+    <string name="newPassword">New Password</string>
+    <string name="newPasswordConfirm">Confirm new password</string>
+
+
+    <!--    toast-->
+
+    <string name="addFavSuccess">Successfully added to favorite</string>
+    <string name="addFavFail">Something went wrong. Could not be added to favourite.</string>
+    <string name="delFavSuccess">Successfully deleted from favorite</string>
+    <string name="delFavFail">Something went wrong. Could not be deleted from favourite.</string>
+    <string name="getPhotoFail">Something went wrong. Could not be get profile photo.</string>
+    <!--    login-->
+    <string name="failmsg1">User not found or account is inactive.</string>
+    <string name="failmsg2">Incorrect username or password.</string>
+    <string name="failmsg3">Internet connection error. Unable to access the server.</string>
+    <string name="failmsg4">An error occurred. Please try again later.</string>
+    <!-- register -->
+    <string name="succesmsg1">Account creation successful.</string>
+    <string name="failmsg5">Choose a stronger password.</string>
+    <string name="failmsg6">Invalid email address or password.</string>
+    <string name="failmsg7">An account with this email address already exists.</string>
+    <string name="failmsg8">No internet connection or unable to access the server.</string>
+    <string name="failmsg9">An error occurred. Please try again later.</string>
+    <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
+
+    <string name="welcome">Welcome, %1$s</string>
+</resources>
