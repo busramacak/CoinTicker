@@ -162,16 +162,30 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     binding.precentage24hText.text= getString(R.string.precentage24hText,coinDetail.result.marketData.priceChangePercentage24h.toFloat())
                     binding.lowest.text=getString(R.string.h24h,coinDetail.result.marketData.low24h.usd.toString())
                     binding.highest.text=getString(R.string.h24h,coinDetail.result.marketData.high24h.usd.toString())
-                    binding.description.text=coinDetail.result.description.en
+
+                    val data = coinDetail.result.description.en
+                    val hrefPattern = """<a href="([^"]*)">([^<]*)</a>""".toRegex()
+                    val matcher = hrefPattern.findAll(data)
+                    val duzeltilmisVeri = StringBuilder()
+                    var sonIndex = 0
+
+                    matcher.forEach { match ->
+                        duzeltilmisVeri.append(data.substring(sonIndex, match.range.first)) // Önceki metin
+                        val metin = match.groupValues[2] // Bağlantı metni
+                        duzeltilmisVeri.append(metin) // Düzeltilmiş metni ekle
+                        sonIndex = match.range.last + 1
+                    }
+                    duzeltilmisVeri.append(data.substring(sonIndex)) // Geri kalan metin
+
+                    binding.description.text=duzeltilmisVeri.toString()
                     binding.progress.visibility=View.GONE
 
                 }
+
                 is UiState.Error->{
                     binding.progress.visibility=View.GONE
                     //TODO fail dialog eklenecek
                 }
-
-
             }
 
         }

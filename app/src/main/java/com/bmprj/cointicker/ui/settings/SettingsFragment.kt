@@ -8,6 +8,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
@@ -27,6 +28,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
+
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+
+                Navigation.findNavController(view).navigateUp()
+            }
+
+        })
 
         binding.settings=this
         binding.name.text=viewModel.currentUser?.displayName
