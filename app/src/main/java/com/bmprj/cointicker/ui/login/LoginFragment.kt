@@ -1,6 +1,7 @@
 package com.bmprj.cointicker.ui.login
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
 import android.view.View
 import android.widget.Toast
@@ -26,19 +27,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         binding.login=this
 
         observeLiveData(view)
+        initTextType()
 
         if(viewModel.currentUser!=null){
             reload(view)
         }
+
+
     }
-
-
-
-    private fun reload(view:View){
-        Toast.makeText(requireContext(),getString(R.string.welcome,viewModel.currentUser?.displayName),Toast.LENGTH_LONG).show()
-        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
-    }
-
 
     fun signUp(view:View){
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)
@@ -46,10 +42,22 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     fun login(email:String, password:String){
 
-            viewModel.login(email, password)
+        viewModel.login(email, password)
+    }
+    fun openCoinGecko(){
+
+        val uri = Uri.parse("https://www.coingecko.com/tr/api") // missing 'http://' will cause crashed
+
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 
-    fun observeLiveData(view:View){
+    private fun reload(view:View){
+        Toast.makeText(requireContext(),getString(R.string.welcome,viewModel.currentUser?.displayName),Toast.LENGTH_LONG).show()
+        Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
+    }
+
+    private fun observeLiveData(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
             when(resource){
                 is UiState.Loading->{
@@ -88,18 +96,24 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
                 else -> {}
             }
-
         }
     }
 
-    fun openCoinGecko(){
+    private fun initTextType(){
+        if(getString(R.string.locale)=="tr"){
+            binding.materialTextView4.typeface=Typeface.defaultFromStyle(Typeface.BOLD)
+            binding.materialTextView4.setTextColor(resources.getColor(R.color.textColor1))
 
-        val uri = Uri.parse("https://www.coingecko.com/tr/api") // missing 'http://' will cause crashed
+            binding.materialTextView5.typeface=Typeface.defaultFromStyle(Typeface.NORMAL)
+            binding.materialTextView5.setTextColor(resources.getColor(R.color.textColor2))
+        }else{
+            binding.materialTextView4.typeface=Typeface.defaultFromStyle(Typeface.NORMAL)
+            binding.materialTextView4.setTextColor(resources.getColor(R.color.textColor2))
 
-        val intent = Intent(Intent.ACTION_VIEW, uri)
-        startActivity(intent)
+            binding.materialTextView5.typeface=Typeface.defaultFromStyle(Typeface.BOLD)
+            binding.materialTextView5.setTextColor(resources.getColor(R.color.textColor1))
+        }
     }
-
 }
 
 

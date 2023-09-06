@@ -31,26 +31,17 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
     override fun setUpViews(view: View) {
         super.setUpViews(view)
-        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
 
-                Navigation.findNavController(view).navigateUp()
-            }
-
-        })
         binding.detail=this
-
         coinId= bundle.id
-
-
+        initBackPress(view)
+        observeLiveData()
         viewModel.getCoin(coinId)
         viewModel.getFavourite(coinId)
+    }
 
-        observeLiveData()
-
-
-
-
+    fun backButton(view: View){
+        Navigation.findNavController(view).navigateUp()
     }
 
     fun favClick(){
@@ -62,6 +53,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
         isFav=!isFav
         viewModel.isFavourite.value = Resource.Success(isFav)
+    }
+
+    private fun initBackPress(view:View){
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view).navigateUp()
+            }
+        })
     }
 
     private fun observeLiveData(){
@@ -184,6 +183,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
                 is UiState.Error->{
                     binding.progress.visibility=View.GONE
+//                    coinDetail.error.message
                     //TODO fail dialog eklenecek
                 }
             }
@@ -192,7 +192,5 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     }
 
 
-    fun backButton(view: View){
-        Navigation.findNavController(view).navigateUp()
-    }
+
 }
