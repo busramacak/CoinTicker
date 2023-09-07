@@ -16,21 +16,23 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment_fav_coins) {
 
-    private val adapter= FavCoinListAdapter(onItemClicked = {item -> onCoinItemClicked(item)}, arrayListOf())
+    private val adapter by lazy { FavCoinListAdapter() }
     private val viewModel by viewModels<FavCoinsViewModel>()
-    override fun setUpViews(view: View) {
-        super.setUpViews(view)
-        binding.fav=this
 
+    override fun initView(view: View) {
+        initAdapter()
+        initLiveDataObservers()
+        viewModel.getFavCoins()
+    }
+    
+    private fun initAdapter(){
         binding.favCoinListRecyclerView.adapter=adapter
         binding.favCoinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
-
-        viewModel.getFavCoins()
-
-        observeLiveData()
+    
+        adapter.setOnClickListener { onCoinItemClicked(it) }
     }
 
-    private fun observeLiveData(){
+    private fun initLiveDataObservers(){
         viewModel.favCoins.observe(viewLifecycleOwner){resource->
             when(resource){
                 is Resource.loading ->{
@@ -48,10 +50,8 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
             }
         }
     }
-
-
     private fun onCoinItemClicked(item: FavouriteCoin) {
-        val gecis = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id)
-        Navigation.findNavController(requireView()).navigate(gecis)
+        val transition = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id)
+        Navigation.findNavController(requireView()).navigate(transition)
     }
 }

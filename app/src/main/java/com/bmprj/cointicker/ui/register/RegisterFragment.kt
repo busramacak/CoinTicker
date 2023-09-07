@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
-import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.databinding.FragmentRegisterBinding
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.utils.UiState
@@ -21,23 +20,21 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
 
    private val viewModel by viewModels<RegisterViewModel>()
 
-    override fun setUpViews(view: View) {
-        super.setUpViews(view)
-        binding.register=this
 
-        observeLiveData(view)
+    override fun initView(view: View) {
+        binding.register=this
+        initLiveDataObservers(view)
     }
 
     fun login(view:View){
         Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
-
     }
 
     fun signup(name:String,email:String, password:String){
         viewModel.signup(name, email, password)
     }
 
-    private fun observeLiveData(view: View){
+    private fun initLiveDataObservers(view: View){
         viewModel.signup.observe(viewLifecycleOwner){resource->
             when(resource){
                 is UiState.Success->{
@@ -107,7 +104,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
 
                 else -> {}
             }
-
         }
     }
 }

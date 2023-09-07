@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 
-open class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment(),LifecycleObserver {
+abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment() {
 
     protected lateinit var binding:DB
 
@@ -26,8 +26,8 @@ open class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews(view)
+        initView(view)
     }
 
-    open fun setUpViews(view:View){}
+    abstract fun initView(view:View)
 }

@@ -18,28 +18,26 @@ import dagger.hilt.android.AndroidEntryPoint
 class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
 
-    private val adapter = CoinListAdapter(onItemClicked = {item -> onCoinItemClicked(item)}, list = arrayListOf())
-    private val adapter1 = SearchListAdapter(onItemClicked = {item -> onEntityItemClicked(item)},arrayListOf())
+    private val adapter by lazy { CoinListAdapter() }
+    private val adapter1  by lazy { SearchListAdapter() }
     private val viewModel by viewModels<CoinListViewModel>()
 
 
+    override fun initView(view: View) {
+        initAdapter()
+        initLiveDataObservers()
+        viewModel.getData()
+    }
 
-
-    override fun setUpViews(view: View) {
-        super.setUpViews(view)
-        binding.coins=this
-
-
+    private fun initAdapter(){
         binding.coinListRecyclerView.layoutManager=LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
         binding.coinListRecyclerView.adapter=adapter
 
-
-        viewModel.getData()
-        observeLiveData()
+        adapter.setOnClickListener { onCoinItemClicked(it) }
     }
 
 
-    private fun observeLiveData(){
+    private fun initLiveDataObservers(){
         viewModel.coins.observe(viewLifecycleOwner){coinItem->
 
             when(coinItem) {
@@ -71,12 +69,6 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         }
     }
 
-
-
-    private fun onEntityItemClicked(item: Entity) {
-        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id)
-        Navigation.findNavController(requireView()).navigate(gecis)
-    }
     private fun onCoinItemClicked(item: CoinMarketItem) {
         val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id)
         Navigation.findNavController(requireView()).navigate(gecis)

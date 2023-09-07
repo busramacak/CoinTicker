@@ -22,18 +22,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     private val viewModel by viewModels<LoginViewModel>()
 
-    override fun setUpViews(view: View) {
-        super.setUpViews(view)
+    override fun initView(view: View) {
         binding.login=this
-
-        observeLiveData(view)
         initTextType()
-
-        if(viewModel.currentUser!=null){
-            reload(view)
-        }
-
-
+        if(viewModel.currentUser!=null) reload(view)
+        initLiveDataObservers(view)
     }
 
     fun signUp(view:View){
@@ -47,7 +40,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     fun openCoinGecko(){
 
         val uri = Uri.parse("https://www.coingecko.com/tr/api") // missing 'http://' will cause crashed
-
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }
@@ -57,7 +49,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_coinListFragment)
     }
 
-    private fun observeLiveData(view:View){
+    private fun initLiveDataObservers(view:View){
         viewModel.login.observe(viewLifecycleOwner){resource->
             when(resource){
                 is UiState.Loading->{

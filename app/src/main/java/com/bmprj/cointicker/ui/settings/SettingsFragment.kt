@@ -26,61 +26,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
 
     private val viewModel by viewModels<SettingsViewModel>()
 
-    override fun setUpViews(view: View) {
-        super.setUpViews(view)
-
-        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-
-                Navigation.findNavController(view).navigateUp()
-            }
-
-        })
-
+    override fun initView(view: View) {
         binding.settings=this
-        binding.name.text=viewModel.currentUser?.displayName
-
+        initBackPress(view)
+        initUserName()
+        initLiveDataObservers()
         viewModel.getPhoto()
-        observeLiveData()
-    }
-
-    private fun observeLiveData(){
-        viewModel.query.observe(viewLifecycleOwner){resource->
-            when(resource){
-                is Resource.loading ->{
-                    binding.progress.visibility=View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding.shapeableImageView.loadFromUrl(resource.result.toString())
-                    binding.progress.visibility=View.GONE
-                }
-
-                is Resource.Failure -> {
-                    binding.progress.visibility=View.GONE
-                    Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        }
-    }
-
-    fun backClick(view: View){
-        Navigation.findNavController(view).navigateUp()
-
-    }
-
-
-    fun setPhotoClick(){
-        selectImage()
-    }
-
-    private fun selectImage(){
-        val i = Intent()
-        i.type = "image/*"
-        i.action = Intent.ACTION_GET_CONTENT
-
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), 200)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -101,7 +52,14 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         }
     }
 
-    fun userNameClick(view:View){
+    fun backClick(view: View){
+        Navigation.findNavController(view).navigateUp()
+    }
+    fun setPhotoClick(){
+        selectImage()
+    }
+
+    fun userNameClick(){
 
         val viewv = layoutInflater.inflate(R.layout.settings_dialog,null)
         val dialog = AlertDialog.Builder(requireContext())
@@ -117,30 +75,26 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         window?.attributes = wlp
 
         dialog.setOnShowListener {
-            val btnp = viewv.findViewById<MaterialTextView>(R.id.save_button)
-            val btnn = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
+            val nameSaveButton = viewv.findViewById<MaterialTextView>(R.id.save_button)
+            val nameCancelButton = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
             val editText = viewv.findViewById<TextInputEditText>(R.id.nameEdt)
 
             editText.text?.replace(0, editText.text?.length ?: 0, viewModel.currentUser?.displayName)
 
-            btnp.setOnClickListener {
+            nameSaveButton.setOnClickListener {
                 val newName = editText.text.toString()
                 viewModel.changeUserName(newName)
                 binding.name.text=newName
                 dialog.dismiss()
             }
-            btnn.setOnClickListener {
+            nameCancelButton.setOnClickListener {
                 dialog.dismiss()
             }
         }
-
         dialog.show()
-
-
     }
 
-
-    fun passwordClick(view:View){
+    fun passwordClick(){
 
         val viewv = layoutInflater.inflate(R.layout.password_change_dialog,null)
         val dialog = AlertDialog.Builder(requireContext())
@@ -156,29 +110,59 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         window?.attributes = wlp
 
         dialog.setOnShowListener {
-            val btnp = viewv.findViewById<MaterialTextView>(R.id.save_button)
-            val btnn = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
-            val nextP = viewv.findViewById<TextInputEditText>(R.id.nextPEdt)
-            val nextPO = viewv.findViewById<TextInputEditText>(R.id.nextPOEdt)
+            val saveButton = viewv.findViewById<MaterialTextView>(R.id.save_button)
+            val cancelButton = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
+            val newPasswordEditText = viewv.findViewById<TextInputEditText>(R.id.nextPEdt)
+            val newPasswordConfirmEditText = viewv.findViewById<TextInputEditText>(R.id.nextPOEdt)
 
-
-            btnp.setOnClickListener {
-
-                if(nextP.text.toString() == nextPO.text.toString()){
-                    viewModel.changePassword(nextP.text.toString())
+            saveButton.setOnClickListener {
+                if(newPasswordEditText.text.toString() == newPasswordConfirmEditText.text.toString()){
+                    viewModel.changePassword(newPasswordEditText.text.toString())
                     dialog.dismiss()
                 }else{
                     Toast.makeText(requireContext(),getString(R.string.notmatch),Toast.LENGTH_SHORT).show()
                 }
-
-
             }
-            btnn.setOnClickListener {
+            cancelButton.setOnClickListener {
                 dialog.dismiss()
             }
         }
-
         dialog.show()
     }
 
+    private fun initUserName(){ binding.name.text=viewModel.currentUser?.displayName }
+
+    private fun initBackPress(view: View){
+        activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                Navigation.findNavController(view).navigateUp()
+            }
+        })
+    }
+
+    private fun initLiveDataObservers(){
+        viewModel.query.observe(viewLifecycleOwner){resource->
+            when(resource){
+                is Resource.loading ->{
+                    binding.progress.visibility=View.VISIBLE
+                }
+                is Resource.Success -> {
+                    binding.shapeableImageView.loadFromUrl(resource.result.toString())
+                    binding.progress.visibility=View.GONE
+                }
+                is Resource.Failure -> {
+                    binding.progress.visibility=View.GONE
+                    Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun selectImage(){
+        val i = Intent()
+        i.type = "image/*"
+        i.action = Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), 200)
+    }
 }

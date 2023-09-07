@@ -23,19 +23,17 @@ import java.util.Date
 
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail){
-    val bundle: CoinDetailFragmentArgs by navArgs()
-    private val viewModel by viewModels<CoinDetailViewModel>()
-    private var isFav :Boolean=false
-    private lateinit var coinId:String
+
     private lateinit var coindetail :CoinDetailEntity
+    private val bundle: CoinDetailFragmentArgs by navArgs()
+    private val viewModel by viewModels<CoinDetailViewModel>()
+    private val coinId:String by lazy { bundle.id }
+    private var isFav :Boolean=false
 
-    override fun setUpViews(view: View) {
-        super.setUpViews(view)
-
+    override fun initView(view: View) {
         binding.detail=this
-        coinId= bundle.id
         initBackPress(view)
-        observeLiveData()
+        initLiveDataObservers()
         viewModel.getCoin(coinId)
         viewModel.getFavourite(coinId)
     }
@@ -63,7 +61,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         })
     }
 
-    private fun observeLiveData(){
+    private fun initLiveDataObservers(){
 
         viewModel.isFavourite.observe(viewLifecycleOwner){isFavourite->
                 when(isFavourite){
@@ -187,10 +185,6 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     //TODO fail dialog eklenecek
                 }
             }
-
         }
     }
-
-
-
 }

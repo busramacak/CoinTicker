@@ -2,23 +2,26 @@ package com.bmprj.cointicker.ui.favourite
 
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseAdapter
+import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.databinding.FavCoinLayoutBinding
 import com.bmprj.cointicker.model.FavouriteCoin
 
-class FavCoinListAdapter(
-    private var onItemClicked:(FavouriteCoin) ->Unit,
-    override var list:ArrayList<FavouriteCoin> ):
-    BaseAdapter<FavCoinLayoutBinding, FavouriteCoin>(onItemClicked,list) {
-    override val layoutId: Int
-        get() = R.layout.fav_coin_layout
+class FavCoinListAdapter(): BaseAdapter<FavCoinLayoutBinding, FavouriteCoin>() {
+    override val layoutId: Int get() = R.layout.fav_coin_layout
+
+    private var onItemClicked: ((FavouriteCoin) -> Unit)? = null
 
     override fun bind(binding: FavCoinLayoutBinding, item: FavouriteCoin) {
         binding.apply {
             favCoin=item
-            binding.executePendingBindings()
+            executePendingBindings()
 
-            binding.cardV.setOnClickListener { onItemClicked(item) }
+            root.setOnClickListener { onItemClicked?.invoke(item) }
         }
+    }
+
+    fun setOnClickListener(onItemClicked: (FavouriteCoin) -> Unit) {
+        this.onItemClicked = onItemClicked
     }
 
 

@@ -14,6 +14,8 @@ import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -25,24 +27,28 @@ class MainViewModel @Inject constructor(
     private val coinDAO: CoinDAO,
     private val storageRepository: StorageRepositoryImpl
 ):ViewModel(){
-    val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
-    val userInfo = MutableLiveData<Resource<Uri>>()
-    val logOut = MutableLiveData<UiState<FirebaseAuthResources<Unit>>>()
+    private val _filteredCoins = MutableStateFlow<ArrayList<Entity>>(arrayListOf()) // Filtrelenmiş sonuçlar
+    val filteredCoins = _filteredCoins.asStateFlow()
+
+    private val _userInfo = MutableStateFlow<UiState<Uri>>(UiState.Loading)
+    val userInfo = _userInfo.asStateFlow()
+
+    private val _logOut = MutableStateFlow<UiState<FirebaseAuthResources<Unit>>>(UiState.Loading)
+    val logOut = _logOut.asStateFlow()
+
     val currentUser: FirebaseUser?
         get() = authUseCase.currentUser
 
     fun logOut() = viewModelScope.launch{
-        println("mainviewmodel")
         authUseCase.logout()
             .onStart {
-                logOut.value=UiState.Loading
-
+                _logOut.emit(UiState.Loading)
             }
             .catch {
-                logOut.value=UiState.Error(it)
+                _logOut.emit(UiState.Error(it))
             }
             .collect{
-                logOut.value=it
+                _logOut.emit(it)
             }
     }
 
@@ -51,22 +57,21 @@ class MainViewModel @Inject constructor(
         if(authUseCase.currentUser!=null){
             storageRepository.getPhoto(currentUser?.uid!!)
                 .onStart {
-                    userInfo.value= Resource.loading
+                    _userInfo.emit(UiState.Loading)
                 }
                 .catch {
-                    userInfo.value=Resource.Failure(it)
+                    _userInfo.emit(UiState.Error(it))
                 }
                 .collect{
-                    userInfo.value=Resource.Success(it)
+                    _userInfo.emit(UiState.Success(it))
                 }
         }
 
     }
 
     fun getDataFromDatabase(query:String) =  viewModelScope.launch {
-
         val aList = ArrayList<Entity>(coinDAO.getCoin(query))
-        filteredCoins.value=aList
+        _filteredCoins.emit(aList)
     }
 
 }

@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bmprj.cointicker.model.CoinMarketItem
 
 abstract class BaseAdapter<DB:ViewDataBinding,T:Any>(
-    private val onItemClicked: (T) -> Unit,
-    open var list:ArrayList<T>)
-    :RecyclerView.Adapter<BaseViewHolder<DB>>(){
+    open var list:ArrayList<T> = arrayListOf()
+) :RecyclerView.Adapter<BaseViewHolder<DB>>(){
 
     @get:LayoutRes
     abstract val layoutId:Int
@@ -34,7 +33,6 @@ abstract class BaseAdapter<DB:ViewDataBinding,T:Any>(
 
     override fun onBindViewHolder(holder: BaseViewHolder<DB>, position: Int) {
         bind(holder.binder,list[position])
-        holder.itemView.setOnClickListener{onItemClicked(list[position])}
     }
 
     fun updateList(newList:List<T>){
