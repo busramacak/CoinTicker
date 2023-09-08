@@ -5,18 +5,22 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.domain.coins.CoinDetailEntity
 import com.bmprj.cointicker.domain.coins.asCoinDetail
+import com.bmprj.cointicker.ui.coin.CoinListFragmentDirections
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.UiState
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.utils.setArrow
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -50,7 +54,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         }
 
         isFav=!isFav
-        viewModel.isFavourite.value = Resource.Success(isFav)
+        viewModel._isFavourite.value=UiState.Success(isFav)
     }
 
     private fun initBackPress(view:View){
@@ -63,79 +67,75 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
     private fun initLiveDataObservers(){
 
-        viewModel.isFavourite.observe(viewLifecycleOwner){isFavourite->
-                when(isFavourite){
-                    is Resource.loading ->{
+        lifecycleScope.launch {
+            viewModel._isFavourite.observe(viewLifecycleOwner){
+                when(it){
+                    is UiState.Error -> {
+
+                        //TODO fail dialog eklenecek
+                        binding.favprogress.visibility=View.GONE
+                        isFav=false
+                        binding.imageView2.setImageResource(R.drawable.empty_fav)
+                    }
+                    UiState.Loading -> {
                         binding.favprogress.visibility=View.VISIBLE
                     }
-                    is Resource.Success ->{
-                        isFav = isFavourite.result
-                        if(isFavourite.result){
+                    is UiState.Success -> {
+                        isFav = it.result
+                        if(it.result){
                             binding.imageView2.setImageResource(R.drawable.fav)
                         }else{
                             binding.imageView2.setImageResource(R.drawable.empty_fav)
                         }
                         binding.favprogress.visibility=View.GONE
-
-                    }
-                    is Resource.Failure ->{
-                        //TODO fail dialog eklenecek
-                        binding.favprogress.visibility=View.GONE
-                        isFav=false
-                        binding.imageView2.setImageResource(R.drawable.empty_fav)
-
-                    }
-                }
-
-        }
-
-        viewModel.favouriteDelete.observe(viewLifecycleOwner){favDelete->
-            favDelete?.let {
-                when(favDelete){
-                    is Resource.loading ->{
-                        binding.favprogress.visibility=View.VISIBLE
-                    }
-                    is Resource.Success ->{
-                        binding.favprogress.visibility=View.GONE
-                        Toast.makeText(context,getString(R.string.delFavSuccess),Toast.LENGTH_SHORT).show()
-                    }
-                    is Resource.Failure ->{
-                        binding.favprogress.visibility=View.GONE
-                        Toast.makeText(context,getString(R.string.delFavFail),Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         }
 
-        viewModel.favouriteAdd.observe(viewLifecycleOwner){favouriteAdd->
-            favouriteAdd?.let {
-                when(favouriteAdd){
-                    is Resource.loading ->{
-                        binding.favprogress.visibility=View.VISIBLE
-                    }
-                    is Resource.Success ->{
-                        binding.favprogress.visibility=View.GONE
-                        Toast.makeText(context,getString(R.string.addFavSuccess),Toast.LENGTH_SHORT).show()
-                    }
-                    is Resource.Failure ->{
-                        binding.favprogress.visibility=View.GONE
-                        Toast.makeText(context,getString(R.string.addFavFail),Toast.LENGTH_SHORT).show()
-                    }
+        lifecycleScope.launch{
+            viewModel.favouriteDelete.handleState(
+                onLoading = {
+                    binding.favprogress.visibility=View.VISIBLE
+                },
+                onSucces = {
+                    binding.favprogress.visibility=View.GONE
+                    Toast.makeText(context,getString(R.string.delFavSuccess),Toast.LENGTH_SHORT).show()
+                },
+                onError = {
+                    binding.favprogress.visibility=View.GONE
+                    Toast.makeText(context,getString(R.string.delFavFail),Toast.LENGTH_SHORT).show()
                 }
-            }
+            )
         }
-        viewModel.coinDetail.observe(viewLifecycleOwner){ coinDetail->
-            when(coinDetail) {
-                is UiState.Loading ->{
+
+        lifecycleScope.launch {
+            viewModel.favouriteAdd.handleState(
+                onLoading = {
+                    binding.favprogress.visibility=View.VISIBLE
+                },
+                onSucces = {
+                    binding.favprogress.visibility=View.GONE
+                    Toast.makeText(context,getString(R.string.addFavSuccess),Toast.LENGTH_SHORT).show()
+                },
+                onError = {
+                    binding.favprogress.visibility=View.GONE
+                    Toast.makeText(context,getString(R.string.addFavFail),Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
+
+        lifecycleScope.launch {
+            viewModel.coinDetail.handleState(
+                onLoading = {
                     binding.progress.visibility=View.VISIBLE
-
-                }
-                is UiState.Success ->{
-                    coindetail=coinDetail.result
-                    binding.coinName.text=coinDetail.result.name
-                    binding.coinsymbol.text=coinDetail.result.symbol
-                    binding.imageView.loadFromUrl(coinDetail.result.image.large)
-                    val date = coinDetail.result.lastUpdated
+                },
+                onSucces = {
+                    coindetail=it
+                    binding.coinName.text=it.name
+                    binding.coinsymbol.text=it.symbol
+                    binding.imageView.loadFromUrl(it.image.large)
+                    val date = it.lastUpdated
 
                     val inFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                     val dat: Date = inFormat.parse(date) as Date
@@ -154,13 +154,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                     val second: String = outFormatSecond.format(dat)
 
                     binding.lastUpdate.text=getString(R.string.lastupdate,goal,month,dy,hour,minute,second)
-                    binding.priceChange24h.text=getString(R.string.priceChange24hText,coinDetail.result.marketData.currentPrice.usd.toString())
-                    binding.arrow.setArrow(coinDetail.result.marketData.priceChangePercentage24h)
-                    binding.precentage24hText.text= getString(R.string.precentage24hText,coinDetail.result.marketData.priceChangePercentage24h.toFloat())
-                    binding.lowest.text=getString(R.string.h24h,coinDetail.result.marketData.low24h.usd.toString())
-                    binding.highest.text=getString(R.string.h24h,coinDetail.result.marketData.high24h.usd.toString())
+                    binding.priceChange24h.text=getString(R.string.priceChange24hText,it.marketData.currentPrice.usd.toString())
+                    binding.arrow.setArrow(it.marketData.priceChangePercentage24h)
+                    binding.precentage24hText.text= getString(R.string.precentage24hText,it.marketData.priceChangePercentage24h.toFloat())
+                    binding.lowest.text=getString(R.string.h24h,it.marketData.low24h.usd.toString())
+                    binding.highest.text=getString(R.string.h24h,it.marketData.high24h.usd.toString())
 
-                    val data = coinDetail.result.description.en
+                    val data = it.description.en
                     val hrefPattern = """<a href="([^"]*)">([^<]*)</a>""".toRegex()
                     val matcher = hrefPattern.findAll(data)
                     val duzeltilmisVeri = StringBuilder()
@@ -176,15 +176,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
 
                     binding.description.text=duzeltilmisVeri.toString()
                     binding.progress.visibility=View.GONE
-
-                }
-
-                is UiState.Error->{
+                },
+                onError = {
                     binding.progress.visibility=View.GONE
-//                    coinDetail.error.message
+                    Toast.makeText(requireContext(),it.message.toString(),Toast.LENGTH_SHORT).show()
                     //TODO fail dialog eklenecek
                 }
-            }
+            )
         }
     }
 }

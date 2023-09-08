@@ -49,6 +49,7 @@ class MainViewModel @Inject constructor(
             }
             .collect{
                 _logOut.emit(it)
+                _userInfo.emit(UiState.Error(Throwable("gg")))
             }
     }
 

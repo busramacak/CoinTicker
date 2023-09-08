@@ -10,6 +10,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
@@ -19,6 +20,7 @@ import com.bmprj.cointicker.utils.loadFromUrl
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -141,21 +143,36 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     }
 
     private fun initLiveDataObservers(){
-        viewModel.query.observe(viewLifecycleOwner){resource->
-            when(resource){
-                is Resource.loading ->{
+
+        lifecycleScope.launch {
+            viewModel.query.handleState(
+                onLoading = {
                     binding.progress.visibility=View.VISIBLE
-                }
-                is Resource.Success -> {
-                    binding.shapeableImageView.loadFromUrl(resource.result.toString())
+                },
+                onSucces = {
+                    binding.shapeableImageView.loadFromUrl(it.toString())
                     binding.progress.visibility=View.GONE
-                }
-                is Resource.Failure -> {
+                },
+                onError = {
                     binding.progress.visibility=View.GONE
                     Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
                 }
-            }
+            )
         }
+
+//        lifecycleScope.launch {
+//            viewModel.isSuccess.handleState(
+//                onLoading = {
+//
+//                },
+//                onError = {
+//
+//                },
+//                onSucces = {
+//
+//                }
+//            )
+//        }
     }
 
     private fun selectImage(){

@@ -3,23 +3,22 @@ package com.bmprj.cointicker.ui.coin
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
-import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.databinding.FragmentCoinListBinding
 import com.bmprj.cointicker.domain.coin.asList
 import com.bmprj.cointicker.model.CoinMarketItem
-import com.bmprj.cointicker.utils.UiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
 
     private val adapter by lazy { CoinListAdapter() }
-    private val adapter1  by lazy { SearchListAdapter() }
     private val viewModel by viewModels<CoinListViewModel>()
 
 
@@ -38,39 +37,29 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
 
     private fun initLiveDataObservers(){
-        viewModel.coins.observe(viewLifecycleOwner){coinItem->
 
-            when(coinItem) {
-                is UiState.Loading ->{
+        lifecycleScope.launch {
+            viewModel.coins.handleState (
+                onLoading = {
                     binding.progress.visibility=View.VISIBLE
-
-                }
-                is UiState.Success ->{
+                },
+                onSucces = {
                     binding.progress.visibility=View.GONE
-                    adapter.updateList(coinItem.result.asList())
+                    adapter.updateList(it.asList())
                     viewModel.insertCoins(ArrayList<CoinMarketItem>().apply {
-                       addAll(coinItem.result.asList())
+                        addAll(it.asList())
                     })
-
-
-                }
-                is UiState.Error ->{
+                },
+                onError = {
                     binding.progress.visibility=View.GONE
                     Toast.makeText(requireContext(),getString(R.string.failmsg9),Toast.LENGTH_SHORT).show()
-
                 }
-
-            }
-        }
-        viewModel.filteredCoins.observe(viewLifecycleOwner){entity->
-            entity?.let {
-                adapter1.updateList(entity)
-            }
+            )
         }
     }
 
     private fun onCoinItemClicked(item: CoinMarketItem) {
-        val gecis = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id)
-        Navigation.findNavController(requireView()).navigate(gecis)
+        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id)
+        Navigation.findNavController(requireView()).navigate(transition)
     }
 }

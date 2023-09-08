@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepositoryImpl
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
 import com.bmprj.cointicker.utils.Resource
+import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
@@ -21,9 +24,11 @@ class SettingsViewModel @Inject constructor(
 ): ViewModel() {
 
 
-    val query  = MutableLiveData<Resource<Uri>>()
+    private val _query  = MutableStateFlow<UiState<Uri>>(UiState.Loading)
+    val query = _query.asStateFlow()
 
-    val isSuccess = MutableLiveData<Resource<Boolean>>()
+    private val _isSuccess = MutableStateFlow<UiState<Boolean>>(UiState.Loading)
+    val isSuccess=_isSuccess.asStateFlow()
     val currentUser :FirebaseUser ?
         get() = authUseCase.currentUser
 
@@ -31,50 +36,50 @@ class SettingsViewModel @Inject constructor(
     fun getPhoto() = viewModelScope.launch{
         storageRepository.getPhoto(currentUser?.uid!!)
             .onStart {
-                query.value= Resource.loading
+                _query.emit(UiState.Loading)
             }
             .catch {
-                query.value=Resource.Failure(it)
+                _query.emit(UiState.Error(it))
             }
             .collect{
-                query.value=Resource.Success(it)
+                _query.emit(UiState.Success(it))
             }
     }
 
     fun changePhoto(uri: Uri?) = viewModelScope.launch{
         authUseCase.changePhoto(uri)
             .onStart {
-                Resource.loading
+                UiState.Loading
             }
             .catch {
-                Resource.Failure(it)
+                UiState.Error(it)
             }
             .collect{
-                Resource.Success(it)
+                UiState.Success(it)
             }
 
         storageRepository.changePhoto(currentUser?.uid!!,uri!!)
             .onStart {
-                isSuccess.value=Resource.loading
+                _isSuccess.emit(UiState.Loading)
             }
             .catch {
-                isSuccess.value= Resource.Failure(it)
+                _isSuccess.emit(UiState.Error(it))
             }
             .collect{
-                isSuccess.value= Resource.Success(it)
+                _isSuccess.emit(UiState.Success(it))
             }
     }
 
     fun changeUserName(name : String) = viewModelScope.launch {
         authUseCase.changeProfileName(name)
             .onStart {
-                Resource.loading
+                UiState.Loading
             }
             .catch {
-                Resource.Failure(it)
+                UiState.Error(it)
             }
             .collect{
-                Resource.Success(it)
+                UiState.Success(it)
             }
     }
 
@@ -82,13 +87,13 @@ class SettingsViewModel @Inject constructor(
 
         authUseCase.changePassword(next)
             .onStart {
-                Resource.loading
+                UiState.Loading
             }
             .catch {
-                Resource.Failure(it)
+                UiState.Error(it)
             }
             .collect{
-                Resource.Success(it)
+                UiState.Success(it)
             }
     }
 

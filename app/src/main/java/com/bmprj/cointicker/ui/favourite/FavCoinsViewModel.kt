@@ -7,7 +7,10 @@ import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.FavouriteCoin
+import com.bmprj.cointicker.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -19,7 +22,9 @@ class FavCoinsViewModel @Inject constructor(
     private val authRepository: AuthRepository,
     private val cloudRepository : CloudRepository
 ):ViewModel() {
-    val favCoins  = MutableLiveData<Resource<List<FavouriteCoin>>>()
+
+    private val _favCoins  = MutableStateFlow<UiState<List<FavouriteCoin>>>(UiState.Loading)
+    val favCoins = _favCoins.asStateFlow()
 
     val currentUser = authRepository.currentUser?.uid!!
 
@@ -27,13 +32,13 @@ class FavCoinsViewModel @Inject constructor(
     fun getFavCoins() = viewModelScope.launch {
         cloudRepository.getAllFavourites(currentUser)
             .onStart {
-                favCoins.value=Resource.loading
+                _favCoins.emit(UiState.Loading)
             }
             .catch {
-                favCoins.value=Resource.Failure(it)
+                _favCoins.emit(UiState.Error(it))
             }
             .collect{
-                favCoins.value=Resource.Success(it)
+                _favCoins.emit(UiState.Success(it))
             }
     }
 }

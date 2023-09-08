@@ -3,6 +3,7 @@ package com.bmprj.cointicker.ui.favourite
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.R
@@ -11,6 +12,7 @@ import com.bmprj.cointicker.databinding.FragmentFavCoinsBinding
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.FavouriteCoin
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -33,21 +35,22 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
     }
 
     private fun initLiveDataObservers(){
-        viewModel.favCoins.observe(viewLifecycleOwner){resource->
-            when(resource){
-                is Resource.loading ->{
+
+        lifecycleScope.launch {
+            viewModel.favCoins.handleState(
+                onLoading = {
                     binding.progress.visibility=View.VISIBLE
-                }
-                is Resource.Success ->{
+                },
+                onSucces = {
                     binding.progress.visibility=View.GONE
-                    adapter.updateList(ArrayList(resource.result))
-                }
-                is Resource.Failure ->{
+                    adapter.updateList(ArrayList(it))
+                },
+                onError = {
                     binding.progress.visibility=View.GONE
                     //TODO fail dialog eklenecek
-                    Log.e("exception",resource.exception.message!!)
+                    Log.e("exception",it.message!!)
                 }
-            }
+            )
         }
     }
     private fun onCoinItemClicked(item: FavouriteCoin) {

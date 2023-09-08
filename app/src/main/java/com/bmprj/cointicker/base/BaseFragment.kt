@@ -8,8 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.lifecycleScope
+import com.bmprj.cointicker.utils.UiState
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
 
 abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment() {
+
 
     protected lateinit var binding:DB
 
@@ -29,5 +36,35 @@ abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragmen
         initView(view)
     }
 
-    abstract fun initView(view:View)
+    abstract fun initView(view:View):Unit
+
+    fun <T> StateFlow<UiState<T>>.handleState(
+        onLoading: (() -> Unit)? = null,
+        onError: ((Throwable) -> Unit)? = null,
+        onSucces: ((T) -> Unit)? = null
+    ) {
+        lifecycleScope.launch {
+            this@handleState
+                .onStart {
+                    onLoading?.invoke()
+                }
+                .catch {
+                    onError?.invoke(it)
+                }.collect { state ->
+                    when (state) {
+                        is UiState.Loading -> {
+                            onLoading?.invoke()
+                        }
+
+                        is UiState.Success -> {
+                            onSucces?.invoke(state.result)
+                        }
+
+                        is UiState.Error -> {
+                            onError?.invoke(state.error)
+                        }
+                    }
+                }
+        }
+    }
 }

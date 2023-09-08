@@ -13,6 +13,8 @@ import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -25,46 +27,29 @@ class CoinListViewModel @Inject constructor(
     private val coinDAO: CoinDAO
 ) :ViewModel() {
 
-    val coins = MutableLiveData<UiState<CoinEntity>>()
-
-    val filteredCoins = MutableLiveData<ArrayList<Entity>>() // Filtrelenmiş sonuçlar
-
+    private val _coins = MutableStateFlow<UiState<CoinEntity>>(UiState.Loading)
+    val coins = _coins.asStateFlow()
 
     fun getData() =  viewModelScope.launch{
-
         coinsUseCase.getCoins()
             .onStart {
-                coins.value=UiState.Loading
+                _coins.emit(UiState.Loading)
             }
             .catch {
-                coins.value=UiState.Error(it)
+                _coins.emit(UiState.Error(it))
             }
             .collect{
-                coins.value=it
+                _coins.emit(it)
             }
     }
 
     fun insertCoins(list : ArrayList<CoinMarketItem>) =  viewModelScope.launch {
-
         coinDAO.insertAllCoins(marketItemToEntity(list))
     }
 
     private fun marketItemToEntity(marketItemList:ArrayList<CoinMarketItem>):List<Entity>{
         return marketItemList.map {
-            Entity(
-                it.currentPrice,
-                it.id,
-                it.image,
-                it.name,
-                it.symbol)
+            Entity(it.currentPrice, it.id, it.image, it.name, it.symbol)
         }
     }
-
-    fun getDataFromDatabase(query:String) =  viewModelScope.launch {
-
-        val aList = ArrayList<Entity>(coinDAO.getCoin(query))
-        filteredCoins.value=aList
-    }
-
-
 }

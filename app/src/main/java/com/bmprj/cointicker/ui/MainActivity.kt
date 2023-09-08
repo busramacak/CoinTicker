@@ -187,12 +187,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         lifecycleScope.launch {
             viewModel.userInfo.handleState(
+                onLoading = {
+                    photo.setImageResource(R.drawable.progres)
+                },
                 onSucces = {
                     photo.loadFromUrl(it.toString())
                     name.text=viewModel.currentUser?.displayName
                 },
                 onError = {
                     photo.setImageResource(R.drawable.error)
+                    name.text=""
                     Log.e("userInfoError",it.message.toString())
                 }
             )
