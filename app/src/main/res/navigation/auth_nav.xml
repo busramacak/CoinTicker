@@ -58,10 +58,17 @@
         <argument
             android:name="id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_coinDetailFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.bmprj.cointicker.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
-        tools:layout="@layout/fragment_settings"/>
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment" />
+    </fragment>
 </navigation>

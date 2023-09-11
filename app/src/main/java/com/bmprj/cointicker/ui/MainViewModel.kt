@@ -22,57 +22,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
-    private val authUseCase: GetAuthUseCase,
-    private val coinDAO: CoinDAO,
-    private val storageRepository: StorageRepositoryImpl
-):ViewModel(){
-    private val _filteredCoins = MutableStateFlow<ArrayList<Entity>>(arrayListOf()) // Filtrelenmiş sonuçlar
-    val filteredCoins = _filteredCoins.asStateFlow()
+class MainViewModel @Inject constructor():ViewModel(){
 
-    private val _userInfo = MutableStateFlow<UiState<Uri>>(UiState.Loading)
-    val userInfo = _userInfo.asStateFlow()
-
-    private val _logOut = MutableStateFlow<UiState<FirebaseAuthResources<Unit>>>(UiState.Loading)
-    val logOut = _logOut.asStateFlow()
-
-    val currentUser: FirebaseUser?
-        get() = authUseCase.currentUser
-
-    fun logOut() = viewModelScope.launch{
-        authUseCase.logout()
-            .onStart {
-                _logOut.emit(UiState.Loading)
-            }
-            .catch {
-                _logOut.emit(UiState.Error(it))
-            }
-            .collect{
-                _logOut.emit(it)
-                _userInfo.emit(UiState.Error(Throwable("gg")))
-            }
-    }
-
-    fun getUserInfo() = viewModelScope.launch{
-
-        if(authUseCase.currentUser!=null){
-            storageRepository.getPhoto(currentUser?.uid!!)
-                .onStart {
-                    _userInfo.emit(UiState.Loading)
-                }
-                .catch {
-                    _userInfo.emit(UiState.Error(it))
-                }
-                .collect{
-                    _userInfo.emit(UiState.Success(it))
-                }
-        }
-
-    }
-
-    fun getDataFromDatabase(query:String) =  viewModelScope.launch {
-        val aList = ArrayList<Entity>(coinDAO.getCoin(query))
-        _filteredCoins.emit(aList)
-    }
 
 }

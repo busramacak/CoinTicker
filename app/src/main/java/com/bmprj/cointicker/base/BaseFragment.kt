@@ -67,4 +67,5 @@ abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragmen
                 }
         }
     }
+
 }

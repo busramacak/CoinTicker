@@ -43,7 +43,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     }
 
     fun backButton(view: View){
-        Navigation.findNavController(view).navigateUp()
+        Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_coinListFragment)
     }
 
     fun favClick(){

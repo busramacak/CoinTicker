@@ -55,7 +55,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     }
 
     fun backClick(view: View){
-        Navigation.findNavController(view).navigateUp()
+        Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_coinListFragment)
     }
     fun setPhotoClick(){
         selectImage()
