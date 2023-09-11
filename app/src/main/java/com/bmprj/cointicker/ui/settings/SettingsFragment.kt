@@ -160,19 +160,19 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             )
         }
 
-//        lifecycleScope.launch {
-//            viewModel.isSuccess.handleState(
-//                onLoading = {
-//
-//                },
-//                onError = {
-//
-//                },
-//                onSucces = {
-//
-//                }
-//            )
-//        }
+        lifecycleScope.launch {
+            viewModel.isSuccess.handleState(
+                onLoading = {
+
+                },
+                onError = {
+                    Toast.makeText(requireContext(),"Profil fotoğrafı değiştirme işlemi başarısız.",Toast.LENGTH_SHORT).show()
+                },
+                onSucces = {
+                    Toast.makeText(requireContext(),"Profil fotoğrafı başarıyla değiştirildi.",Toast.LENGTH_SHORT).show()
+                }
+            )
+        }
     }
 
     private fun selectImage(){

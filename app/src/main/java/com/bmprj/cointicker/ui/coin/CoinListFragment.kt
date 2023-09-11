@@ -182,10 +182,6 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         Navigation.findNavController(requireView()).navigate(transition)
     }
     private fun onEntityItemClicked(item: Entity) {
-//        hideKeyboard()
-
         Navigation.findNavController(requireView()).navigate(CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id))
-//        binding.searchView.visibility= View.GONE
-//        binding.searchBar.visibility= View.GONE
     }
 }
