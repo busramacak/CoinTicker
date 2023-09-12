@@ -32,6 +32,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private val bundle: CoinDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<CoinDetailViewModel>()
     private val coinId:String by lazy { bundle.id }
+    private val back : String by lazy { bundle.back }
     private var isFav :Boolean=false
 
     override fun initView(view: View) {
@@ -43,8 +44,14 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     }
 
     fun backButton(view: View){
-        Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_coinListFragment)
+        if(back=="fav"){
+            Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_favCoinsFragment)
+        }else{
+            Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_coinListFragment)
+        }
+
     }
+
 
     fun favClick(){
         if(!isFav){
@@ -60,7 +67,11 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
     private fun initBackPress(view:View){
         activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                Navigation.findNavController(view).navigateUp()
+                if(back=="fav"){
+                    Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_favCoinsFragment)
+                }else{
+                    Navigation.findNavController(view).navigate(R.id.action_coinDetailFragment_to_coinListFragment)
+                }
             }
         })
     }

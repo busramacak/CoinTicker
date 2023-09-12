@@ -54,7 +54,7 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
         }
     }
     private fun onCoinItemClicked(item: FavouriteCoin) {
-        val transition = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id)
+        val transition = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id,"fav")
         Navigation.findNavController(requireView()).navigate(transition)
     }
 }

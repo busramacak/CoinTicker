@@ -61,6 +61,12 @@
         <action
             android:id="@+id/action_coinDetailFragment_to_coinListFragment"
             app:destination="@id/coinListFragment" />
+        <argument
+            android:name="back"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_coinDetailFragment_to_favCoinsFragment"
+            app:destination="@id/favCoinsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

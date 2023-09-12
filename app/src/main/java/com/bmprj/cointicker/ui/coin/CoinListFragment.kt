@@ -33,12 +33,11 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     private val viewModel by viewModels<CoinListViewModel>()
 
     private val navigationHeaderView : View by lazy { binding.navigationView.getHeaderView(0) }
-    private val photo : ShapeableImageView by lazy { navigationHeaderView.findViewById(R.id.shapeableImageView) }
+    private val photo : ShapeableImageView by lazy {  navigationHeaderView.findViewById(R.id.shapeableImageView) }
     private val name  : TextView by lazy { navigationHeaderView.findViewById(R.id.drawer_baslik_title) }
 
 
     override fun initView(view: View) {
-        initNavigation()
         initDrawer()
         initSearchView()
         initAdapter()
@@ -58,8 +57,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         )
         binding.drawer.addDrawerListener(toggle)
         toggle.syncState()
-    }
-    private fun initNavigation(){
+
         binding.navigationView.setNavigationItemSelectedListener { item->
 
             when(item.itemId){
@@ -74,6 +72,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             true
         }
     }
+
     private fun initSearchView(){
         binding.searchView.setupWithSearchBar(binding.searchBar)
 
@@ -178,10 +177,10 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     }
 
     private fun onCoinItemClicked(item: CoinMarketItem) {
-        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id)
+        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id,"coins")
         Navigation.findNavController(requireView()).navigate(transition)
     }
     private fun onEntityItemClicked(item: Entity) {
-        Navigation.findNavController(requireView()).navigate(CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id))
+        Navigation.findNavController(requireView()).navigate(CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id,"coins"))
     }
 }
