@@ -1,10 +1,12 @@
 package com.bmprj.cointicker.ui.coin
 
-import android.app.AlertDialog
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.widget.addTextChangedListener
@@ -18,7 +20,9 @@ import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.databinding.FragmentCoinListBinding
 import com.bmprj.cointicker.domain.coin.asList
 import com.bmprj.cointicker.model.CoinMarketItem
+import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.loadFromUrl
+import com.bmprj.cointicker.utils.setUpDialog
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,6 +48,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         initLiveDataObservers()
         viewModel.getUserInfo()
         viewModel.getData()
+        initBackPress()
     }
 
 
@@ -73,6 +78,21 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         }
     }
 
+    private fun initBackPress(){
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawer.closeDrawer(GravityCompat.START)
+                } else{
+                    val homeIntent = Intent(Intent.ACTION_MAIN)
+                    homeIntent.addCategory(Intent.CATEGORY_HOME)
+                    startActivity(homeIntent)
+                }
+            }
+        })
+
+    }
+
     private fun initSearchView(){
         binding.searchView.setupWithSearchBar(binding.searchBar)
 
@@ -81,13 +101,11 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun logOut(){
 
         val viewv = layoutInflater.inflate(R.layout.logout_dialog,null)
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(viewv)
-            .setCancelable(false)
-            .create()
+        val dialog = viewv.setUpDialog(requireContext())
 
         dialog.setOnShowListener {
             val logOutButton = viewv.findViewById<MaterialButton>(R.id.poz)
@@ -95,7 +113,6 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
             logOutButton.setOnClickListener {
                 viewModel.logOut()
-
                 dialog.dismiss()
             }
             cancelButton.setOnClickListener {
@@ -177,10 +194,11 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     }
 
     private fun onCoinItemClicked(item: CoinMarketItem) {
-        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id,"coins")
+        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id,Constants.COLLECTION_COINS)
         Navigation.findNavController(requireView()).navigate(transition)
     }
     private fun onEntityItemClicked(item: Entity) {
-        Navigation.findNavController(requireView()).navigate(CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id,"coins"))
+        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id,Constants.COLLECTION_COINS)
+        Navigation.findNavController(requireView()).navigate(transition)
     }
 }

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentFavCoinsBinding
-import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.model.FavouriteCoin
+import com.bmprj.cointicker.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -54,7 +54,7 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
         }
     }
     private fun onCoinItemClicked(item: FavouriteCoin) {
-        val transition = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id,"fav")
+        val transition = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id,Constants.COLLECTION_FAV)
         Navigation.findNavController(requireView()).navigate(transition)
     }
 }

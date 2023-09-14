@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="redcustom">#AF0202</color>
     <color name="greencustom">#568002</color>
@@ -17,6 +16,5 @@
     <color name="textColor2">#605A7C</color>
     <color name="textColorFlu">#74262529</color>
     <color name="textColorFlu2">#9CFFFFFF</color>
-    <color name="settingTextC">#BFACA9B8</color>
     <color name="settingsIconColor">#AEA6CE</color>
 </resources>

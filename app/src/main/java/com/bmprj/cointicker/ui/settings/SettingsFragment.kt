@@ -1,12 +1,9 @@
 package com.bmprj.cointicker.ui.settings
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
-import android.app.AlertDialog
 import android.content.Intent
-import android.view.Gravity
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -15,14 +12,15 @@ import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentSettingsBinding
-import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.loadFromUrl
+import com.bmprj.cointicker.utils.setUpDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
 
@@ -36,6 +34,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         viewModel.getPhoto()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
@@ -57,24 +56,16 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     fun backClick(view: View){
         Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_coinListFragment)
     }
+
     fun setPhotoClick(){
         selectImage()
     }
 
+    @SuppressLint("InflateParams")
     fun userNameClick(){
 
         val viewv = layoutInflater.inflate(R.layout.settings_dialog,null)
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(viewv)
-            .setCancelable(true)
-            .create()
-
-        val window: Window? = dialog.window
-        val wlp = window?.attributes
-
-        wlp?.gravity = Gravity.BOTTOM
-        wlp?.flags = wlp?.flags?.and(WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv())
-        window?.attributes = wlp
+        val dialog = viewv.setUpDialog(requireContext())
 
         dialog.setOnShowListener {
             val nameSaveButton = viewv.findViewById<MaterialTextView>(R.id.save_button)
@@ -96,20 +87,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         dialog.show()
     }
 
+    @SuppressLint("InflateParams")
     fun passwordClick(){
 
         val viewv = layoutInflater.inflate(R.layout.password_change_dialog,null)
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(viewv)
-            .setCancelable(true)
-            .create()
-
-        val window: Window? = dialog.window
-        val wlp = window?.attributes
-
-        wlp?.gravity = Gravity.BOTTOM
-        wlp?.flags = wlp?.flags?.and(WindowManager.LayoutParams.FLAG_DIM_BEHIND.inv())
-        window?.attributes = wlp
+        val dialog = viewv.setUpDialog(requireContext())
 
         dialog.setOnShowListener {
             val saveButton = viewv.findViewById<MaterialTextView>(R.id.save_button)
@@ -129,6 +111,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
                 dialog.dismiss()
             }
         }
+
         dialog.show()
     }
 
@@ -137,7 +120,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     private fun initBackPress(view: View){
         activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                Navigation.findNavController(view).navigateUp()
+                Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_coinListFragment)
             }
         })
     }

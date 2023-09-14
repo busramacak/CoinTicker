@@ -41,7 +41,6 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override fun logout():Flow<FirebaseAuthResources<Unit>> = flow{
-        println("implll")
         val response = firebaseAuth.signOut()
 
         emit(FirebaseAuthResources.Success(response))

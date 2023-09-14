@@ -2,10 +2,9 @@
 
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
-import android.net.Uri
 import com.bmprj.cointicker.model.FavouriteCoin
+import com.bmprj.cointicker.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -20,9 +19,9 @@ class CloudRepositoryImpl @Inject constructor(
     ): Flow<Boolean> =flow{
 
         val snap = firebaseCloud
-            .collection("coins")
+            .collection(Constants.COLLECTION_COINS)
             .document(userID)
-            .collection("favouriteList")
+            .collection(Constants.COLLECTION_FAVLIST)
             .document(favouriteCoin.id)
             .set(favouriteCoin).isSuccessful
         emit(snap)
@@ -35,9 +34,9 @@ class CloudRepositoryImpl @Inject constructor(
     ): Flow<Boolean> = flow {
 
         val snap = firebaseCloud
-            .collection("coins")
+            .collection(Constants.COLLECTION_COINS)
             .document(userID)
-            .collection("favouriteList")
+            .collection(Constants.COLLECTION_FAVLIST)
             .document(coinId)
             .get().await().exists()
 
@@ -49,9 +48,9 @@ class CloudRepositoryImpl @Inject constructor(
     ):Flow<List<FavouriteCoin>> =flow{
 
         val snap = firebaseCloud
-            .collection("coins")
+            .collection(Constants.COLLECTION_COINS)
             .document(userID)
-            .collection("favouriteList")
+            .collection(Constants.COLLECTION_FAVLIST)
             .get().await().documents.mapNotNull { document ->
             document.toObject(FavouriteCoin::class.java)}
 
@@ -65,9 +64,9 @@ class CloudRepositoryImpl @Inject constructor(
 
         emit(
             firebaseCloud
-            .collection("coins")
+            .collection(Constants.COLLECTION_COINS)
             .document(userID)
-            .collection("favouriteList")
+            .collection(Constants.COLLECTION_FAVLIST)
             .document(coinId).delete().isSuccessful)
     }
 }

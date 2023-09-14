@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.lifecycleScope
 import com.bmprj.cointicker.utils.UiState
 import kotlinx.coroutines.flow.StateFlow
@@ -36,7 +35,7 @@ abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragmen
         initView(view)
     }
 
-    abstract fun initView(view:View):Unit
+    abstract fun initView(view:View)
 
     fun <T> StateFlow<UiState<T>>.handleState(
         onLoading: (() -> Unit)? = null,
@@ -67,5 +66,4 @@ abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragmen
                 }
         }
     }
-
 }

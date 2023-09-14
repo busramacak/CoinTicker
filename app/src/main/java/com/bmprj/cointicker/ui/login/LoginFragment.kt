@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
-import com.bmprj.cointicker.utils.UiState
+import com.bmprj.cointicker.utils.Constants
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
 
@@ -41,7 +42,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
     fun openCoinGecko(){
 
-        val uri = Uri.parse("https://www.coingecko.com/tr/api") // missing 'http://' will cause crashed
+        val uri = Uri.parse(Constants.COINGECKO_URL) // missing 'http://' will cause crashed
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

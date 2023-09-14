@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.CoinDatabase
+import com.bmprj.cointicker.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +22,7 @@ class DbModule {
         return Room.databaseBuilder(
             context.applicationContext,
             CoinDatabase::class.java,
-                "coin")
+                Constants.DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
     }
