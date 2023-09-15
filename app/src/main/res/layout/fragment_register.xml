@@ -25,7 +25,8 @@
             android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/txt"
@@ -34,7 +35,8 @@
             android:src="@drawable/iconnewtxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img" />
+            app:layout_constraintTop_toBottomOf="@+id/img"
+            android:importantForAccessibility="no" />
 
 
 
@@ -153,7 +155,7 @@
             android:layout_marginEnd="70dp"
             android:text="@string/loginTxt"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{(V) -> register.login(V)}"
+            android:onClick="@{() -> register.login()}"
             android:textStyle="bold"
             android:textColor="@color/textColor1"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"

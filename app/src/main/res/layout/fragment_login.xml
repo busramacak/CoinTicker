@@ -24,7 +24,8 @@
             android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/txt"
@@ -33,7 +34,8 @@
             android:src="@drawable/iconnewtxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img" />
+            app:layout_constraintTop_toBottomOf="@+id/img"
+            android:importantForAccessibility="no" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/eMailLayout"
@@ -126,7 +128,7 @@
             android:layout_marginEnd="70dp"
             android:text="@string/signUptxt"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{(V)->login.signUp(V)}"
+            android:onClick="@{()->login.signUp()}"
             android:textStyle="bold"
             android:textColor="@color/textColor1"
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
