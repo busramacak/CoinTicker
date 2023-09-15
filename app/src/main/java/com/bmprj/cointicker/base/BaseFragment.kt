@@ -9,10 +9,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bmprj.cointicker.utils.UiState
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment() {
 
@@ -38,11 +40,12 @@ abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragmen
     abstract fun initView(view:View)
 
     fun <T> StateFlow<UiState<T>>.handleState(
+        coroutineExceptionHandler: CoroutineExceptionHandler?=null,
         onLoading: (() -> Unit)? = null,
         onError: ((Throwable) -> Unit)? = null,
         onSucces: ((T) -> Unit)? = null
     ) {
-        lifecycleScope.launch {
+        lifecycleScope.launch(coroutineExceptionHandler?:EmptyCoroutineContext) {
             this@handleState
                 .onStart {
                     onLoading?.invoke()

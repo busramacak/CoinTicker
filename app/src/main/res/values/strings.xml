@@ -64,6 +64,8 @@
     <string name="failmsg8">İnternet bağlantısı yok veya sunucuya erişilemiyor.</string>
     <string name="failmsg9">Bir hata oluştu. Lütfen daha sonra tekrar deneyin.</string>
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
+    <string name="profileChangeError">Profil fotoğrafı değiştirme işlemi başarısız.</string>
+    <string name="profileChangeSucces">Profil fotoğrafı başarıyla değiştirildi.</string>
     <string name="welcome">Hoşgeldiniz, %1$s</string>
     <string name="settings">Ayarlar</string>
 

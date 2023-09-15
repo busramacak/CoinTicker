@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment_fav_coins) {
 
-    private val adapter by lazy { FavCoinListAdapter() }
+    private val favCoinListAdapter by lazy { FavCoinListAdapter() }
     private val viewModel by viewModels<FavCoinsViewModel>()
     private val findNavController by lazy { findNavController() }
 
@@ -27,25 +27,25 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
     }
 
     private fun initAdapter() {
-        binding.favCoinListRecyclerView.adapter = adapter
-        binding.favCoinListRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-        adapter.setOnClickListener { onCoinItemClicked(it) }
+        with(binding){
+            favCoinListRecyclerView.adapter = favCoinListAdapter
+            favCoinListRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
+        favCoinListAdapter.setOnClickListener { onCoinItemClicked(it) }
     }
 
     private fun initLiveDataObservers() {
 
         viewModel.favCoins.handleState(
             onLoading = {
-                binding.progress.visibility = View.VISIBLE
+                binding.progresBar.visibility = View.VISIBLE
             },
             onSucces = {
-                binding.progress.visibility = View.GONE
-                adapter.updateList(ArrayList(it))
+                binding.progresBar.visibility = View.GONE
+                favCoinListAdapter.updateList(ArrayList(it))
             },
             onError = {
-                binding.progress.visibility = View.GONE
+                binding.progresBar.visibility = View.GONE
                 //TODO fail dialog eklenecek
                 Log.e("exception", it.message!!)
             }

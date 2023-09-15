@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/neg"
+        android:id="@+id/negativeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -36,12 +36,12 @@
         android:backgroundTint="@color/negativeButtonColor"
         android:text="@string/no"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/poz"
+        app:layout_constraintEnd_toStartOf="@+id/pozitiveButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/poz"
+        android:id="@+id/pozitiveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -50,7 +50,7 @@
         android:backgroundTint="@color/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/neg"
+        app:layout_constraintStart_toEndOf="@+id/negativeButton"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 

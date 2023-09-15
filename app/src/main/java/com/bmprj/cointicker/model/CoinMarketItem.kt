@@ -1,11 +1,11 @@
 package com.bmprj.cointicker.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import com.google.gson.annotations.SerializedName
 
 class CoinListResponseModel : ArrayList<CoinMarketItem>()
-@Suppress("DEPRECATED_ANNOTATION")
+
 @Parcelize
 data class CoinMarketItem(
     @SerializedName("current_price")

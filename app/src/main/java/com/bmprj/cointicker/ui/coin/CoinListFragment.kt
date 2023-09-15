@@ -2,10 +2,8 @@ package com.bmprj.cointicker.ui.coin
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -23,6 +21,7 @@ import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.utils.setUpDialog
+import com.bmprj.cointicker.utils.toast
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,13 +31,13 @@ import kotlinx.coroutines.launch
 class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment_coin_list) {
 
 
-    private val adapter by lazy { CoinListAdapter() }
-    private val adapter1 by lazy { SearchListAdapter() }
+    private val coinListAdapter by lazy { CoinListAdapter() }
+    private val searchListAdapter by lazy { SearchListAdapter() }
     private val viewModel by viewModels<CoinListViewModel>()
 
     private val navigationHeaderView: View by lazy { binding.navigationView.getHeaderView(0) }
-    private val photo: ShapeableImageView by lazy { navigationHeaderView.findViewById(R.id.shapeableImageView) }
-    private val name: TextView by lazy { navigationHeaderView.findViewById(R.id.drawer_baslik_title) }
+    private val photo: ShapeableImageView by lazy { navigationHeaderView.findViewById(R.id.drawerImageView) }
+    private val name: TextView by lazy { navigationHeaderView.findViewById(R.id.drawerTitle) }
     private val findNavController by lazy { findNavController() }
 
     override fun initView(view: View) {
@@ -75,7 +74,6 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
                     findNavController.navigate(action)
                 }
             }
-
             binding.drawer.closeDrawer(GravityCompat.START)
 
             true
@@ -83,27 +81,25 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     }
 
     private fun initBackPress() {
-        activity?.onBackPressedDispatcher?.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
-                        binding.drawer.closeDrawer(GravityCompat.START)
-                    } else {
-                        val homeIntent = Intent(Intent.ACTION_MAIN)
-                        homeIntent.addCategory(Intent.CATEGORY_HOME)
-                        startActivity(homeIntent)
-                    }
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+                    binding.drawer.closeDrawer(GravityCompat.START)
+                } else {
+                    val homeIntent = Intent(Intent.ACTION_MAIN)
+                    homeIntent.addCategory(Intent.CATEGORY_HOME)
+                    startActivity(homeIntent)
                 }
-            })
-
+            }
+        })
     }
 
     private fun initSearchView() {
-        binding.searchView.setupWithSearchBar(binding.searchBar)
-
-        binding.searchView.editText.addTextChangedListener {
-            viewModel.getDataFromDatabase(it.toString())
+        with(binding){
+            searchView.setupWithSearchBar(binding.searchBar)
+            searchView.editText.addTextChangedListener {
+                viewModel.getDataFromDatabase(it.toString())
+            }
         }
     }
 
@@ -114,8 +110,8 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         val dialog = viewv.setUpDialog(requireContext())
 
         dialog.setOnShowListener {
-            val logOutButton = viewv.findViewById<MaterialButton>(R.id.poz)
-            val cancelButton = viewv.findViewById<MaterialButton>(R.id.neg)
+            val logOutButton = viewv.findViewById<MaterialButton>(R.id.pozitiveButton)
+            val cancelButton = viewv.findViewById<MaterialButton>(R.id.negativeButton)
 
             logOutButton.setOnClickListener {
                 viewModel.logOut()
@@ -129,40 +125,32 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     }
 
     private fun initAdapter() {
-        binding.coinListRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.coinListRecyclerView.adapter = adapter
-
-        adapter.setOnClickListener { onCoinItemClicked(it) }
-
-        binding.searchRecy.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.searchRecy.adapter = adapter1
-
-        adapter1.setOnClickListener { item ->
-            onEntityItemClicked(item)
+        with(binding){
+            coinListRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            coinListRecyclerView.adapter = coinListAdapter
+            searchRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            searchRecyclerView.adapter = searchListAdapter
         }
+        coinListAdapter.setOnClickListener { onCoinItemClicked(it) }
+        searchListAdapter.setOnClickListener { onEntityItemClicked(it) }
     }
 
 
     private fun initLiveDataObservers() {
-
-
         viewModel.coins.handleState(
             onLoading = {
-                binding.progress.visibility = View.VISIBLE
+                binding.progresBar.visibility = View.VISIBLE
             },
             onSucces = {
-                binding.progress.visibility = View.GONE
-                adapter.updateList(it.asList())
+                binding.progresBar.visibility = View.GONE
+                coinListAdapter.updateList(it.asList())
                 viewModel.insertCoins(ArrayList<CoinMarketItem>().apply {
                     addAll(it.asList())
                 })
             },
             onError = {
-                binding.progress.visibility = View.GONE
-                Toast.makeText(requireContext(), getString(R.string.failmsg9), Toast.LENGTH_SHORT)
-                    .show()
+                binding.progresBar.visibility = View.GONE
+                toast(it.message)
             }
         )
 
@@ -172,8 +160,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
                 findNavController.navigate(action)
             },
             onError = {
-                Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                toast(it.message)
             }
         )
 
@@ -188,13 +175,13 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             onError = {
                 photo.setImageResource(R.drawable.error)
                 name.text = ""
-                Log.e("userInfoError", it.message.toString())
+                toast(it.message)
             }
         )
 
         lifecycleScope.launch {
             viewModel.filteredCoins.collect { entity ->
-                adapter1.updateList(entity)
+                searchListAdapter.updateList(entity)
             }
         }
     }

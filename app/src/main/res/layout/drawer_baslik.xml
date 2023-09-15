@@ -7,18 +7,18 @@
     android:background="@color/settingsbackG">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView"
+        android:id="@+id/drawerImageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
         tools:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toTopOf="@+id/drawer_baslik_title"
+        app:layout_constraintBottom_toTopOf="@+id/drawerTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
     <TextView
-        android:id="@+id/drawer_baslik_title"
+        android:id="@+id/drawerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="loading"
@@ -27,6 +27,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/drawerImageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

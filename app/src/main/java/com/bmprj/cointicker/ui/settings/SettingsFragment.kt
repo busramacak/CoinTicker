@@ -3,9 +3,12 @@ package com.bmprj.cointicker.ui.settings
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
@@ -14,41 +17,26 @@ import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentSettingsBinding
 import com.bmprj.cointicker.utils.loadFromUrl
 import com.bmprj.cointicker.utils.setUpDialog
+import com.bmprj.cointicker.utils.toast
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 
 
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
 
     private val viewModel by viewModels<SettingsViewModel>()
     private val findNavController by lazy { findNavController() }
+    private lateinit var galleryLauncher :ActivityResultLauncher<Intent>
     override fun initView(view: View) {
         binding.settings=this
         initBackPress(view)
         initUserName()
         initLiveDataObservers()
         viewModel.getPhoto()
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
-            if (requestCode == 200) {
-                // Get the url of the image from data
-                val selectedImageUri = data?.data
-                if (null != selectedImageUri) {
-                    // update the preview image in the layout
-                    binding.shapeableImageView.setImageURI(selectedImageUri)
-                    viewModel.changePhoto(selectedImageUri)
-                }
-            }
+        galleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            selectPic(it)
         }
     }
 
@@ -61,9 +49,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         selectImage()
     }
 
-    @SuppressLint("InflateParams")
     fun userNameClick(){
-
         val viewv = layoutInflater.inflate(R.layout.settings_dialog,null)
         val dialog = viewv.setUpDialog(requireContext())
 
@@ -96,22 +82,19 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         dialog.setOnShowListener {
             val saveButton = viewv.findViewById<MaterialTextView>(R.id.save_button)
             val cancelButton = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
-            val newPasswordEditText = viewv.findViewById<TextInputEditText>(R.id.nextPEdt)
-            val newPasswordConfirmEditText = viewv.findViewById<TextInputEditText>(R.id.nextPOEdt)
+            val newPasswordEditText = viewv.findViewById<TextInputEditText>(R.id.nextPasswordEdt)
+            val newPasswordConfirmEditText = viewv.findViewById<TextInputEditText>(R.id.nextPasswordConfirmEdt)
 
             saveButton.setOnClickListener {
                 if(newPasswordEditText.text.toString() == newPasswordConfirmEditText.text.toString()){
                     viewModel.changePassword(newPasswordEditText.text.toString())
                     dialog.dismiss()
-                }else{
-                    Toast.makeText(requireContext(),getString(R.string.notmatch),Toast.LENGTH_SHORT).show()
-                }
+                }else{ toast(R.string.notmatch) }
             }
             cancelButton.setOnClickListener {
                 dialog.dismiss()
             }
         }
-
         dialog.show()
     }
 
@@ -130,34 +113,45 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
 
         viewModel.query.handleState(
             onLoading = {
-                binding.progress.visibility=View.VISIBLE
+                binding.progresBar.visibility=View.VISIBLE
             },
             onSucces = {
-                binding.shapeableImageView.loadFromUrl(it.toString())
-                binding.progress.visibility=View.GONE
+                binding.settingsImageView.loadFromUrl(it.toString())
+                binding.progresBar.visibility=View.GONE
             },
             onError = {
-                binding.progress.visibility=View.GONE
-                Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
+                binding.progresBar.visibility=View.GONE
+                toast(R.string.getPhotoFail)
             }
         )
 
         viewModel.isSuccess.handleState(
             onLoading = {},
             onError = {
-                Toast.makeText(requireContext(),"Profil fotoğrafı değiştirme işlemi başarısız.",Toast.LENGTH_SHORT).show()
+                toast(R.string.profileChangeError)
             },
             onSucces = {
-                Toast.makeText(requireContext(),"Profil fotoğrafı başarıyla değiştirildi.",Toast.LENGTH_SHORT).show()
+                toast(R.string.profileChangeSucces)
             }
         )
     }
 
-    private fun selectImage(){
-        val i = Intent()
-        i.type = "image/*"
-        i.action = Intent.ACTION_GET_CONTENT
+    private fun selectPic(result: ActivityResult){
+        if (result.resultCode == RESULT_OK) {
+            val data: Intent? = result.data
+            if (data != null) {
+                val selectedImageUri: Uri? = data.data
+                if (selectedImageUri != null) {
+                    binding.settingsImageView.setImageURI(selectedImageUri)
+                    viewModel.changePhoto(selectedImageUri)
+                }
+            }
+        }
+    }
 
-        startActivityForResult(Intent.createChooser(i, "Select Picture"), 200)
+    private fun selectImage(){
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        galleryLauncher.launch(intent)
     }
 }

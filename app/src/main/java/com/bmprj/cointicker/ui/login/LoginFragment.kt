@@ -4,13 +4,14 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
 import com.bmprj.cointicker.utils.Constants
+import com.bmprj.cointicker.utils.toast
+import com.bmprj.cointicker.utils.toastLong
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -28,7 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         binding.login=this
         initTextType()
         if(viewModel.firebaseUser!=null) reload()
-        initLiveDataObservers(view)
+        initLiveDataObservers()
     }
 
     fun signUp(){
@@ -46,43 +47,35 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun reload(){
-        Toast.makeText(requireContext(),getString(R.string.welcome,viewModel.firebaseUser?.displayName),Toast.LENGTH_LONG).show()
+        toast(getString(R.string.welcome,viewModel.firebaseUser?.displayName))
         val action = LoginFragmentDirections.actionLoginFragmentToCoinListFragment()
         findNavController.navigate(action)
     }
 
-    private fun initLiveDataObservers(view:View){
+    private fun initLiveDataObservers(){
 
         viewModel.login.handleState(
             onLoading = {
-                binding.progress.visibility=View.VISIBLE
+                binding.progresBar.visibility=View.VISIBLE
             },
             onSucces = {
-                binding.progress.visibility=View.GONE
+                binding.progresBar.visibility=View.GONE
                 reload()
             },
             onError = {
-                binding.progress.visibility=View.GONE
+                binding.progresBar.visibility=View.GONE
                 if(it.message!="gg"){
                     when (it) {
                         is FirebaseAuthInvalidUserException -> {
-                            // Kullanıcı bulunamadı veya etkin değil
-                            Toast.makeText(view.context,getString(R.string.failmsg1),Toast.LENGTH_LONG).show()
+                            toastLong(R.string.failmsg1)
                         }
                         is FirebaseAuthInvalidCredentialsException -> {
-                            // Geçersiz kimlik bilgileri
-                            Toast.makeText(view.context,getString(R.string.failmsg2),Toast.LENGTH_LONG).show()
+                            toastLong(R.string.failmsg2)
                         }
-
                         is FirebaseNetworkException -> {
-                            // İnternet bağlantısı yok veya sunucuya erişilemiyor
-                            Toast.makeText(view.context,getString(R.string.failmsg3),Toast.LENGTH_LONG).show()
+                            toastLong(R.string.failmsg3)
                         }
-
-                        else -> {
-                            // Diğer hatalar
-                            Toast.makeText(view.context,getString(R.string.failmsg4),Toast.LENGTH_LONG).show()
-                        }
+                        else -> { toastLong(it.message) }
                     }
                 }
             }
@@ -90,18 +83,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun initTextType(){
-        if(getString(R.string.locale)=="tr"){
-            binding.materialTextView4.typeface=Typeface.defaultFromStyle(Typeface.BOLD)
-            binding.materialTextView4.setTextColor(resources.getColor(R.color.textColor1))
 
-            binding.materialTextView5.typeface=Typeface.defaultFromStyle(Typeface.NORMAL)
-            binding.materialTextView5.setTextColor(resources.getColor(R.color.textColor2))
-        }else{
-            binding.materialTextView4.typeface=Typeface.defaultFromStyle(Typeface.NORMAL)
-            binding.materialTextView4.setTextColor(resources.getColor(R.color.textColor2))
+        with(binding){
+            if(getString(R.string.locale)=="tr"){
+                materialTextView4.typeface=Typeface.defaultFromStyle(Typeface.BOLD)
+                materialTextView4.setTextColor(resources.getColor(R.color.textColor1))
 
-            binding.materialTextView5.typeface=Typeface.defaultFromStyle(Typeface.BOLD)
-            binding.materialTextView5.setTextColor(resources.getColor(R.color.textColor1))
+                materialTextView5.typeface=Typeface.defaultFromStyle(Typeface.NORMAL)
+                materialTextView5.setTextColor(resources.getColor(R.color.textColor2))
+            }else{
+                materialTextView4.typeface=Typeface.defaultFromStyle(Typeface.NORMAL)
+                materialTextView4.setTextColor(resources.getColor(R.color.textColor2))
+
+                materialTextView5.typeface=Typeface.defaultFromStyle(Typeface.BOLD)
+                materialTextView5.setTextColor(resources.getColor(R.color.textColor1))
+            }
         }
     }
 }

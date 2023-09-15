@@ -10,13 +10,11 @@ class SearchListAdapter(): BaseAdapter<SearchListLayoutBinding, Entity>() {
     private var onItemClicked: ((Entity) -> Unit)? = null
 
     override fun bind(binding: SearchListLayoutBinding, item: Entity) {
-        binding.apply {
+        with(binding) {
             coinList=item
             executePendingBindings()
 
-            root.setOnClickListener{
-                onItemClicked?.invoke(item)
-            }
+            root.setOnClickListener{ onItemClicked?.invoke(item) }
         }
     }
 

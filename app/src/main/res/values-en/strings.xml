@@ -63,6 +63,9 @@
     <string name="failmsg8">No internet connection or unable to access the server.</string>
     <string name="failmsg9">An error occurred. Please try again later.</string>
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
+    <string name="profileChangeError">Failed to change profile photo.</string>
+    <string name="profileChangeSucces">Profile photo changed successfully.</string>
+
 
     <string name="welcome">Welcome, %1$s</string>
     <string name="settings">Settings</string>

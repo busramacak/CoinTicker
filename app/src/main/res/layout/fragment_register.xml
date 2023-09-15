@@ -18,7 +18,7 @@
         tools:context=".ui.register.RegisterFragment">
 
         <ImageView
-            android:id="@+id/img"
+            android:id="@+id/coinImageView"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:src="@drawable/iconnew"
@@ -35,13 +35,13 @@
             android:src="@drawable/iconnewtxt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img"
+            app:layout_constraintTop_toBottomOf="@+id/coinImageView"
             android:importantForAccessibility="no" />
 
 
 
         <ProgressBar
-            android:id="@+id/progress"
+            android:id="@+id/progresBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
@@ -123,7 +123,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
+            android:id="@+id/signupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
@@ -145,7 +145,7 @@
             android:text="@string/alreadyHave"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toStartOf="@+id/login"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/login"
@@ -158,8 +158,8 @@
             android:onClick="@{() -> register.login()}"
             android:textStyle="bold"
             android:textColor="@color/textColor1"
-            app:layout_constraintEnd_toEndOf="@+id/materialButton"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            app:layout_constraintEnd_toEndOf="@+id/signupButton"
+            app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,12 +1,12 @@
 package com.bmprj.cointicker.ui.register
 
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentRegisterBinding
+import com.bmprj.cointicker.utils.toast
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -22,7 +22,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
 
     override fun initView(view: View) {
         binding.register=this
-        initLiveDataObservers(view)
+        initLiveDataObservers()
     }
 
     fun login(){
@@ -34,76 +34,38 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         viewModel.signup(name, email, password)
     }
 
-    private fun initLiveDataObservers(view: View){
+    private fun initLiveDataObservers(){
 
         viewModel.signup.handleState(
             onLoading = {
-                binding.progress.visibility=View.VISIBLE
+                binding.progresBar.visibility=View.VISIBLE
             },
             onError = {
-                binding.progress.visibility=View.GONE
+                binding.progresBar.visibility=View.GONE
                 if(it.message!="gg"){
                     when (it) {
                         is FirebaseAuthWeakPasswordException -> {
-                            // Zayıf bir şifre kullanıldı
-                            Toast.makeText(
-                                view.context,
-                                getString(R.string.failmsg5),
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            toast(R.string.failmsg5)
                         }
-
                         is FirebaseAuthInvalidCredentialsException -> {
-                            // Geçersiz kimlik bilgileri
-                            Toast.makeText(
-                                view.context,
-                                getString(R.string.failmsg6),
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            toast(R.string.failmsg6)
                         }
-
                         is FirebaseAuthUserCollisionException -> {
-                            // Kullanıcı zaten mevcut
-                            Toast.makeText(
-                                view.context,
-                                getString(R.string.failmsg7),
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            toast(R.string.failmsg7)
                         }
-
                         is FirebaseNetworkException -> {
-                            // İnternet bağlantısı yok veya sunucuya erişilemiyor
-                            Toast.makeText(
-                                view.context,
-                                getString(R.string.failmsg8),
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            toast(R.string.failmsg8)
                         }
-
-                        else -> {
-                            // Diğer hatalar
-                            Toast.makeText(
-                                view.context,
-                                getString(R.string.failmsg9),
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                        }
+                        else -> { toast(it.message) }
                     }
                 }
-
             },
             onSucces = {
-                binding.progress.visibility=View.GONE
-                Toast.makeText(view.context,getString(R.string.succesmsg1),Toast.LENGTH_SHORT).show()
+                binding.progresBar.visibility=View.GONE
+                toast(R.string.succesmsg1)
                 val action = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
                 findNavController.navigate(action)
             }
         )
-
     }
 }

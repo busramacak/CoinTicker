@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun initNavigation(){
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
-        NavigationUI.setupWithNavController(binding.bottomNav,navHostFragment.navController)
+        NavigationUI.setupWithNavController(binding.bottomNavigationBar,navHostFragment.navController)
 
         navController=navHostFragment.navController
 
@@ -45,9 +45,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun hideBottomNav(){
-        binding.bottomNav.visibility= View.GONE
+        binding.bottomNavigationBar.visibility= View.GONE
     }
     private fun showBottomNav(){
-        binding.bottomNav.visibility=View.VISIBLE
+        binding.bottomNavigationBar.visibility=View.VISIBLE
     }
 }

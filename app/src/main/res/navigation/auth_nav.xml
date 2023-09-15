@@ -54,18 +54,18 @@
         android:name="com.bmprj.cointicker.ui.detail.CoinDetailFragment"
         android:label="fragment_coin_detail"
         tools:layout="@layout/fragment_coin_detail" >
-        <argument
-            android:name="id"
-            app:argType="string" />
         <action
             android:id="@+id/action_coinDetailFragment_to_coinListFragment"
             app:destination="@id/coinListFragment" />
-        <argument
-            android:name="back"
-            app:argType="string" />
         <action
             android:id="@+id/action_coinDetailFragment_to_favCoinsFragment"
             app:destination="@id/favCoinsFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="back"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

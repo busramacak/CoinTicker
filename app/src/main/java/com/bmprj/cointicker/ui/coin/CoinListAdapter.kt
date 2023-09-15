@@ -2,7 +2,6 @@ package com.bmprj.cointicker.ui.coin
 
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseAdapter
-import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.databinding.CoinListLayoutBinding
 import com.bmprj.cointicker.model.CoinMarketItem
 
@@ -12,14 +11,11 @@ class CoinListAdapter():BaseAdapter<CoinListLayoutBinding, CoinMarketItem>() {
     private var onItemClicked: ((CoinMarketItem) -> Unit)? = null
 
     override fun bind(binding: CoinListLayoutBinding, item: CoinMarketItem) {
-        binding.apply {
+        with(binding){
             coinList=item
             executePendingBindings()
 
-            root.setOnClickListener {
-                onItemClicked?.invoke(item)
-            }
-
+            root.setOnClickListener { onItemClicked?.invoke(item) }
         }
     }
 

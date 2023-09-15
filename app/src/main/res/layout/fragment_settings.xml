@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/back"
+                android:id="@+id/backButton"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
 
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/shapeableImageView"
+                android:id="@+id/settingsImageView"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="70dp"
@@ -60,8 +60,8 @@
                 android:onClick="@{()->settings.setPhotoClick()}"
                 android:background="?android:attr/selectableItemBackground"
                 android:src="@drawable/settings"
-                app:layout_constraintBottom_toBottomOf="@id/shapeableImageView"
-                app:layout_constraintEnd_toEndOf="@id/shapeableImageView"
+                app:layout_constraintBottom_toBottomOf="@id/settingsImageView"
+                app:layout_constraintEnd_toEndOf="@id/settingsImageView"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize10Percent" />
 
 
@@ -73,10 +73,10 @@
             android:layout_marginTop="40dp"
             android:src="@drawable/person"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/settingsImageView" />
 
         <ProgressBar
-            android:id="@+id/progress"
+            android:id="@+id/progresBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -99,7 +99,7 @@
             android:paddingTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@+id/shapeableImageView">
+            app:layout_constraintTop_toBottomOf="@+id/settingsImageView">
 
 
             <com.google.android.material.textview.MaterialTextView
