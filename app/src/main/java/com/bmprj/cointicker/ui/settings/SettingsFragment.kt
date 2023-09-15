@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentSettingsBinding
@@ -17,7 +17,6 @@ import com.bmprj.cointicker.utils.setUpDialog
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 
 @Suppress("DEPRECATION")
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment_settings) {
 
     private val viewModel by viewModels<SettingsViewModel>()
-
+    private val findNavController by lazy { findNavController() }
     override fun initView(view: View) {
         binding.settings=this
         initBackPress(view)
@@ -53,8 +52,9 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         }
     }
 
-    fun backClick(view: View){
-        Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_coinListFragment)
+    fun backClick(){
+        val action = SettingsFragmentDirections.actionSettingsFragmentToCoinListFragment()
+        findNavController.navigate(action)
     }
 
     fun setPhotoClick(){
@@ -72,7 +72,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             val nameCancelButton = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
             val editText = viewv.findViewById<TextInputEditText>(R.id.nameEdt)
 
-            editText.text?.replace(0, editText.text?.length ?: 0, viewModel.currentUser?.displayName)
+            editText.text?.replace(0, editText.text?.length ?: 0, viewModel.firebaseUser?.displayName)
 
             nameSaveButton.setOnClickListener {
                 val newName = editText.text.toString()
@@ -115,47 +115,42 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
         dialog.show()
     }
 
-    private fun initUserName(){ binding.name.text=viewModel.currentUser?.displayName }
+    private fun initUserName(){ binding.name.text=viewModel.firebaseUser?.displayName }
 
     private fun initBackPress(view: View){
         activity?.onBackPressedDispatcher?.addCallback(this,object : OnBackPressedCallback(true){
             override fun handleOnBackPressed() {
-                Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_coinListFragment)
+                val action = SettingsFragmentDirections.actionSettingsFragmentToCoinListFragment()
+                Navigation.findNavController(view).navigate(action)
             }
         })
     }
 
     private fun initLiveDataObservers(){
 
-        lifecycleScope.launch {
-            viewModel.query.handleState(
-                onLoading = {
-                    binding.progress.visibility=View.VISIBLE
-                },
-                onSucces = {
-                    binding.shapeableImageView.loadFromUrl(it.toString())
-                    binding.progress.visibility=View.GONE
-                },
-                onError = {
-                    binding.progress.visibility=View.GONE
-                    Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
-                }
-            )
-        }
+        viewModel.query.handleState(
+            onLoading = {
+                binding.progress.visibility=View.VISIBLE
+            },
+            onSucces = {
+                binding.shapeableImageView.loadFromUrl(it.toString())
+                binding.progress.visibility=View.GONE
+            },
+            onError = {
+                binding.progress.visibility=View.GONE
+                Toast.makeText(requireContext(),getString(R.string.getPhotoFail),Toast.LENGTH_SHORT).show()
+            }
+        )
 
-        lifecycleScope.launch {
-            viewModel.isSuccess.handleState(
-                onLoading = {
-
-                },
-                onError = {
-                    Toast.makeText(requireContext(),"Profil fotoğrafı değiştirme işlemi başarısız.",Toast.LENGTH_SHORT).show()
-                },
-                onSucces = {
-                    Toast.makeText(requireContext(),"Profil fotoğrafı başarıyla değiştirildi.",Toast.LENGTH_SHORT).show()
-                }
-            )
-        }
+        viewModel.isSuccess.handleState(
+            onLoading = {},
+            onError = {
+                Toast.makeText(requireContext(),"Profil fotoğrafı değiştirme işlemi başarısız.",Toast.LENGTH_SHORT).show()
+            },
+            onSucces = {
+                Toast.makeText(requireContext(),"Profil fotoğrafı başarıyla değiştirildi.",Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 
     private fun selectImage(){

@@ -1,12 +1,10 @@
 package com.bmprj.cointicker.ui.settings
 
 import android.net.Uri
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepositoryImpl
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
-import com.bmprj.cointicker.utils.Resource
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,12 +13,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import javax.annotation.Nullable
 import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val authUseCase: GetAuthUseCase,
-    private val storageRepository: StorageRepositoryImpl
+    private val storageRepository: StorageRepositoryImpl,
+    @Nullable val firebaseUser: FirebaseUser?
 ): ViewModel() {
 
 
@@ -29,12 +29,11 @@ class SettingsViewModel @Inject constructor(
 
     private val _isSuccess = MutableStateFlow<UiState<Boolean>>(UiState.Loading)
     val isSuccess=_isSuccess.asStateFlow()
-    val currentUser :FirebaseUser ?
-        get() = authUseCase.currentUser
 
 
     fun getPhoto() = viewModelScope.launch{
-        storageRepository.getPhoto(currentUser?.uid!!)
+        if(firebaseUser == null) return@launch
+        storageRepository.getPhoto(firebaseUser.uid)
             .onStart {
                 _query.emit(UiState.Loading)
             }
@@ -47,6 +46,7 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun changePhoto(uri: Uri?) = viewModelScope.launch{
+        if(firebaseUser==null) return@launch
         authUseCase.changePhoto(uri)
             .onStart {
                 UiState.Loading
@@ -58,7 +58,7 @@ class SettingsViewModel @Inject constructor(
                 UiState.Success(it)
             }
 
-        storageRepository.changePhoto(currentUser?.uid!!,uri!!)
+        storageRepository.changePhoto(firebaseUser.uid,uri!!)
             .onStart {
                 _isSuccess.emit(UiState.Loading)
             }
@@ -83,8 +83,7 @@ class SettingsViewModel @Inject constructor(
             }
     }
 
-    fun changePassword( next: String) = viewModelScope.launch {
-
+    fun changePassword(next: String) = viewModelScope.launch {
         authUseCase.changePassword(next)
             .onStart {
                 UiState.Loading
@@ -96,5 +95,4 @@ class SettingsViewModel @Inject constructor(
                 UiState.Success(it)
             }
     }
-
 }

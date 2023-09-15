@@ -1,7 +1,5 @@
 package com.bmprj.cointicker.ui.register
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
@@ -22,7 +20,6 @@ class RegisterViewModel @Inject constructor(
 
     private val _signup = MutableStateFlow<UiState<FirebaseUser>>(UiState.Error(Throwable("gg")))
     val signup = _signup.asStateFlow()
-
 
     fun signup(name: String, email: String, password: String) = viewModelScope.launch {
         authUseCase.signUp(name, email, password)

@@ -19,20 +19,17 @@ object CoinUtilsModule {
 
     @Provides
     @Singleton
-    fun provideCoinUtils(api: CoinApiService,
-                         networkManager: NetworkManager
-    ) : CoinRepository= CoinRepositoryImpl(api,networkManager)
-
+    fun provideCoinUtils(
+        api: CoinApiService, networkManager: NetworkManager,
+    ): CoinRepository = CoinRepositoryImpl(api, networkManager)
 
     @Provides
     @Singleton
     fun provideCoinApiService(): CoinApiService {
-        val BASE_URL =Constants.BASE_URL
+        val BASE_URL = Constants.BASE_URL
 
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
             .create(CoinApiService::class.java)
     }
 

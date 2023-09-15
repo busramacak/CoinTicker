@@ -2,18 +2,16 @@ package com.bmprj.cointicker.data.remote.coin
 
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.model.CoinListResponseModel
-import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.ApiResources
 import com.bmprj.cointicker.utils.NetworkManager
 import com.bmprj.cointicker.utils.handleResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import retrofit2.Response
 import javax.inject.Inject
 
-class CoinRepositoryImpl @Inject constructor (
+class CoinRepositoryImpl @Inject constructor(
     private val api: CoinApiService,
-    private val networkManager: NetworkManager
+    private val networkManager: NetworkManager,
 ) : CoinRepository {
 
     override suspend fun getCoins(): Flow<ApiResources<CoinListResponseModel>> = flow {

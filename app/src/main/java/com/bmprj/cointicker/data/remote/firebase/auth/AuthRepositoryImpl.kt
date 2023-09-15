@@ -5,7 +5,6 @@ import com.bmprj.cointicker.utils.NetworkManager
 import com.bmprj.cointicker.utils.handleAuthResult
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,8 +15,6 @@ class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth:FirebaseAuth,
     private val networkManager: NetworkManager
 ) : AuthRepository {
-    override val currentUser: FirebaseUser?
-        get() = firebaseAuth.currentUser
 
     override suspend fun login(email: String, password: String): Flow<FirebaseAuthResources<AuthResult>> =flow{
         val response=firebaseAuth.signInWithEmailAndPassword(email,password).await()
@@ -44,6 +41,5 @@ class AuthRepositoryImpl @Inject constructor(
         val response = firebaseAuth.signOut()
 
         emit(FirebaseAuthResources.Success(response))
-
     }
 }
