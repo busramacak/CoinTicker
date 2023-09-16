@@ -4,8 +4,6 @@ import com.bmprj.cointicker.data.remote.coin.CoinRepository
 import com.bmprj.cointicker.utils.ApiResources
 import com.bmprj.cointicker.utils.RetrofitError
 import com.bmprj.cointicker.utils.UiState
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
