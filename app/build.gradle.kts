@@ -34,6 +34,9 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("String","BASE_URL","\"https://api.coingecko.com/api/v3/\"")
+            buildConfigField("String","COINGECKO_URL","\"https://www.coingecko.com/tr/api\"")
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -41,9 +44,16 @@ android {
             )
         }
 
+        debug {
+            buildConfigField("String","COINGECKO_URL","\"https://www.coingecko.com/tr/api\"")
+            buildConfigField("String","BASE_URL","\"https://api.coingecko.com/api/v3/\"")
+        }
+
+
         buildFeatures{
             //noinspection DataBindingWithoutKapt
             dataBinding = true
+            buildConfig = true
         }
     }
     compileOptions {

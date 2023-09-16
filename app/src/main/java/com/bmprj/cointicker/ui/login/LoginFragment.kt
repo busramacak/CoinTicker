@@ -6,10 +6,10 @@ import android.net.Uri
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.bmprj.cointicker.BuildConfig
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
-import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.toast
 import com.bmprj.cointicker.utils.toastLong
 import com.google.firebase.FirebaseNetworkException
@@ -41,7 +41,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         viewModel.login(email, password)
     }
     fun openCoinGecko(){
-        val uri = Uri.parse(Constants.COINGECKO_URL) // missing 'http://' will cause crashed
+        val uri = Uri.parse(BuildConfig.COINGECKO_URL) // missing 'http://' will cause crashed
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

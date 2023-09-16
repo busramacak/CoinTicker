@@ -1,9 +1,9 @@
 package com.bmprj.cointicker.di
 
+import com.bmprj.cointicker.BuildConfig
 import com.bmprj.cointicker.data.remote.coin.CoinApiService
 import com.bmprj.cointicker.data.remote.coin.CoinRepository
 import com.bmprj.cointicker.data.remote.coin.CoinRepositoryImpl
-import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.NetworkManager
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,7 @@ object CoinUtilsModule {
     @Provides
     @Singleton
     fun provideCoinApiService(): CoinApiService {
-        val BASE_URL = Constants.BASE_URL
+        val BASE_URL = BuildConfig.BASE_URL
 
         return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
