@@ -1,10 +1,13 @@
 package com.bmprj.cointicker
 
 import android.app.Application
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App : Application() {
-}
+class App : Application()
+
+
+// multidext app -> bir kaç sene öncesine kadar proje dosyalarının (.dex) içindeki metodlar
+// toplamının 64k yı aşamıyordu. hatta projelerden metod silmeleri gerekebiliyormuş.
+// bu da ondan sonra çözüm amaçlı çıkarılmış. birden fazla dex kullanılmasını sağlıyor. android 5 den
+// sonra destek gelmiş ama öncesi için kullanılması gereken kütüphane.

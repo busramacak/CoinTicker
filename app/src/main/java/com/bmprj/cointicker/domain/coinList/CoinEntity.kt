@@ -1,7 +1,7 @@
 package com.bmprj.cointicker.domain.coin
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 
 class CoinEntity : ArrayList<CoinMarketItemEntity>()
