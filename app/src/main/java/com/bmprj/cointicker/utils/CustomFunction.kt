@@ -16,20 +16,20 @@ import java.util.Date
 fun String.setDateTime(context: Context): String{
 
     val inFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-    val dat: Date = inFormat.parse(this) as Date
+    val date: Date = inFormat.parse(this) as Date
     val outFormatDays = SimpleDateFormat("yyyy")
-    val goal: String = outFormatDays.format(dat)
+    val goal: String = outFormatDays.format(date)
     val outFormatMonth = SimpleDateFormat("MM")
-    val month:String = outFormatMonth.format(dat)
+    val month:String = outFormatMonth.format(date)
     val outFormatDay = SimpleDateFormat("dd")
-    val dy : String = outFormatDay.format(dat)
+    val dy : String = outFormatDay.format(date)
 
     val outFormatHour = SimpleDateFormat("HH")
-    val hour: String = outFormatHour.format(dat)
+    val hour: String = outFormatHour.format(date)
     val outFormatMinute = SimpleDateFormat("mm")
-    val minute: String = outFormatMinute.format(dat)
+    val minute: String = outFormatMinute.format(date)
     val outFormatSecond = SimpleDateFormat("ss")
-    val second: String = outFormatSecond.format(dat)
+    val second: String = outFormatSecond.format(date)
 
     val lastDate = context.getString(R.string.lastupdate,goal,month,dy,hour,minute,second)
 

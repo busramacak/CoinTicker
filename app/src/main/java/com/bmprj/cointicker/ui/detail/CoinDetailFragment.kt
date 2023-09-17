@@ -9,8 +9,8 @@ import androidx.navigation.fragment.navArgs
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
-import com.bmprj.cointicker.domain.coins.CoinDetailEntity
-import com.bmprj.cointicker.domain.coins.asCoinDetail
+import com.bmprj.cointicker.domain.coinList.CoinDetailEntity
+import com.bmprj.cointicker.domain.coinList.asCoinDetail
 import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.fixedString
 import com.bmprj.cointicker.utils.loadFromUrl

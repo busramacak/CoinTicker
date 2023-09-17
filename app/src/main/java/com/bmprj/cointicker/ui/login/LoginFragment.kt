@@ -28,7 +28,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun initView(view: View) {
         binding.login=this
         initTextType()
-        if(viewModel.firebaseUser!=null) reload()
+        if(viewModel.user!=null) reload()
         initLiveDataObservers()
     }
 
@@ -47,7 +47,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
     private fun reload(){
-        toast(getString(R.string.welcome,viewModel.firebaseUser?.displayName))
+        if(viewModel.user?.displayName!=null){
+            toast(getString(R.string.welcome,viewModel.user?.displayName))
+        }
         val action = LoginFragmentDirections.actionLoginFragmentToCoinListFragment()
         findNavController.navigate(action)
     }
@@ -64,7 +66,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             },
             onError = {
                 binding.progresBar.visibility=View.GONE
-                if(it.message!="gg"){
+                if(it.message.toString()!="gg"){
                     when (it) {
                         is FirebaseAuthInvalidUserException -> {
                             toastLong(R.string.failmsg1)

@@ -43,6 +43,7 @@
     <string name="newPasswordConfirm">Confirm new password</string>
 
 
+
     <!--    toast-->
 
     <string name="addFavSuccess">Successfully added to favorite</string>
@@ -65,7 +66,7 @@
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
     <string name="profileChangeError">Failed to change profile photo.</string>
     <string name="profileChangeSucces">Profile photo changed successfully.</string>
-
+    <string name="logOutSuccess">Logged out.</string>
 
     <string name="welcome">Welcome, %1$s</string>
     <string name="settings">Settings</string>

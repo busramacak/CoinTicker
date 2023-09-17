@@ -17,12 +17,13 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authUseCase: GetAuthUseCase,
-    @Nullable val firebaseUser: FirebaseUser?
+    @Nullable private val firebaseUser: FirebaseUser?
 ):ViewModel() {
 
     private val _login = MutableStateFlow<UiState<FirebaseUser>>(UiState.Error(Throwable("gg")))
     val login = _login.asStateFlow()
 
+    val user: FirebaseUser? get() = firebaseUser
     fun login(email:String, password:String) = viewModelScope.launch {
 
             authUseCase.login(email,password)

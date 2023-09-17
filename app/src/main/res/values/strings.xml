@@ -66,6 +66,7 @@
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
     <string name="profileChangeError">Profil fotoğrafı değiştirme işlemi başarısız.</string>
     <string name="profileChangeSucces">Profil fotoğrafı başarıyla değiştirildi.</string>
+    <string name="logOutSuccess">Oturum kapatıldı.</string>
     <string name="welcome">Hoşgeldiniz, %1$s</string>
     <string name="settings">Ayarlar</string>
 

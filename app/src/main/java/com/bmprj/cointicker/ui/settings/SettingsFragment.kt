@@ -113,6 +113,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
 
         viewModel.query.handleState(
             onLoading = {
+                binding.settingsImageView.setImageResource(R.drawable.progres)
                 binding.progresBar.visibility=View.VISIBLE
             },
             onSucces = {
@@ -121,6 +122,7 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             },
             onError = {
                 binding.progresBar.visibility=View.GONE
+                binding.settingsImageView.setImageResource(R.drawable.error)
                 toast(R.string.getPhotoFail)
             }
         )

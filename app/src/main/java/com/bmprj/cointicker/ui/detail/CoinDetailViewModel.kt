@@ -3,8 +3,8 @@ package com.bmprj.cointicker.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
-import com.bmprj.cointicker.domain.coins.CoinDetailEntity
-import com.bmprj.cointicker.domain.coins.GetCoinUseCase
+import com.bmprj.cointicker.domain.coinList.CoinDetailEntity
+import com.bmprj.cointicker.domain.coinList.GetCoinUseCase
 import com.bmprj.cointicker.model.CoinDetail
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.bmprj.cointicker.utils.UiState

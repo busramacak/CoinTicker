@@ -12,14 +12,6 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="LauncherFullScreen">   <!-- PARENT ZORUNLU DEĞİL  -->
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:timeZone">5000</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
 
 
 </resources>

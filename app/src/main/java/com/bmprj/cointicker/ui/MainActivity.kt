@@ -1,6 +1,7 @@
 package com.bmprj.cointicker.ui
 
 import android.view.View
+import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -11,6 +12,7 @@ import com.bmprj.cointicker.base.BaseActivity
 import com.bmprj.cointicker.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -34,12 +36,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController=navHostFragment.navController
 
         navHostFragment.navController.addOnDestinationChangedListener{_,nd:NavDestination,_->
-
-            if(nd.id== R.id.registerFragment || nd.id== R.id.loginFragment
-                || nd.id == R.id.settingsFragment || nd.id == R.id.coinDetailFragment){
-                hideBottomNav()
+            if(nd.id==R.id.splashFragment){
+                window.setFlags(
+                    FLAG_FULLSCREEN,
+                    FLAG_FULLSCREEN
+                )
             }else{
+                window.clearFlags(FLAG_FULLSCREEN)
+            }
+            if(nd.id== R.id.coinListFragment || nd.id== R.id.favCoinsFragment){
                 showBottomNav()
+            }else{
+
+                hideBottomNav()
             }
         }
     }

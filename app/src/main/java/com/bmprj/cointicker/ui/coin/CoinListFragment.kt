@@ -156,11 +156,13 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
         viewModel.logOut.handleState(
             onSucces = {
+                toast(R.string.logOutSuccess)
                 val action = CoinListFragmentDirections.actionCoinListFragmentToLoginFragment()
                 findNavController.navigate(action)
             },
             onError = {
                 toast(it.message)
+
             }
         )
 
