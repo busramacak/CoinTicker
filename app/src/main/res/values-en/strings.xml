@@ -70,4 +70,14 @@
 
     <string name="welcome">Welcome, %1$s</string>
     <string name="settings">Settings</string>
+
+    <string name="deleteAccount">Delete account</string>
+    <string name="deleteThisAccount">Delete this account</string>
+    <string name="ifYouDelete">If you delete this account:</string>
+    <string name="ifYouDeleteMsg1">Account will be completely deleted from Coin Ticker.</string>
+    <string name="ifYouDeleteMsg2">Your personal data such as favorites and profile information will be deleted.</string>
+    <string name="insteadText">Log out instead?</string>
+
+    <string name="ifYouDeleteConfirm_e_mail">To delete your account, enter your email address.</string>
+    <string name="ifYouDeleteConfirm_e_mail_txt">this action cannot be undone.</string>
 </resources>

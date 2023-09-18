@@ -2,6 +2,7 @@
 
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
+import android.util.Log
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.bmprj.cointicker.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
@@ -62,11 +63,26 @@ class CloudRepositoryImpl @Inject constructor(
         coinId: String
     ): Flow<Boolean> = flow{
 
-        emit(
-            firebaseCloud
+        emit(firebaseCloud
             .collection(Constants.COLLECTION_COINS)
             .document(userID)
             .collection(Constants.COLLECTION_FAVLIST)
             .document(coinId).delete().isSuccessful)
     }
+
+    override suspend fun deleteUserInfo(userID: String): Flow<Boolean> =flow{
+        println("deleteuserinfo cloudrepoimpl")
+
+        val deleteResult = firebaseCloud.collection(Constants.COLLECTION_COINS).document(userID).delete().await()
+        if(deleteResult!=null){
+            emit(true)
+        }else{
+            emit(false)
+        }
+
+
+
+
+    }
 }
+

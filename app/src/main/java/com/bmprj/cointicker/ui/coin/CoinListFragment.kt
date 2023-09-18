@@ -68,9 +68,12 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
                 R.id.logOut -> {
                     logOut()
                 }
-
                 R.id.settings -> {
                     val action = CoinListFragmentDirections.actionCoinListFragmentToSettingsFragment()
+                    findNavController.navigate(action)
+                }
+                R.id.deleteAccount ->{
+                    val action = CoinListFragmentDirections.actionCoinListFragmentToDeleteAccountFragment()
                     findNavController.navigate(action)
                 }
             }

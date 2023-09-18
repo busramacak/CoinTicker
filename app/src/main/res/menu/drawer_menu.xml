@@ -9,5 +9,8 @@
         android:title="@string/logoutbtn"
         android:icon="@drawable/logout"/>
 
-
+    <item
+        android:id="@+id/deleteAccount"
+        android:title="@string/deleteAccount"
+        android:icon="@drawable/delete"/>
 </menu>

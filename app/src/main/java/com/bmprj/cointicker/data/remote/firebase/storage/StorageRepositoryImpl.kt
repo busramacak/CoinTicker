@@ -24,4 +24,10 @@ class StorageRepositoryImpl @Inject constructor(
 
         emit(ref)
     }
+
+    override suspend fun deletePhoto(userID: String?): Flow<Void?> = flow {
+        if(userID==null) return@flow
+        val ref = storage.reference.child(Constants.STORAGE_PATH).child(userID.jpg).delete().await()
+        emit(ref)
+    }
 }

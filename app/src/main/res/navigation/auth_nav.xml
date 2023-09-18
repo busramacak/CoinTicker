@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_coinListFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_coinListFragment_to_deleteAccountFragment"
+            app:destination="@id/deleteAccountFragment" />
     </fragment>
     <fragment
         android:id="@+id/favCoinsFragment"
@@ -84,5 +87,16 @@
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/deleteAccountFragment"
+        android:name="com.bmprj.cointicker.ui.delete.DeleteAccountFragment"
+        android:label="DeleteAccountFragment" >
+        <action
+            android:id="@+id/action_deleteAccountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_deleteAccountFragment_to_coinListFragment"
+            app:destination="@id/coinListFragment" />
     </fragment>
 </navigation>

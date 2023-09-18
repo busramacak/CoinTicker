@@ -1,6 +1,7 @@
 package com.bmprj.cointicker.data.remote.firebase.auth
 
 import com.bmprj.cointicker.utils.FirebaseAuthResources
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.flow.Flow
 

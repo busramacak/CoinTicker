@@ -17,10 +17,8 @@ import javax.inject.Inject
 
 class GetAuthUseCase @Inject constructor(
     private val authRepository: AuthRepository,
-
     @Nullable private val firebaseUser: FirebaseUser?
 ) {
-
 
     suspend fun login(email:String,password:String): Flow<UiState<FirebaseUser>> =flow{
 
@@ -101,6 +99,9 @@ class GetAuthUseCase @Inject constructor(
            }
     }
 
+    suspend fun delete() = flow{
+        emit(firebaseUser?.delete()?.await())
+    }
 
     suspend fun changeProfileName(name:String) = flow{
         emit(firebaseUser?.updateProfile(userProfileChangeRequest { displayName=name })?.await())

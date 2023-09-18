@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="locale">tr</string>
+    <string name="locale" translatable="false">tr</string>
     <string name="app_name">CoinTicker</string>
     <string name="favScreenTitle">Favoriler</string>
     <string name="coinScreenTitle">Coinler</string>
@@ -69,6 +69,14 @@
     <string name="logOutSuccess">Oturum kapatıldı.</string>
     <string name="welcome">Hoşgeldiniz, %1$s</string>
     <string name="settings">Ayarlar</string>
-
+    
+    <string name="deleteAccount">Hesabı sil</string>
+    <string name="deleteThisAccount">Bu hesabı sil</string>
+    <string name="ifYouDelete">Eğer bu hesabı silmek istiyorsan:</string>
+    <string name="ifYouDeleteMsg1">• Hesap Coin Ticker\'dan tamamen silinecek.</string>
+    <string name="ifYouDeleteMsg2">• Favoriler, profil bilgileri gibi kişisel verileriniz silinecek.</string>
+    <string name="insteadText">Bunun yerine çıkış yapılsın mı ?</string>
+    <string name="ifYouDeleteConfirm_e_mail">Hesabınızı silmek için eposta adresinizi girin.</string>
+    <string name="ifYouDeleteConfirm_e_mail_txt">Bu işlem geri alınamaz.</string>
 
 </resources>

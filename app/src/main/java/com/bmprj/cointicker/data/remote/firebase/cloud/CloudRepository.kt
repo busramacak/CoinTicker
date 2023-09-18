@@ -16,5 +16,7 @@ interface CloudRepository {
 
     suspend fun delete(userID:String,coinId:String): Flow<Boolean>
 
+    suspend fun deleteUserInfo(userID: String):Flow<Boolean>
+
 
 }

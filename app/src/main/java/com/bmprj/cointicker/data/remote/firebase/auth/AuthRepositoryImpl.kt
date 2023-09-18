@@ -3,6 +3,7 @@ package com.bmprj.cointicker.data.remote.firebase.auth
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.NetworkManager
 import com.bmprj.cointicker.utils.handleAuthResult
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
