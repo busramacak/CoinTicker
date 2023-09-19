@@ -78,6 +78,6 @@
     <string name="ifYouDeleteMsg2">Your personal data such as favorites and profile information will be deleted.</string>
     <string name="insteadText">Log out instead?</string>
 
-    <string name="ifYouDeleteConfirm_e_mail">To delete your account, enter your email address.</string>
+    <string name="ifYouDeleteConfirm_e_mail">To delete your account, enter your email address and password.</string>
     <string name="ifYouDeleteConfirm_e_mail_txt">this action cannot be undone.</string>
 </resources>

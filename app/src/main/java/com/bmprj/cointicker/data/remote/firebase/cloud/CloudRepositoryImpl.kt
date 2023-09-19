@@ -1,11 +1,9 @@
-@file:Suppress("Since15")
-
 package com.bmprj.cointicker.data.remote.firebase.cloud
 
-import android.util.Log
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.bmprj.cointicker.utils.Constants
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -71,16 +69,25 @@ class CloudRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteUserInfo(userID: String): Flow<Boolean> =flow{
-        println("deleteuserinfo cloudrepoimpl")
+        val ref = firebaseCloud
+            .collection(Constants.COLLECTION_COINS)
+            .document(userID)
+            .collection(Constants.COLLECTION_FAVLIST)
 
-        val deleteResult = firebaseCloud.collection(Constants.COLLECTION_COINS).document(userID).delete().await()
-        if(deleteResult!=null){
-            emit(true)
-        }else{
-            emit(false)
+        val snaps = ref.get().await()
+
+
+        val deleteTask = snaps.documents.map{document->
+            ref.document(document.id).delete().continueWith{task->
+                task.isSuccessful
+            }
         }
 
+        val results = deleteTask.map { it.await() }
 
+        val hasFailure = results.any { !it }
+
+        emit(!hasFailure)
 
 
     }

@@ -9,5 +9,5 @@ interface StorageRepository {
 
     suspend fun getPhoto(userID: String):Flow<Uri>
 
-    suspend fun deletePhoto(userID: String?):Flow<Void?>
+    suspend fun deletePhoto(userID: String):Flow<Void?>
 }

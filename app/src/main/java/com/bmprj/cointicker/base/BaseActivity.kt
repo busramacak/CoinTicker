@@ -21,7 +21,7 @@ abstract class BaseActivity<VDB:ViewDataBinding>():AppCompatActivity() {
     abstract fun initView():Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.Theme_CoinTicker)
+//        setTheme(R.style.Theme_CoinTicker)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         initView()

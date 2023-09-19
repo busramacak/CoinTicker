@@ -100,7 +100,9 @@ class GetAuthUseCase @Inject constructor(
     }
 
     suspend fun delete() = flow{
-        emit(firebaseUser?.delete()?.await())
+        if(firebaseUser==null)return@flow
+        println(firebaseUser)
+        emit(firebaseUser.delete().await())
     }
 
     suspend fun changeProfileName(name:String) = flow{

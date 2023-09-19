@@ -76,7 +76,7 @@
     <string name="ifYouDeleteMsg1">• Hesap Coin Ticker\'dan tamamen silinecek.</string>
     <string name="ifYouDeleteMsg2">• Favoriler, profil bilgileri gibi kişisel verileriniz silinecek.</string>
     <string name="insteadText">Bunun yerine çıkış yapılsın mı ?</string>
-    <string name="ifYouDeleteConfirm_e_mail">Hesabınızı silmek için eposta adresinizi girin.</string>
+    <string name="ifYouDeleteConfirm_e_mail">Hesabınızı silmek için eposta adresinizi ve şifrenizi girin.</string>
     <string name="ifYouDeleteConfirm_e_mail_txt">Bu işlem geri alınamaz.</string>
 
 </resources>

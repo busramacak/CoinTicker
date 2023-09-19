@@ -24,18 +24,19 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
     }
 
     private fun initLiveDataObservers() {
+
         viewModel.deleteCloud.handleState(
             onLoading = {
                 toast("loading")
             },
             onSucces = {
                 if(it){
-                    println("true")
+                    toast("cloud fav silindi")
+                    viewModel.deleteStorageData()
                 }else{
                     println("false")
                 }
-                toast("cloud fav silindi")
-                //viewModel.deleteStorageData()
+
             },
             onError = {
                 Log.e("eror",it.message.toString())
@@ -43,37 +44,38 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
             }
         )
 
-//        viewModel.deleteStorage.handleState (
-//            onLoading = {
-//                toast("loading")
-//            },
-//            onSucces = {
-//                toast("storage foto silindi")
-////                viewModel.deleteAccount()
-//            },
-//            onError = {
-//                Log.e("eeerrr",it.message.toString())
-//                Log.e("eror",it.localizedMessage)
-//            }
-//        )
-//        viewModel.deleteAccount.handleState(
-//            onLoading = {
-//                toast("loading")
-//            },
-//            onSucces = {
-//                toast("auth silindi")
-//                val action = DeleteAccountFragmentDirections.actionDeleteAccountFragmentToLoginFragment()
-//                findNavController.navigate(action)
-//            },
-//            onError = {
-//                Log.e("eeerrr",it.message.toString())
-//                Log.e("eror",it.localizedMessage)
-//            }
-//        )
+        viewModel.deleteStorage.handleState (
+            onLoading = {
+                toast("loading")
+            },
+            onSucces = {
+                toast("storage foto silindi")
+                viewModel.deleteAccount()
+            },
+            onError = {
+                Log.e("eeerrr",it.message.toString())
+                Log.e("eror",it.localizedMessage)
+            }
+        )
+        viewModel.deleteAccount.handleState(
+            onLoading = {
+                toast("loading")
+            },
+            onSucces = {
+                toast("auth silindi")
+                val action = DeleteAccountFragmentDirections.actionDeleteAccountFragmentToLoginFragment()
+                findNavController.navigate(action)
+            },
+            onError = {
+                Log.e("eeerrrrrrrr",it.message.toString())
+                Log.e("erorrrrrrr",it.localizedMessage)
+            }
+        )
     }
 
-    fun deleteAccount(){
-        viewModel.deleteCloudData()
+    fun deleteAccount(email:String,password:String){
+        viewModel.reEntryUser(email, password)
+//        viewModel.deleteCloudData()
     }
 
     fun back(){
