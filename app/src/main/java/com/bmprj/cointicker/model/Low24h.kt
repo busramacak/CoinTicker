@@ -10,6 +10,5 @@ data class Low24h(
 )
 
 
-
 //value class yaptığımda @JVMInline etiketini istedi. coinDetailFragment
 // açıldığında (bu veriyi orada kullanıyorum) sadece bunu değil bütün o ekrandaki verileri de getirmedi.

@@ -33,4 +33,10 @@ class DbModule {
     fun provideDAO(db: CoinDatabase) : CoinDAO {
         return db.coinDAO()
     }
+    // TODO shared pref için bir yapı yaz ve ihtiyaçlarını karşılasın
+    // TODO runtime da veri tutmak için bir yapı yaz ve ihtiyaçlarını karşılasın
+    // TODO loading için bir tane custom wigdet yaz
+    // TODO (custom xml, custom widget(frame layouttan kalıtım) )
+    // TODO cihazın rootlu olup olmaması
+    // TODO kullanıcı verilerini şifreleyrek firebase de sakla yada shared preds
 }

@@ -12,6 +12,7 @@ import com.bmprj.cointicker.domain.coin.GetCoinsUseCase
 import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.UiState
+import com.bmprj.cointicker.utils.logError
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -62,6 +63,8 @@ class CoinListViewModel @Inject constructor(
 
     fun getUserInfo() = viewModelScope.launch {
 
+        logError("getUserInfo")
+
         if (firebaseUser != null) {
             storageRepository.getPhoto(firebaseUser.uid)
                 .onStart {
@@ -82,7 +85,7 @@ class CoinListViewModel @Inject constructor(
         _filteredCoins.emit(aList)
     }
 
-    fun getData() = viewModelScope.launch {
+    fun getData() = viewModelScope.launch {// TODO add to cache mecahism
         coinsUseCase.getCoins()
             .onStart {
                 _coins.emit(UiState.Loading)

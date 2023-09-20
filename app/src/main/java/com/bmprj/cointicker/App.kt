@@ -4,8 +4,7 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App : Application()
-
+class App : Application() // TODO uygulama crash bir alert göstermek isityorum
 
 // multidext app -> bir kaç sene öncesine kadar proje dosyalarının (.dex) içindeki metodlar
 // toplamının 64k yı aşamıyordu. hatta projelerden metod silmeleri gerekebiliyormuş.

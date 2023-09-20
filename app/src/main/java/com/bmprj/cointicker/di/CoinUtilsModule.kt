@@ -31,6 +31,8 @@ object CoinUtilsModule {
         return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(CoinApiService::class.java)
+
+        // TODO debug modda http isteklerini logda görelim relase de görmeyelim
     }
 
 

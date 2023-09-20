@@ -10,6 +10,7 @@ import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentFavCoinsBinding
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.bmprj.cointicker.utils.Constants
+import com.bmprj.cointicker.utils.logError
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -46,8 +47,7 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
             },
             onError = {
                 binding.progresBar.visibility = View.GONE
-                //TODO fail dialog eklenecek
-                Log.e("exception", it.message!!)
+                logError(it.message)
             }
         )
     }

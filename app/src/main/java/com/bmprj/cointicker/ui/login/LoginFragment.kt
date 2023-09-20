@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.AndroidEntryPoint
 
 
+// TODO base usecase class oluştur
+
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
@@ -41,7 +43,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         viewModel.login(email, password)
     }
     fun openCoinGecko(){
-        val uri = Uri.parse(BuildConfig.COINGECKO_URL) // missing 'http://' will cause crashed
+        val uri = Uri.parse(BuildConfig.COINGECKO_URL)
         val intent = Intent(Intent.ACTION_VIEW, uri)
         startActivity(intent)
     }

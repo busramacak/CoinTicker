@@ -7,5 +7,5 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor():ViewModel(){
 
-
+// TODO base viewmodel kod tekrarını engelleyen fonksiyonşar loglama da barındırsın
 }

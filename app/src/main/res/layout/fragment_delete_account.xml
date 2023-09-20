@@ -210,7 +210,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/white"
-                android:onClick="@{(V)-> delete.deleteAccount(mailEdt.getText().toString(),passwordEdt.getText().toString())}"
                 android:backgroundTint="@color/redcustom"
                 android:layout_marginTop="20dp"
                 android:textSize="16sp"

@@ -18,15 +18,15 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment() {
 
-
-    protected lateinit var binding:DB
+    private lateinit var _binding:DB
+    protected val binding get() = _binding// todo refoctor it dışarıdan değştirilemesin
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding=DataBindingUtil.inflate(inflater,layout,container,false)
+        _binding=DataBindingUtil.inflate(inflater,layout,container,false)
         return binding.root
     }
 

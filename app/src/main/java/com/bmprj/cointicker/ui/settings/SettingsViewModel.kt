@@ -58,7 +58,9 @@ class SettingsViewModel @Inject constructor(
                 UiState.Success(it)
             }
 
-        storageRepository.changePhoto(firebaseUser.uid,uri!!)
+        if(uri==null)return@launch
+
+        storageRepository.changePhoto(firebaseUser.uid,uri)
             .onStart {
                 _isSuccess.emit(UiState.Loading)
             }

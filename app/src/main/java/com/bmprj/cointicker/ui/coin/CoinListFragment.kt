@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.data.db.Entity
+import com.bmprj.cointicker.databinding.FragmentCoinDetailBinding
 import com.bmprj.cointicker.databinding.FragmentCoinListBinding
 import com.bmprj.cointicker.domain.coin.asList
 import com.bmprj.cointicker.model.CoinMarketItem
@@ -32,6 +34,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 
 
     private val coinListAdapter by lazy { CoinListAdapter() }
+
     private val searchListAdapter by lazy { SearchListAdapter() }
     private val viewModel by viewModels<CoinListViewModel>()
 
@@ -41,6 +44,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     private val findNavController by lazy { findNavController() }
 
     override fun initView(view: View) {
+        //binding = FragmentCoinListBinding.bind(requireView())
         initDrawer()
         initSearchView()
         initAdapter()
@@ -192,8 +196,14 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
     }
 
     private fun onCoinItemClicked(item: CoinMarketItem) {
-        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_COINS)
-        findNavController.navigate(transition)
+
+        println(findNavController.get::class.simpleName)/
+        println(this@CoinListFragment::class.simpleName)
+//            val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_COINS)
+//            findNavController.navigate(transition)
+//            findNavController.navigate(transition)  // TODO fix double click case
+
+
     }
 
     private fun onEntityItemClicked(item: Entity) {

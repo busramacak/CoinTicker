@@ -31,7 +31,10 @@ class GetAuthUseCase @Inject constructor(
             .collect{
                 when(it){
                     is FirebaseAuthResources.Success ->{
-                        emit(UiState.Success(it.result.user!!))
+                        it.result.user?.let {user->
+                            emit(UiState.Success(user))
+                        }
+
                     }
                     is FirebaseAuthResources.Failure ->{
                         val uiStateError = when(it.exception){
@@ -65,7 +68,9 @@ class GetAuthUseCase @Inject constructor(
             .collect{
                 when(it){
                     is FirebaseAuthResources.Success ->{
-                        emit(UiState.Success(it.result.user!!))
+                        it.result.user?.let {user->
+                            emit(UiState.Success(user))
+                        }
                     }
                     is FirebaseAuthResources.Failure ->{
                         val uiStateError = when(it.exception){
@@ -99,11 +104,11 @@ class GetAuthUseCase @Inject constructor(
            }
     }
 
-    suspend fun delete() = flow{
-        if(firebaseUser==null)return@flow
-        println(firebaseUser)
-        emit(firebaseUser.delete().await())
-    }
+//    suspend fun delete() = flow{
+//        if(firebaseUser==null)return@flow
+//        println(firebaseUser)
+//        emit(firebaseUser.delete().await())
+//    }
 
     suspend fun changeProfileName(name:String) = flow{
         emit(firebaseUser?.updateProfile(userProfileChangeRequest { displayName=name })?.await())

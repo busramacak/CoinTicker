@@ -29,6 +29,28 @@ private fun <T> handleErrorCode(response: Response<T>): String {
     }
 }
 
+
+//todo i need network control but script like this
+fun <T> handleResponse(
+    isSuccessful: Boolean,
+    response: Response<T>
+) : ApiResources<T>{
+    val body = response.body()
+
+    //success
+    if(response.errorBody() == null && isSuccessful && body!=null){
+        return ApiResources.Success(body)
+    }
+
+    val error = if(isSuccessful && response.errorBody()!=null){ //success & no data
+        RetrofitError.ServerError(response)
+    }else{
+        RetrofitError.UnKnown()
+    }
+
+    return ApiResources.Failure(error)
+}
+
 fun <T> handleResponse(
     isSuccessful: Boolean,
     response: Response<T>,

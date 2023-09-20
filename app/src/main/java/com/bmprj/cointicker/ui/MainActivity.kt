@@ -10,6 +10,7 @@ import androidx.navigation.ui.NavigationUI
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseActivity
 import com.bmprj.cointicker.databinding.ActivityMainBinding
+import com.bmprj.cointicker.utils.logError
 import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
@@ -21,6 +22,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun initView() {
         initNavigation()
+
+        logError("acitivtyerror")
     }
 
 

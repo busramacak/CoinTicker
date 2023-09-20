@@ -25,7 +25,6 @@ abstract class BaseAdapter<DB:ViewDataBinding,T:Any>(
             parent,
             false
         )
-
         return BaseViewHolder(binder)
     }
 
