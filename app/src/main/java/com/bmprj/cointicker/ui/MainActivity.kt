@@ -15,9 +15,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding>() {
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
 
-    override val binding:ActivityMainBinding by lazy { DataBindingUtil.setContentView(this,R.layout.activity_main) }
     private lateinit var navController:NavController
 
     override fun initView() {

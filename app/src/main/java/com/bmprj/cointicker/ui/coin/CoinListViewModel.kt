@@ -1,8 +1,10 @@
 package com.bmprj.cointicker.ui.coin
 
+import android.app.Application
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepository
@@ -12,7 +14,6 @@ import com.bmprj.cointicker.domain.coin.GetCoinsUseCase
 import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.UiState
-import com.bmprj.cointicker.utils.logError
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,12 +26,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
+    application: Application,
     private val coinsUseCase: GetCoinsUseCase,
     private val coinDAO: CoinDAO,
     private val authUseCase: GetAuthUseCase,
     private val storageRepository: StorageRepository,
     @Nullable val firebaseUser: FirebaseUser?
-) : ViewModel() {
+) : BaseViewModel(application) {
 
 
 
@@ -46,65 +48,31 @@ class CoinListViewModel @Inject constructor(
     private val _logOut = MutableStateFlow<UiState<FirebaseAuthResources<Unit>>>(UiState.Loading)
     val logOut = _logOut.asStateFlow()
 
-
-    fun logOut() = viewModelScope.launch {
-        authUseCase.logout()
-            .onStart {
-                _logOut.emit(UiState.Loading)
-            }
-            .catch {
-                _logOut.emit(UiState.Error(it))
-            }
-            .collect {
-                _logOut.emit(it)
-                _userInfo.emit(UiState.Loading)
-            }
+    fun getUserInfo() = launch{
+        if (firebaseUser == null) return@launch
+        storageRepository.getPhoto(firebaseUser.uid).customEmit(_userInfo)
     }
 
-    fun getUserInfo() = viewModelScope.launch {
-
-        logError("getUserInfo")
-
-        if (firebaseUser != null) {
-            storageRepository.getPhoto(firebaseUser.uid)
-                .onStart {
-                    _userInfo.emit(UiState.Loading)
-                }
-                .catch {
-                    _userInfo.emit(UiState.Error(it))
-                }
-                .collect {
-                    _userInfo.emit(UiState.Success(it))
-                }
-        }
-
-    }
-
-    fun getDataFromDatabase(query: String) = viewModelScope.launch {
+    fun getDataFromDatabase(query: String) = launch {
         val aList = ArrayList<Entity>(coinDAO.getCoin(query))
         _filteredCoins.emit(aList)
     }
 
     fun getData() = viewModelScope.launch {// TODO add to cache mecahism
-        coinsUseCase.getCoins()
-            .onStart {
-                _coins.emit(UiState.Loading)
-            }
-            .catch {
-                _coins.emit(UiState.Error(it))
-            }
-            .collect {
-                _coins.emit(it)
-            }
+        coinsUseCase.getCoins().customEmit(_coins)
+    }
+
+    fun logOut() = viewModelScope.launch {
+        authUseCase.logout().customEmit(_logOut)
     }
 
     fun insertCoins(list: ArrayList<CoinMarketItem>) = viewModelScope.launch {
-        coinDAO.insertAllCoins(marketItemToEntity(list))
+//        coinDAO.insertAllCoins(marketItemToEntity(list))
     }
 
-    private fun marketItemToEntity(marketItemList: ArrayList<CoinMarketItem>): List<Entity> {
-        return marketItemList.map {
-            Entity(it.currentPrice, it.id, it.image, it.name, it.symbol)
-        }
-    }
+//    private fun marketItemToEntity(marketItemList: ArrayList<CoinMarketItem>): List<Entity> {
+//        return marketItemList.map {
+//            Entity(it.currentPrice, it.id, it.image, it.name, it.symbol)
+//        }
+//    }
 }

@@ -2,15 +2,18 @@ package com.bmprj.cointicker.ui.coin
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.view.View
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bmprj.cointicker.R
@@ -22,6 +25,7 @@ import com.bmprj.cointicker.domain.coin.asList
 import com.bmprj.cointicker.model.CoinMarketItem
 import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.loadFromUrl
+import com.bmprj.cointicker.utils.navigate
 import com.bmprj.cointicker.utils.setUpDialog
 import com.bmprj.cointicker.utils.toast
 import com.google.android.material.button.MaterialButton
@@ -195,16 +199,28 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun onCoinItemClicked(item: CoinMarketItem) {
+        val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_COINS)
 
-        println(findNavController.get::class.simpleName)/
-        println(this@CoinListFragment::class.simpleName)
-//            val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_COINS)
-//            findNavController.navigate(transition)
-//            findNavController.navigate(transition)  // TODO fix double click case
+//        println(this::class.simpleName)//get class name CoinListFragment
+//        println(findNavController.currentDestination?.displayName) //com.bmprj.cointicker:id/coinListFragment
+//        println(this.javaClass.packageName)
+//        println(transition::class.java.packageName)
+        navigate(findNavController,transition)
+        navigate(findNavController,transition)
+
+//        if( == ){
+//            findNavController.navigate(transition) //TODO
+//            findNavController.navigate(transition)  // todo (başasırız) fix double click case
+//
+//        }
+
+
 
 
     }
+
 
     private fun onEntityItemClicked(item: Entity) {
         val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_COINS)

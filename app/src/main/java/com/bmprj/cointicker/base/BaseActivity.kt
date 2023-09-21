@@ -14,16 +14,17 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-abstract class BaseActivity<VDB:ViewDataBinding>():AppCompatActivity() {
+abstract class BaseActivity<VDB:ViewDataBinding>(private val layout:Int):AppCompatActivity() {
 
-    protected abstract val binding:VDB
+    private lateinit var _binding:VDB
+    protected val binding get() = _binding
 
     abstract fun initView():Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        setTheme(R.style.Theme_CoinTicker)
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        _binding= DataBindingUtil.setContentView(this,layout)
         initView()
     }
+
 }
