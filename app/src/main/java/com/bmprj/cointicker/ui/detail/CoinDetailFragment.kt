@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail) {
 
-    private lateinit var coinDetailEntity: CoinDetailEntity // TODO initialize edildi mi edilmedi mi?
+    private lateinit var coinDetailEntity: CoinDetailEntity // todo initialize edildi mi edilmedi mi? 54.satır
     private val bundle: CoinDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<CoinDetailViewModel>()
     private val coinId: String by lazy { bundle.id }
@@ -49,17 +49,11 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
         findNavController.navigate(action)
     }
 
-    fun deneme(): String {
-        val a = if (3 > 5) ">" else "<"
-
-        println(a[0])
-        return a
-    }
-
-
     fun favClick() {
-        if (!isFav) {
-            viewModel.addFavourite(coinDetailEntity.asCoinDetail())
+       //todo https://blog.jetbrains.com/kotlin/2017/09/kotlin-1-2-beta-is-out/#lateinit-improvements
+        if (!isFav) { //todo:: kullanarak classı referans alıyor. sınıfın üyelerine erişiyor. :: koymayınca kontrol edemedim.
+            if(this::coinDetailEntity.isInitialized)
+                viewModel.addFavourite(coinDetailEntity.asCoinDetail())
         } else {
             viewModel.delete(coinId)
         }

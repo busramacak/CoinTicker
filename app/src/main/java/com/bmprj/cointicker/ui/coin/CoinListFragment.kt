@@ -199,7 +199,8 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.S)
+
+    @SuppressLint("SuspiciousIndentation")
     private fun onCoinItemClicked(item: CoinMarketItem) {
         val transition = CoinListFragmentDirections.actionCoinListFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_COINS)
 
@@ -207,12 +208,12 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 //        println(findNavController.currentDestination?.displayName) //com.bmprj.cointicker:id/coinListFragment
 //        println(this.javaClass.packageName)
 //        println(transition::class.java.packageName)
-        navigate(findNavController,transition)
-        navigate(findNavController,transition)
+//        navigate(findNavController,transition)
+//        navigate(findNavController,transition)
 
 //        if( == ){
-//            findNavController.navigate(transition) //TODO
-//            findNavController.navigate(transition)  // todo (başasırız) fix double click case
+            findNavController.navigate(transition) //TODO
+            findNavController.navigate(transition)  // todo (başasırız) fix double click case
 //
 //        }
 

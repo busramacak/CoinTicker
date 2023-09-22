@@ -3,7 +3,9 @@ package com.bmprj.cointicker.utils
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
@@ -85,6 +87,17 @@ fun View.setUpDialog(context: Context):AlertDialog{
     window?.attributes = wlp
 
     return dialog
+}
+
+
+fun customAlert(title:String, context:Context, msg:String){
+  AlertDialog.Builder(context)
+        .setTitle(title)
+        .setMessage(msg)
+        .setPositiveButton("Ok") { dialogInterface, _ ->
+            Log.e("nolllll,", "hata")
+            dialogInterface.dismiss()
+        }.create().show()
 }
 
 

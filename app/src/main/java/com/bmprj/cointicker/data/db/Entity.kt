@@ -1,8 +1,7 @@
 package com.bmprj.cointicker.data.db
 
-import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import androidx.room.Entity
 
 @Entity(tableName = "coin")
 data class Entity(
@@ -14,4 +13,9 @@ data class Entity(
     val priceChange24h: Double,
     val priceChangePercentage24h: Double,
     val currentPrice: Double,
-)
+    val lastUpdated:String,
+    val low24h:Double
+) {
+
+}
+

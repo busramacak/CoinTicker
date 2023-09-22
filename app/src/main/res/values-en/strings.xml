@@ -47,22 +47,18 @@
     <!--    toast-->
 
     <string name="addFavSuccess">Successfully added to favorite</string>
-    <string name="addFavFail">Something went wrong. Could not be added to favourite.</string>
     <string name="delFavSuccess">Successfully deleted from favorite</string>
-    <string name="delFavFail">Something went wrong. Could not be deleted from favourite.</string>
     <string name="getPhotoFail">Something went wrong. Could not be get profile photo.</string>
     <!--    login-->
     <string name="failmsg1">User not found or account is inactive.</string>
     <string name="failmsg2">Incorrect username or password.</string>
     <string name="failmsg3">Internet connection error. Unable to access the server.</string>
-    <string name="failmsg4">An error occurred. Please try again later.</string>
     <!-- register -->
     <string name="succesmsg1">Account creation successful.</string>
     <string name="failmsg5">Choose a stronger password.</string>
     <string name="failmsg6">Invalid email address or password.</string>
     <string name="failmsg7">An account with this email address already exists.</string>
     <string name="failmsg8">No internet connection or unable to access the server.</string>
-    <string name="failmsg9">An error occurred. Please try again later.</string>
     <string name="notmatch">Yeni şifre ve şifre onayı birbirine uymuyor.</string>
     <string name="profileChangeError">Failed to change profile photo.</string>
     <string name="profileChangeSucces">Profile photo changed successfully.</string>

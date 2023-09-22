@@ -1,6 +1,7 @@
 package com.bmprj.cointicker.base
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.utils.UiState
@@ -57,7 +58,4 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 }
         }
     }
-
-
-
 }

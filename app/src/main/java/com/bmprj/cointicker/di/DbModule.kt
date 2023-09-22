@@ -33,8 +33,10 @@ class DbModule {
     fun provideDAO(db: CoinDatabase) : CoinDAO {
         return db.coinDAO()
     }
-    // TODO shared pref için bir yapı yaz ve ihtiyaçlarını karşılasın
+    // todo shared pref için bir yapı yaz ve ihtiyaçlarını karşılasın
+//  (karşıladı mı?)
     // TODO runtime da veri tutmak için bir yapı yaz ve ihtiyaçlarını karşılasın
+//  (shared pref içerisinde runtime da veri tutuyorum başka bir şekilde mi ? )
     // TODO loading için bir tane custom wigdet yaz
     // TODO (custom xml, custom widget(frame layouttan kalıtım) )
     // TODO cihazın rootlu olup olmaması
