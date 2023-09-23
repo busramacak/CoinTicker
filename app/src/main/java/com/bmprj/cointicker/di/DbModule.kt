@@ -39,6 +39,7 @@ class DbModule {
 //  (shared pref içerisinde runtime da veri tutuyorum başka bir şekilde mi ? )
     // TODO loading için bir tane custom wigdet yaz
     // TODO (custom xml, custom widget(frame layouttan kalıtım) )
+    //denedim ama eksik kaldı ->çalışıyor
     // TODO cihazın rootlu olup olmaması
     // TODO kullanıcı verilerini şifreleyrek firebase de sakla yada shared preds
 }

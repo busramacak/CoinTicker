@@ -2,7 +2,6 @@ package com.bmprj.cointicker.ui.coin
 
 import android.app.Application
 import android.net.Uri
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.db.CoinDAO
@@ -10,16 +9,16 @@ import com.bmprj.cointicker.data.db.Entity
 import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepository
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
 import com.bmprj.cointicker.domain.coin.CoinEntity
+import com.bmprj.cointicker.domain.coin.CoinMarketItemEntity
 import com.bmprj.cointicker.domain.coin.GetCoinsUseCase
 import com.bmprj.cointicker.model.CoinMarketItem
+import com.bmprj.cointicker.utils.CustomSharedPreference
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.annotation.Nullable
 import javax.inject.Inject
@@ -27,14 +26,15 @@ import javax.inject.Inject
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
     application: Application,
+    private val customPreference: CustomSharedPreference,
     private val coinsUseCase: GetCoinsUseCase,
     private val coinDAO: CoinDAO,
     private val authUseCase: GetAuthUseCase,
     private val storageRepository: StorageRepository,
-    @Nullable val firebaseUser: FirebaseUser?
+    @Nullable val firebaseUser: FirebaseUser?,
 ) : BaseViewModel(application) {
 
-
+    private val refreshTime = 10 * 60 * 1000 * 1000 * 1000L //atıl samancı -> 10dk nanosaniye
 
     private val _coins = MutableStateFlow<UiState<CoinEntity>>(UiState.Loading)
     val coins = _coins.asStateFlow()
@@ -48,7 +48,7 @@ class CoinListViewModel @Inject constructor(
     private val _logOut = MutableStateFlow<UiState<FirebaseAuthResources<Unit>>>(UiState.Loading)
     val logOut = _logOut.asStateFlow()
 
-    fun getUserInfo() = launch{
+    fun getUserInfo() = launch {
         if (firebaseUser == null) return@launch
         storageRepository.getPhoto(firebaseUser.uid).customEmit(_userInfo)
     }
@@ -58,21 +58,44 @@ class CoinListViewModel @Inject constructor(
         _filteredCoins.emit(aList)
     }
 
-    fun getData() = viewModelScope.launch {// TODO add to cache mecahism
-        coinsUseCase.getCoins().customEmit(_coins)
+    fun getData() = launch {// todo (i hope was succes) add to cache mecahism
+        val updateTime = customPreference.getTime()
+
+        if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime) { // 10 dakikadan az zamanda getData çağırılırsa database içerisinden al.
+            getDataFromDatabase()
+        } else {
+            customPreference.saveTime(System.nanoTime())
+            coinsUseCase.getCoins().customEmit(_coins)
+        }
     }
 
-    fun logOut() = viewModelScope.launch {
+    fun logOut() = launch {
         authUseCase.logout().customEmit(_logOut)
     }
 
-    fun insertCoins(list: ArrayList<CoinMarketItem>) = viewModelScope.launch {
-//        coinDAO.insertAllCoins(marketItemToEntity(list))
+    fun insertCoins(list: ArrayList<CoinMarketItem>) = launch {
+        coinDAO.insertAllCoins(marketItemToEntity(list))
     }
 
-//    private fun marketItemToEntity(marketItemList: ArrayList<CoinMarketItem>): List<Entity> {
-//        return marketItemList.map {
-//            Entity(it.currentPrice, it.id, it.image, it.name, it.symbol)
-//        }
-//    }
+    private fun getDataFromDatabase() = launch {
+        val listt = ArrayList<Entity>(coinDAO.getCoins())
+        val newList = listt.map {
+            CoinMarketItemEntity(
+                it.currentPrice, it.high24h, it.id, it.image, it.lastUpdated,
+                it.low24h, it.name, it.priceChange24h, it.priceChangePercentage24h, it.symbol
+            )
+        }
+        val coinEntity = CoinEntity()
+        coinEntity.addAll(newList)
+        _coins.emit(UiState.Success(coinEntity))
+    }
+
+    private fun marketItemToEntity(marketItemList: ArrayList<CoinMarketItem>): List<Entity> {
+        return marketItemList.map {
+            Entity(
+                it.currentPrice, it.id, it.image, it.name, it.symbol, it.priceChange24h,
+                it.priceChangePercentage24h, it.currentPrice, it.lastUpdated!!, it.low24h
+            )
+        }
+    }
 }
