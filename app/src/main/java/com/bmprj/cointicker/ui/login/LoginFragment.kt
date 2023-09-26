@@ -3,19 +3,23 @@ package com.bmprj.cointicker.ui.login
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.BuildConfig
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentLoginBinding
+import com.bmprj.cointicker.utils.Encryption
 import com.bmprj.cointicker.utils.toast
 import com.bmprj.cointicker.utils.toastLong
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Base64
 
 
 // TODO base usecase class oluştur
@@ -39,8 +43,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         findNavController.navigate(action)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun login(email:String, password:String){
         viewModel.login(email, password)
+
+ //todo user's password, encrypted and decrypted
+        val encryption = Encryption().encrypt(password.toByteArray(Charsets.UTF_8),password.toCharArray())
+        val encryptedPassword = Base64.getEncoder().encodeToString(encryption["encrypted"])
+        println("şifreli şifre =$encryptedPassword")
+        val decryption = Encryption().decrypt(encryption,password.toCharArray())
+        val decryptedPassword = decryption?.let { String(it,Charsets.UTF_8) }
+        println("şifresiz şifre = $decryptedPassword")
+
     }
     fun openCoinGecko(){
         val uri = Uri.parse(BuildConfig.COINGECKO_URL)

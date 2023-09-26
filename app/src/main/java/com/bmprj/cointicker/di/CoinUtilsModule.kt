@@ -9,6 +9,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -28,12 +30,24 @@ object CoinUtilsModule {
     fun provideCoinApiService(): CoinApiService {
         val BASE_URL = BuildConfig.BASE_URL
 
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level=HttpLoggingInterceptor.Level.BASIC
+        val client = OkHttpClient.Builder()
+
+
+        if(BuildConfig.DEBUG){ //debug modda mı değil mi ?
+            client.addInterceptor(loggingInterceptor) //loglama için debug moddaysa interceptor eklesin.
+        }
+
         return Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(client.build()) //httpclienti ekledik
             .build()
             .create(CoinApiService::class.java)
 
-        // TODO debug modda http isteklerini logda görelim relase de görmeyelim
+
+
+        //  todo (oldu galiba) debug modda http isteklerini logda görelim relase de görmeyelim
     }
 
 

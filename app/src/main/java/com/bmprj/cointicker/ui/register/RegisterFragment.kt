@@ -1,17 +1,21 @@
 package com.bmprj.cointicker.ui.register
 
+import android.os.Build
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentRegisterBinding
+import com.bmprj.cointicker.utils.Encryption
 import com.bmprj.cointicker.utils.toast
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Base64
 
 
 @AndroidEntryPoint
@@ -30,7 +34,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         findNavController.navigate(action)
     }
 
-    fun signup(name:String,email:String, password:String){
+    fun signup(name:String, email:String, password:String){
         viewModel.signup(name, email, password)
     }
 

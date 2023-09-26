@@ -3,7 +3,6 @@ package com.bmprj.cointicker.data.remote.firebase.auth
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.NetworkManager
 import com.bmprj.cointicker.utils.handleAuthResult
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
-
 class AuthRepositoryImpl @Inject constructor(
     private val firebaseAuth:FirebaseAuth,
     private val networkManager: NetworkManager
@@ -24,6 +22,7 @@ class AuthRepositoryImpl @Inject constructor(
         val result = handleAuthResult(isSuccess,response,isNetworkAvailable)
         emit(result)
     }
+
 
     override suspend fun signup(
         name: String,

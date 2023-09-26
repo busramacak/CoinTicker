@@ -92,6 +92,7 @@ class CoinDetailViewModel @Inject constructor(
     }
 
     fun getCoin(id:String) = viewModelScope.launch {
+        println("getcoin")
         coinUseCase.getCoin(id)
             .onStart {
                 _coinDetail.emit(UiState.Loading)
@@ -100,6 +101,7 @@ class CoinDetailViewModel @Inject constructor(
                 _coinDetail.emit(UiState.Error(it))
             }
             .collect{
+                println(it)
                 _coinDetail.emit(it)
             }
     }

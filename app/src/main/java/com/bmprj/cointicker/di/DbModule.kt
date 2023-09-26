@@ -35,11 +35,14 @@ class DbModule {
     }
     // todo shared pref için bir yapı yaz ve ihtiyaçlarını karşılasın
 //  (karşıladı mı?)
-    // TODO runtime da veri tutmak için bir yapı yaz ve ihtiyaçlarını karşılasın
-//  (shared pref içerisinde runtime da veri tutuyorum başka bir şekilde mi ? )
+    // todo runtime da veri tutmak için bir yapı yaz ve ihtiyaçlarını karşılasın
+//  (shared pref içerisinde tuttuğum nanosaniye oluyor mu? başka bir şekilde mi ? )
     // TODO loading için bir tane custom wigdet yaz
-    // TODO (custom xml, custom widget(frame layouttan kalıtım) )
+    // todo (custom xml, custom widget(frame layouttan kalıtım) )
     //denedim ama eksik kaldı ->çalışıyor
     // TODO cihazın rootlu olup olmaması
-    // TODO kullanıcı verilerini şifreleyrek firebase de sakla yada shared preds
+    //https://medium.com/@deekshithmoolyakavoor/root-detection-in-android-device-9144b7c2ae07
+    //bir yerde saklamadım ama şifreleyip çözümledim.
+    //todo kullanıcı verilerini şifreleyrek firebase de sakla yada shared preds
+
 }

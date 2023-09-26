@@ -118,6 +118,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             viewModel.coinDetail.handleState(onLoading = {
                 progresBar.visibility = View.VISIBLE
             }, onSucces = {
+
                 coinDetailEntity = it
                 coinName.text = it.name
                 coinSymbol.text = it.symbol

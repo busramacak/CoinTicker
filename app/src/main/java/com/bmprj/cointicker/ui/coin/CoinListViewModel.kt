@@ -34,7 +34,7 @@ class CoinListViewModel @Inject constructor(
     @Nullable val firebaseUser: FirebaseUser?,
 ) : BaseViewModel(application) {
 
-    private val refreshTime = 10 * 60 * 1000 * 1000 * 1000L //atıl samancı -> 10dk nanosaniye
+    private val refreshTime = 10 *60* 1000 * 1000 * 1000L //atıl samancı -> 10dk nanosaniye
 
     private val _coins = MutableStateFlow<UiState<CoinEntity>>(UiState.Loading)
     val coins = _coins.asStateFlow()

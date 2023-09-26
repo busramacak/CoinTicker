@@ -212,7 +212,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
 //        navigate(findNavController,transition)
 
 //        if( == ){
-            findNavController.navigate(transition) //TODO
+//            findNavController.navigate(transition) //TODO
             findNavController.navigate(transition)  // todo (başasırız) fix double click case
 //
 //        }
