@@ -20,12 +20,14 @@ abstract class BaseUseCase<T:Any,R:Any,RE:Any> {
         return flow {
             this@dumbEmit
                 .onStart {
+                    println("baseusecase loading")
                     emit(UiState.Loading)
                 }
                 .catch {
                     emit(UiState.Error(it))
                 }
                 .collect{
+                    println("baseusecase collect")
                     when(it){
                         is ApiResources.Failure -> {
                             val uiStateError = when(it.exception){

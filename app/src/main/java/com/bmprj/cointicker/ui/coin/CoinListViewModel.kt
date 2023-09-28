@@ -2,7 +2,6 @@ package com.bmprj.cointicker.ui.coin
 
 import android.app.Application
 import android.net.Uri
-import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
@@ -34,7 +33,7 @@ class CoinListViewModel @Inject constructor(
     @Nullable val firebaseUser: FirebaseUser?,
 ) : BaseViewModel(application) {
 
-    private val refreshTime = 10 *60* 1000 * 1000 * 1000L //atıl samancı -> 10dk nanosaniye
+    private val refreshTime = 10* 1000 * 1000 * 1000L //atıl samancı -> 10dk nanosaniye
 
     private val _coins = MutableStateFlow<UiState<CoinEntity>>(UiState.Loading)
     val coins = _coins.asStateFlow()
@@ -61,7 +60,8 @@ class CoinListViewModel @Inject constructor(
     fun getData() = launch {// todo (i hope was succes) add to cache mecahism
         val updateTime = customPreference.getTime()
 
-        if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime) { // 10 dakikadan az zamanda getData çağırılırsa database içerisinden al.
+        if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
+            // 10 dakikadan az zamanda getData çağırılırsa database içerisinden al.
             getDataFromDatabase()
         } else {
             customPreference.saveTime(System.nanoTime())
@@ -78,15 +78,15 @@ class CoinListViewModel @Inject constructor(
     }
 
     private fun getDataFromDatabase() = launch {
-        val listt = ArrayList<Entity>(coinDAO.getCoins())
-        val newList = listt.map {
+        val entityList = ArrayList<Entity>(coinDAO.getCoins())
+        val coinMarketItemEntityList = entityList.map {
             CoinMarketItemEntity(
                 it.currentPrice, it.high24h, it.id, it.image, it.lastUpdated,
                 it.low24h, it.name, it.priceChange24h, it.priceChangePercentage24h, it.symbol
             )
         }
         val coinEntity = CoinEntity()
-        coinEntity.addAll(newList)
+        coinEntity.addAll(coinMarketItemEntityList)
         _coins.emit(UiState.Success(coinEntity))
     }
 

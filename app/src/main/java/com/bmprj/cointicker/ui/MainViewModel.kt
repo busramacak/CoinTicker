@@ -12,5 +12,5 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(application: Application):BaseViewModel(application){
 
 // TODO base viewmodel kod tekrarını engelleyen fonksiyonşar loglama da barındırsın
-    //loglama için çözümüm yok. kod tekrarını biraz engellediğimi düşünüyorum.
+    //loglama için tam olarak ne için bilemedim. kod tekrarını biraz engellediğimi düşünüyorum.
 }

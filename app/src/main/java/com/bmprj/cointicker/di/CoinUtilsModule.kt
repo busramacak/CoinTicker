@@ -8,6 +8,8 @@ import com.bmprj.cointicker.utils.NetworkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,18 +17,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+/// TODO:singleton change viewmodelscope
+
+@InstallIn(ViewModelComponent::class)
 @Module
 object CoinUtilsModule {
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideCoinUtils(
         api: CoinApiService, networkManager: NetworkManager,
     ): CoinRepository = CoinRepositoryImpl(api, networkManager)
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideCoinApiService(): CoinApiService {
         val BASE_URL = BuildConfig.BASE_URL
 

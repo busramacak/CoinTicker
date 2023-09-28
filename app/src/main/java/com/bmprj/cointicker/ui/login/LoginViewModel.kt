@@ -1,7 +1,9 @@
 package com.bmprj.cointicker.ui.login
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.domain.auth.GetAuthUseCase
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
@@ -16,25 +18,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
+    application: Application,
     private val authUseCase: GetAuthUseCase,
     @Nullable private val firebaseUser: FirebaseUser?
-):ViewModel() {
+):BaseViewModel(application) {
 
     private val _login = MutableStateFlow<UiState<FirebaseUser>>(UiState.Error(Throwable("gg")))
     val login = _login.asStateFlow()
 
-    val user: FirebaseUser? get() = firebaseUser
-    fun login(email:String, password:String) = viewModelScope.launch {
-
-            authUseCase.login(email,password)
-                .onStart {
-                    _login.emit(UiState.Loading)
-                }
-                .catch {
-                    _login.emit(UiState.Error(it))
-                }
-                .collect{
-                    _login.emit(it)
-                }
+    fun login(email:String, password:String) = launch {
+        authUseCase.login(email,password).customEmit(_login)
     }
 }

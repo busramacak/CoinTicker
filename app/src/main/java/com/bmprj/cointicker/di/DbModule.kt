@@ -8,16 +8,18 @@ import com.bmprj.cointicker.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 class DbModule {
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideDatabase(@ApplicationContext context: Context): CoinDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
@@ -29,7 +31,7 @@ class DbModule {
 
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideDAO(db: CoinDatabase) : CoinDAO {
         return db.coinDAO()
     }

@@ -3,6 +3,8 @@ package com.bmprj.cointicker.model
 
 import com.google.gson.annotations.SerializedName
 
+//builder design pattern -> kullanılacak parçaların gereksiz yere kaynak harcamasını önler.
+// nullable değişkenler olsaydı builder design pattern diyebilirdik.
 data class CoinDetail(
     @SerializedName("id")
     val id: String,

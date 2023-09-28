@@ -1,7 +1,7 @@
 package com.bmprj.cointicker.ui.detail
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.domain.coinList.CoinDetailEntity
 import com.bmprj.cointicker.domain.coinList.GetCoinUseCase
@@ -12,18 +12,17 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.annotation.Nullable
 import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
+    application: Application,
     private val coinUseCase: GetCoinUseCase,
     private val cloudRepository: CloudRepository,
     @Nullable private val firebaseUser:FirebaseUser?
-) :ViewModel(){
+) :BaseViewModel(application){
 
 
     private val _coinDetail = MutableStateFlow<UiState<CoinDetailEntity>>(UiState.Loading)
@@ -40,69 +39,27 @@ class CoinDetailViewModel @Inject constructor(
 
     val currentUserId = firebaseUser?.uid
 
-
-    fun setFavouriteState(is_favourite:Boolean) = viewModelScope.launch {
+    fun setFavouriteState(is_favourite:Boolean) = launch {
         _isFavourite.emit(UiState.Success(is_favourite))
     }
 
-
-    fun addFavourite(coinDetaill: CoinDetail) = viewModelScope.launch {
-        if (currentUserId == null) return@launch
+    fun addFavourite(coinDetaill: CoinDetail) = launch {
         val favList = FavouriteCoin(coinDetaill.id, coinDetaill.name, coinDetaill.image.small, coinDetaill.symbol)
-
-        cloudRepository.addFavourite(currentUserId,favList)
-            .onStart {
-                _favouriteAdd.emit(UiState.Loading)
-            }
-            .catch {
-                _favouriteAdd.emit(UiState.Error(it))
-            }
-            .collect{
-                _favouriteAdd.emit(UiState.Success(it))
-            }
-
-    }
-
-    fun getFavourite(coinId: String) = viewModelScope.launch {
         if (currentUserId == null) return@launch
-        cloudRepository.getFavourite(currentUserId,coinId)
-            .onStart {
-                _isFavourite.value = UiState.Loading
-            }
-            .catch {
-                _isFavourite.value=UiState.Error(it)
-            }
-            .collect{
-                _isFavourite.value=UiState.Success(it)
-            }
+        cloudRepository.addFavourite(currentUserId,favList).customEmit(_favouriteAdd)
     }
 
-    fun delete(coinId:String) = viewModelScope.launch {
+    fun getFavourite(coinId: String) = launch {
         if (currentUserId == null) return@launch
-        cloudRepository.delete(currentUserId,coinId)
-            .onStart {
-                _favouriteDelete.emit(UiState.Loading)
-            }
-            .catch {
-                _favouriteDelete.emit(UiState.Error(it))
-            }
-            .collect{
-                _favouriteDelete.emit(UiState.Success(it))
-            }
+        cloudRepository.getFavourite(currentUserId,coinId).customEmit(_isFavourite)
     }
 
-    fun getCoin(id:String) = viewModelScope.launch {
-        println("getcoin")
-        coinUseCase.getCoin(id)
-            .onStart {
-                _coinDetail.emit(UiState.Loading)
-            }
-            .catch {
-                _coinDetail.emit(UiState.Error(it))
-            }
-            .collect{
-                println(it)
-                _coinDetail.emit(it)
-            }
+    fun delete(coinId:String) = launch {
+        if (currentUserId == null) return@launch
+        cloudRepository.delete(currentUserId,coinId).customEmit(_favouriteDelete)
+    }
+
+    fun getCoin(id:String) = launch {
+        coinUseCase.getCoin(id).customEmit(_coinDetail)
     }
 }

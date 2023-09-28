@@ -9,19 +9,21 @@ import com.bmprj.cointicker.data.remote.firebase.storage.StorageRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 @Module
 abstract class FirebaseModule {  // todo  provideFirebaseModule
     @Binds
-    @Singleton
+    @ViewModelScoped
     abstract fun bindAuthRepo(impl:AuthRepositoryImpl): AuthRepository
     @Binds
-    @Singleton
+    @ViewModelScoped
     abstract fun bindFirestoreRepo(impl: CloudRepositoryImpl): CloudRepository
     @Binds
-    @Singleton
+    @ViewModelScoped
     abstract fun bindStorageRepo(impl: StorageRepositoryImpl): StorageRepository
 }

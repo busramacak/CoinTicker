@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.utils.UiState
+import com.bmprj.cointicker.utils.logError
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -29,14 +30,15 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
 
     @JvmName("T")
     fun <T> Flow<T>.customEmit(
-        state:MutableStateFlow<UiState<T>>
-    ){
+        state: MutableStateFlow<UiState<T>>
+    ) {
         viewModelScope.launch {
             this@customEmit
                 .onStart {
                     state.emit(UiState.Loading)
                 }
                 .catch {
+                    logError(it.message)
                     state.emit(UiState.Error(it))
                 }.collect{
                     state.emit(UiState.Success(it))
@@ -52,6 +54,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
             this@customEmit
                 .onStart { state.emit(UiState.Loading) }
                 .catch {
+                    logError(it.message)
                     state.emit(UiState.Error(it))
                 }.collect{
                     state.emit(it)
