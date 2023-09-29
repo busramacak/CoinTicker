@@ -3,6 +3,7 @@ package com.bmprj.cointicker.data.remote.firebase.storage
 import android.net.Uri
 import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.Constants.jpg
+import com.google.android.gms.tasks.Task
 import com.google.firebase.storage.FirebaseStorage as UserInfoStorage
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -26,18 +27,13 @@ class StorageRepositoryImpl @Inject constructor(
         emit(ref)
     }
 
-    override suspend fun deletePhoto(userID: String): Flow<Void> = flow {
+    override suspend fun deletePhoto(userID: String): Flow<Boolean> = flow {
+
+        emit(storage.reference.child(Constants.STORAGE_PATH).child(userID.jpg).delete().isSuccessful)
 
 
-        val photoRef = storage.reference.child(Constants.STORAGE_PATH).child(userID.jpg)
 
-        val ref = photoRef.listAll().await()
 
-        val isPhotoExists = ref.items.any{ it.name == photoRef.name }
-        println(isPhotoExists)
-        if(isPhotoExists){
-            print("isPhotoExistiçi")
-            emit(photoRef.delete().await())
-        }
+
     }
 }

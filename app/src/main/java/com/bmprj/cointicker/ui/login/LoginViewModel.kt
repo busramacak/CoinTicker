@@ -26,6 +26,7 @@ class LoginViewModel @Inject constructor(
     private val _login = MutableStateFlow<UiState<FirebaseUser>>(UiState.Error(Throwable("gg")))
     val login = _login.asStateFlow()
 
+    val user :FirebaseUser? get() = firebaseUser
     fun login(email:String, password:String) = launch {
         authUseCase.login(email,password).customEmit(_login)
     }

@@ -5,6 +5,7 @@ import com.bmprj.cointicker.data.remote.firebase.auth.AuthRepository
 import com.bmprj.cointicker.utils.FirebaseAuthError
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.UiState
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
@@ -104,11 +105,14 @@ class GetAuthUseCase @Inject constructor(
            }
     }
 
-//    suspend fun delete() = flow{
-//        if(firebaseUser==null)return@flow
-//        println(firebaseUser)
-//        emit(firebaseUser.delete().await())
-//    }
+    suspend fun delete() = flow{
+        if(firebaseUser==null)return@flow
+        emit(firebaseUser.delete().await())
+    }
+
+    suspend fun reEntryUser(email: String,password: String) = flow{
+        emit(firebaseUser?.reauthenticate(EmailAuthProvider.getCredential(email,password))?.await())
+    }
 
     suspend fun changeProfileName(name:String) = flow{
         emit(firebaseUser?.updateProfile(userProfileChangeRequest { displayName=name })?.await())
