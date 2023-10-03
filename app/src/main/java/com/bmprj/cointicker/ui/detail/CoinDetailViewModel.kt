@@ -24,7 +24,6 @@ class CoinDetailViewModel @Inject constructor(
     @Nullable private val firebaseUser:FirebaseUser?
 ) :BaseViewModel(application){
 
-
     private val _coinDetail = MutableStateFlow<UiState<CoinDetailEntity>>(UiState.Loading)
     val coinDetail = _coinDetail.asStateFlow()
 

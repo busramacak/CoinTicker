@@ -1,7 +1,6 @@
 package com.bmprj.cointicker.base
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.utils.UiState
@@ -12,7 +11,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
@@ -61,4 +59,5 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 }
         }
     }
+
 }

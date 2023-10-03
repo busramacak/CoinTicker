@@ -8,7 +8,9 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentDeleteAccountBinding
 import com.bmprj.cointicker.utils.logError
+import com.bmprj.cointicker.utils.setUpDialog
 import com.bmprj.cointicker.utils.toast
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +26,19 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
 
     private fun initLiveDataObservers() {
 
+
+        viewModel.logOut.handleState(
+            onLoading = {
+                binding.progresBar.visibility=View.VISIBLE
+            },
+            onSucces = {
+                binding.progresBar.visibility=View.GONE
+            },
+            onError = {
+                binding.progresBar.visibility=View.GONE
+                logError(it.message)
+            }
+        )
         viewModel.reEntry.handleState(
             onLoading = {
                 binding.progresBar.visibility=View.VISIBLE
@@ -34,6 +49,7 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
             },
             onSucces = {
                 binding.progresBar.visibility=View.GONE
+                viewModel.deleteCloudData()
                 toast("kimlik doğrulama başarılı.")
             }
         )
@@ -50,7 +66,6 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
                 }else{
                     logError("cloud silme işlemi başarısız")
                 }
-
             },
             onError = {
                 binding.progresBar.visibility=View.GONE
@@ -73,7 +88,6 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
                 binding.progresBar.visibility=View.GONE
                 logError(it.message)
                 // todo Log.kt hangi classta ve hangi fonksiyonda olduğumu öğrenmek istiyorum ama ben bunu manuel yapmak istemiyorum
-
             }
         )
         viewModel.deleteAccount.handleState(
@@ -101,7 +115,22 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
         findNavController.navigate(action)
     }
     fun logOut(){
+        val viewv = layoutInflater.inflate(R.layout.logout_dialog, null)
+        val dialog = viewv.setUpDialog(requireContext())
 
+        dialog.setOnShowListener {
+            val logOutButton = viewv.findViewById<MaterialButton>(R.id.pozitiveButton)
+            val cancelButton = viewv.findViewById<MaterialButton>(R.id.negativeButton)
+
+            logOutButton.setOnClickListener {
+                viewModel.logOut()
+                dialog.dismiss()
+            }
+            cancelButton.setOnClickListener {
+                dialog.dismiss()
+            }
+        }
+        dialog.show()
     }
 
 }

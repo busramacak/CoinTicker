@@ -22,18 +22,10 @@ class StorageRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getPhoto(userID: String): Flow<Uri> = flow{
-        val ref = storage.reference.child(Constants.STORAGE_PATH).child(userID.jpg).downloadUrl.await()
-
-        emit(ref)
+        emit(storage.reference.child(Constants.STORAGE_PATH).child(userID.jpg).downloadUrl.await())
     }
 
     override suspend fun deletePhoto(userID: String): Flow<Boolean> = flow {
-
         emit(storage.reference.child(Constants.STORAGE_PATH).child(userID.jpg).delete().isSuccessful)
-
-
-
-
-
     }
 }
