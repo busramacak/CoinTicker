@@ -19,7 +19,7 @@ Coroutines, Room DB, Retrofit, DataBinding, Base(Fragment, Adapter, ViewHolder),
 MaterialSearchView, Glide, MVVM Architecture(Model, View, ViewModel), LiveData, Dark/Light UI mode, Tr/En language opt., Flow..
 
 
-<img width="800" src="https://github.com/busramacak/CoinTicker/assets/115944594/af786d54-8bbf-4566-a424-bfe461607495" />
-<img width="800" src="https://github.com/busramacak/CoinTicker/assets/115944594/06855630-54d1-4ce4-8e0a-fc39189b7eb1" />
-<img width="800" src="https://github.com/busramacak/CoinTicker/assets/115944594/a9fc5c95-7c1e-4e8d-b6a3-003ecfb93b98" />
+<img width="800" src="https://github.com/busramacak/CoinTicker/assets/115944594/45e45315-9d72-43e5-b25c-9d5250f3fc28" />
+<img width="800" src="https://github.com/busramacak/CoinTicker/assets/115944594/647baf23-cf7f-4442-89e4-7941c5550c69" />
+<img width="800" src="https://github.com/busramacak/CoinTicker/assets/115944594/dbd84404-59e5-409f-8209-5c50f0f0c5e8" />
 
