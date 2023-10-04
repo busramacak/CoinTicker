@@ -1,6 +1,5 @@
 package com.bmprj.cointicker.ui.favourite
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -11,6 +10,7 @@ import com.bmprj.cointicker.databinding.FragmentFavCoinsBinding
 import com.bmprj.cointicker.model.FavouriteCoin
 import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.logError
+import com.bmprj.cointicker.utils.navigate
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -28,32 +28,31 @@ class FavCoinsFragment : BaseFragment<FragmentFavCoinsBinding>(R.layout.fragment
     }
 
     private fun initAdapter() {
-        with(binding){
+        with(binding) {
             favCoinListRecyclerView.adapter = favCoinListAdapter
-            favCoinListRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            favCoinListRecyclerView.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
         favCoinListAdapter.setOnClickListener { onCoinItemClicked(it) }
     }
 
     private fun initLiveDataObservers() {
 
-        viewModel.favCoins.handleState(
-            onLoading = {
-                binding.progresBar.visibility = View.VISIBLE
-            },
-            onSucces = {
-                binding.progresBar.visibility = View.GONE
-                favCoinListAdapter.updateList(ArrayList(it))
-            },
-            onError = {
-                binding.progresBar.visibility = View.GONE
-                logError(it.message)
-            }
-        )
+        viewModel.favCoins.handleState(onLoading = {
+            binding.progresBar.visibility = View.VISIBLE
+        }, onSucces = {
+            binding.progresBar.visibility = View.GONE
+            favCoinListAdapter.updateList(ArrayList(it))
+        }, onError = {
+            binding.progresBar.visibility = View.GONE
+            logError(it.message)
+        })
     }
 
     private fun onCoinItemClicked(item: FavouriteCoin) {
-        val transition = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(item.id, Constants.COLLECTION_FAV)
-        findNavController.navigate(transition)
+        val action = FavCoinsFragmentDirections.actionFavCoinsFragmentToCoinDetailFragment(
+            item.id, Constants.COLLECTION_FAV
+        )
+        navigate(findNavController, action)
     }
 }

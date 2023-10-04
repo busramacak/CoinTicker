@@ -2,38 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="login"
-            type="com.bmprj.cointicker.ui.login.LoginFragment" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/loginFragment"
         tools:context=".ui.login.LoginFragment">
-
-
-<!--        <com.bmprj.cointicker.utils.CustomWidget-->
-<!--            android:layout_width="100dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            app:layout_constraintBottom_toTopOf="@+id/coinImageView"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-<!--TODO invlude custom xml-->
-        <include
-            layout="@layout/customxml"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/coinImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/coinImageView"
             android:layout_width="200dp"
@@ -123,7 +96,6 @@
             android:paddingVertical="18dp"
             android:backgroundTint="@color/button"
             android:text="@string/loginBtn"
-            android:onClick="@{()-> login.login(eMailEdt.getText().toString(), passwEdt.getText().toString())}"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +119,6 @@
             android:layout_marginEnd="70dp"
             android:text="@string/signUptxt"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{()->login.signUp()}"
             android:textStyle="bold"
             android:textColor="@color/textColor1"
             app:layout_constraintEnd_toEndOf="@+id/loginButton"
@@ -155,11 +126,11 @@
 
 
         <LinearLayout
+            android:id="@+id/coinGeckoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
             android:background="?android:attr/selectableItemBackground"
-            android:onClick="@{()->login.openCoinGecko()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="10dp">

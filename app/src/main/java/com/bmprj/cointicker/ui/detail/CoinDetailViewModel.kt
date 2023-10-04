@@ -1,6 +1,6 @@
 package com.bmprj.cointicker.ui.detail
 
-import android.app.Application
+import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.domain.coinList.CoinDetailEntity
@@ -18,11 +18,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
-    application: Application,
     private val coinUseCase: GetCoinUseCase,
     private val cloudRepository: CloudRepository,
-    @Nullable private val firebaseUser:FirebaseUser?
-) :BaseViewModel(application){
+    @Nullable private val firebaseUser: FirebaseUser?,
+) : BaseViewModel() {
 
     private val _coinDetail = MutableStateFlow<UiState<CoinDetailEntity>>(UiState.Loading)
     val coinDetail = _coinDetail.asStateFlow()
@@ -38,27 +37,32 @@ class CoinDetailViewModel @Inject constructor(
 
     val currentUserId = firebaseUser?.uid
 
-    fun setFavouriteState(is_favourite:Boolean) = launch {
+    fun setFavouriteState(is_favourite: Boolean) = viewModelScope.launch {
         _isFavourite.emit(UiState.Success(is_favourite))
     }
 
-    fun addFavourite(coinDetaill: CoinDetail) = launch {
-        val favList = FavouriteCoin(coinDetaill.id, coinDetaill.name, coinDetaill.image.small, coinDetaill.symbol)
+    fun addFavourite(coinDetaill: CoinDetail) = viewModelScope.launch {
+        val favList = FavouriteCoin(
+            coinDetaill.id,
+            coinDetaill.name,
+            coinDetaill.image.small,
+            coinDetaill.symbol
+        )
         if (currentUserId == null) return@launch
-        cloudRepository.addFavourite(currentUserId,favList).customEmit(_favouriteAdd)
+        cloudRepository.addFavourite(currentUserId, favList).customEmit(_favouriteAdd)
     }
 
-    fun getFavourite(coinId: String) = launch {
+    fun getFavourite(coinId: String) = viewModelScope.launch {
         if (currentUserId == null) return@launch
-        cloudRepository.getFavourite(currentUserId,coinId).customEmit(_isFavourite)
+        cloudRepository.getFavourite(currentUserId, coinId).customEmit(_isFavourite)
     }
 
-    fun delete(coinId:String) = launch {
+    fun delete(coinId: String) = viewModelScope.launch {
         if (currentUserId == null) return@launch
-        cloudRepository.delete(currentUserId,coinId).customEmit(_favouriteDelete)
+        cloudRepository.delete(currentUserId, coinId).customEmit(_favouriteDelete)
     }
 
-    fun getCoin(id:String) = launch {
+    fun getCoin(id: String) = viewModelScope.launch {
         coinUseCase.getCoin(id).customEmit(_coinDetail)
     }
 }

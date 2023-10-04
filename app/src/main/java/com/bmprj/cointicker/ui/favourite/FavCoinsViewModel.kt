@@ -1,6 +1,6 @@
 package com.bmprj.cointicker.ui.favourite
 
-import android.app.Application
+import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepository
 import com.bmprj.cointicker.model.FavouriteCoin
@@ -15,18 +15,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavCoinsViewModel @Inject constructor(
-    application: Application,
-    private val cloudRepository : CloudRepository,
-    @Nullable private val firebaseUser: FirebaseUser?
-):BaseViewModel(application) {
+    private val cloudRepository: CloudRepository,
+    @Nullable private val firebaseUser: FirebaseUser?,
+) : BaseViewModel() {
 
-    private val _favCoins  = MutableStateFlow<UiState<List<FavouriteCoin>>>(UiState.Loading)
+    private val _favCoins = MutableStateFlow<UiState<List<FavouriteCoin>>>(UiState.Loading)
     val favCoins = _favCoins.asStateFlow()
 
     val currentUserId = firebaseUser?.uid
 
-    fun getFavCoins() = launch {
-        if(currentUserId==null)return@launch
+    fun getFavCoins() = viewModelScope.launch {
+        if (currentUserId == null) return@launch
         cloudRepository.getAllFavourites(currentUserId).customEmit(_favCoins)
     }
 }

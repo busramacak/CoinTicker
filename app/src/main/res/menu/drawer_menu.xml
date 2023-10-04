@@ -4,13 +4,14 @@
         android:id="@+id/settings"
         android:title="@string/settings"
         android:icon="@drawable/settings"/>
-    <item
-        android:id="@+id/logOut"
-        android:title="@string/logoutbtn"
-        android:icon="@drawable/logout"/>
 
     <item
         android:id="@+id/deleteAccount"
         android:title="@string/deleteAccount"
         android:icon="@drawable/delete"/>
+
+    <item
+        android:id="@+id/logOut"
+        android:title="@string/logoutbtn"
+        android:icon="@drawable/logout"/>
 </menu>

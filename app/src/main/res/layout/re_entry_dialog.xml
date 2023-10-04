@@ -6,7 +6,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="250dp"
         android:background="@color/customwhite"
         android:padding="20dp"
         tools:ignore="TextSizeCheck">
@@ -15,7 +15,7 @@
             android:id="@+id/materialTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/enterNewPassword"
+            android:text="@string/infoVerify"
             android:textColor="@color/textColor1"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -23,40 +23,39 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nextPLayout"
+            android:id="@+id/emailLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialTextView"
-            app:passwordToggleEnabled="true">
+            app:layout_constraintTop_toBottomOf="@+id/materialTextView">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nextPasswordEdt"
+                android:id="@+id/eMailEdt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/newPassword"
-                android:inputType="numberPassword" />
+                android:hint="@string/emailHint"
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nextPOLayout"
+            android:id="@+id/pLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nextPLayout"
+            app:layout_constraintTop_toBottomOf="@+id/emailLayout"
             app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nextPasswordConfirmEdt"
+                android:id="@+id/passwordEdt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/newPasswordConfirm"
+                android:hint="@string/passwordHint"
                 android:inputType="numberPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,11 +66,11 @@
             android:layout_marginTop="20dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="5dp"
-            android:text="@string/save"
+            android:text="@string/continuee"
             android:textColor="@color/textColor1"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/nextPOLayout"
-            app:layout_constraintTop_toBottomOf="@+id/nextPOLayout" />
+            app:layout_constraintEnd_toEndOf="@+id/pLayout"
+            app:layout_constraintTop_toBottomOf="@+id/pLayout" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -86,7 +85,7 @@
             android:textColor="@color/textColor2"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/save_button"
-            app:layout_constraintTop_toBottomOf="@+id/nextPOLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/pLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

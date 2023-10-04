@@ -1,7 +1,5 @@
 package com.bmprj.cointicker.ui.delete
 
-import android.app.Application
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.remote.firebase.cloud.CloudRepositoryImpl
@@ -13,22 +11,19 @@ import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.annotation.Nullable
 import javax.inject.Inject
 
 @HiltViewModel
 class DeleteAccountViewModel @Inject constructor(
-    application: Application,
     private val authUseCase: GetAuthUseCase,
     private val cloudRepository: CloudRepositoryImpl,
     private val storageRepository: StorageRepositoryImpl,
-    @Nullable private val user: FirebaseUser?
-): BaseViewModel(application) {
+    @Nullable private val user: FirebaseUser?,
+) : BaseViewModel() {
 
-    private val _deleteAccount = MutableStateFlow<UiState<Void>>(UiState.Loading)
+    private val _deleteAccount = MutableStateFlow<UiState<Void?>>(UiState.Loading)
     val deleteAccount = _deleteAccount.asStateFlow()
 
     private val _deleteCloud = MutableStateFlow<UiState<Boolean>>(UiState.Loading)
@@ -45,26 +40,28 @@ class DeleteAccountViewModel @Inject constructor(
 
     val currentUser = user
 
-    fun logOut() = launch{
-        if(currentUser==null)return@launch
+    fun logOut() = viewModelScope.launch {
+        if (currentUser == null) return@launch
         authUseCase.logout().customEmit(_logOut)
     }
-    fun reEntryUser(email:String,password:String) = launch{
-        if(currentUser==null)return@launch
-        authUseCase.reEntryUser(email,password).customEmit(_reEntry)
+
+    fun reEntryUser(email: String, password: String) = viewModelScope.launch {
+        if (currentUser == null) return@launch
+        authUseCase.reEntryUser(email, password).customEmit(_reEntry)
     }
-    fun deleteAccount() = viewModelScope.launch{
-        if(currentUser==null)return@launch
+
+    fun deleteAccount() = viewModelScope.launch {
+        if (currentUser == null) return@launch
         authUseCase.delete().customEmit(_deleteAccount)
     }
 
-    fun deleteCloudData() = viewModelScope.launch{
-        if(currentUser?.uid==null)return@launch
+    fun deleteCloudData() = viewModelScope.launch {
+        if (currentUser?.uid == null) return@launch
         cloudRepository.deleteUserInfo(currentUser.uid).customEmit(_deleteCloud)
     }
 
-    fun deleteStorageData() = viewModelScope.launch{
-        if(currentUser?.uid==null)return@launch
+    fun deleteStorageData() = viewModelScope.launch {
+        if (currentUser?.uid == null) return@launch
         storageRepository.deletePhoto(currentUser.uid).customEmit(_deleteStorage)
     }
 }

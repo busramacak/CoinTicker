@@ -3,15 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        
-        <import type="android.text.TextUtils"/>
-        <variable
-            name="register"
-            type="com.bmprj.cointicker.ui.register.RegisterFragment" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -130,7 +121,6 @@
             android:layout_marginTop="20dp"
             android:paddingVertical="18dp"
             android:text="@string/signUpBtn"
-            android:onClick="@{()->register.signup(nameEdt.getText().toString(),eMailEdt.getText().toString(),passwEdt.getText().toString())}"
             android:backgroundTint="@color/button"
             app:cornerRadius="5dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -144,18 +134,17 @@
             android:layout_marginTop="30dp"
             android:text="@string/alreadyHave"
             android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/login"
+            app:layout_constraintEnd_toStartOf="@+id/loginButton"
             app:layout_constraintTop_toBottomOf="@+id/signupButton" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/login"
+            android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="70dp"
             android:text="@string/loginTxt"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:onClick="@{() -> register.login()}"
             android:textStyle="bold"
             android:textColor="@color/textColor1"
             app:layout_constraintEnd_toEndOf="@+id/signupButton"

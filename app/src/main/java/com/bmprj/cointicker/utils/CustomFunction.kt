@@ -3,46 +3,32 @@ package com.bmprj.cointicker.utils
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
-import android.os.Build
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.bmprj.cointicker.R
-import com.google.android.material.button.MaterialButton
 import java.text.SimpleDateFormat
 import java.util.Date
 
 
-
-
-//todo olmadı
-@RequiresApi(Build.VERSION_CODES.S)
-fun Fragment.navigate(findNavController: NavController,transition:NavDirections){
-    val currentPackage = this::class.java.packageName
-    val directionClass = transition::class.java.packageName
-    if(currentPackage==directionClass){
-        findNavController.navigate(transition)
-    }
+fun navigate(findNavController: NavController, action: NavDirections) {
+    findNavController.navigate(action)
 }
 
 @SuppressLint("SimpleDateFormat")
-fun String.setDateTime(context: Context): String{
+fun String.setDateTime(context: Context): String {
 
     val inFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     val date: Date = inFormat.parse(this) as Date
     val outFormatDays = SimpleDateFormat("yyyy")
     val goal: String = outFormatDays.format(date)
     val outFormatMonth = SimpleDateFormat("MM")
-    val month:String = outFormatMonth.format(date)
+    val month: String = outFormatMonth.format(date)
     val outFormatDay = SimpleDateFormat("dd")
-    val dy : String = outFormatDay.format(date)
+    val dy: String = outFormatDay.format(date)
 
     val outFormatHour = SimpleDateFormat("HH")
     val hour: String = outFormatHour.format(date)
@@ -51,13 +37,13 @@ fun String.setDateTime(context: Context): String{
     val outFormatSecond = SimpleDateFormat("ss")
     val second: String = outFormatSecond.format(date)
 
-    val lastDate = context.getString(R.string.lastupdate,goal,month,dy,hour,minute,second)
+    val lastDate = context.getString(R.string.lastupdate, goal, month, dy, hour, minute, second)
 
     return lastDate
 
 }
 
-fun String.fixedString():String{
+fun String.fixedString(): String {
     val hrefPattern = """<a href="([^"]*)">([^<]*)</a>""".toRegex()
     val matcher = hrefPattern.findAll(this)
     val duzeltilmisVeri = StringBuilder()
@@ -74,7 +60,7 @@ fun String.fixedString():String{
     return duzeltilmisVeri.toString()
 }
 
-fun View.setUpDialog(context: Context):AlertDialog{
+fun View.setUpDialog(context: Context): AlertDialog {
     val dialog = AlertDialog.Builder(context)
         .setView(this)
         .setCancelable(true)
@@ -91,15 +77,7 @@ fun View.setUpDialog(context: Context):AlertDialog{
 }
 
 
-fun customAlert(title:String, context:Context, msg:String){
-  AlertDialog.Builder(context)
-        .setTitle(title)
-        .setMessage(msg)
-        .setPositiveButton("Ok") { dialogInterface, _ ->
-            Log.e("nolllll,", "hata")
-            dialogInterface.dismiss()
-        }.create().show()
-}
+
 
 
 

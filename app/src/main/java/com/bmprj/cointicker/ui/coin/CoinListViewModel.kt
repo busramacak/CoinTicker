@@ -1,7 +1,7 @@
 package com.bmprj.cointicker.ui.coin
 
-import android.app.Application
 import android.net.Uri
+import androidx.lifecycle.viewModelScope
 import com.bmprj.cointicker.base.BaseViewModel
 import com.bmprj.cointicker.data.db.CoinDAO
 import com.bmprj.cointicker.data.db.Entity
@@ -24,16 +24,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    application: Application,
     private val customPreference: CustomSharedPreference,
     private val coinsUseCase: GetCoinsUseCase,
     private val coinDAO: CoinDAO,
     private val authUseCase: GetAuthUseCase,
     private val storageRepository: StorageRepository,
     @Nullable val firebaseUser: FirebaseUser?,
-) : BaseViewModel(application) {
+) : BaseViewModel() {
 
-    private val refreshTime = 10 * 60 * 1000 * 1000 * 1000L //atıl samancı -> 10dk nanosaniye
+    private val refreshTime =
+        10 * 60 * 1000 * 1000 * 1000L //10.minutes.inWholeNanoseconds //10dk nanosaniye
 
     private val _coins = MutableStateFlow<UiState<CoinEntity>>(UiState.Loading)
     val coins = _coins.asStateFlow()
@@ -47,17 +47,17 @@ class CoinListViewModel @Inject constructor(
     private val _logOut = MutableStateFlow<UiState<FirebaseAuthResources<Unit>>>(UiState.Loading)
     val logOut = _logOut.asStateFlow()
 
-    fun getUserInfo() = launch {
+    fun getUserInfo() = viewModelScope.launch {
         if (firebaseUser == null) return@launch
         storageRepository.getPhoto(firebaseUser.uid).customEmit(_userInfo)
     }
 
-    fun getDataFromDatabase(query: String) = launch {
+    fun getDataFromDatabase(query: String) = viewModelScope.launch {
         val aList = ArrayList<Entity>(coinDAO.getCoin(query))
         _filteredCoins.emit(aList)
     }
 
-    fun getData() = launch {// todo (i hope was succes) add to cache mecahism
+    fun getData() = viewModelScope.launch {
         val updateTime = customPreference.getTime()
 
         if (updateTime != 0L && System.nanoTime() - updateTime < refreshTime) {
@@ -69,15 +69,15 @@ class CoinListViewModel @Inject constructor(
         }
     }
 
-    fun logOut() = launch {
+    fun logOut() = viewModelScope.launch {
         authUseCase.logout().customEmit(_logOut)
     }
 
-    fun insertCoins(list: ArrayList<CoinMarketItem>) = launch {
+    fun insertCoins(list: ArrayList<CoinMarketItem>) = viewModelScope.launch {
         coinDAO.insertAllCoins(marketItemToEntity(list))
     }
 
-    private fun getDataFromDatabase() = launch {
+    private fun getDataFromDatabase() = viewModelScope.launch {
         val entityList = ArrayList<Entity>(coinDAO.getCoins())
         val coinMarketItemEntityList = entityList.map {
             CoinMarketItemEntity(

@@ -19,7 +19,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragment() {
 
     private lateinit var _binding:DB
-    protected val binding get() = _binding// todo refoctor it dışarıdan değştirilemesin
+    protected val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +29,6 @@ abstract class BaseFragment<DB:ViewDataBinding>(private val layout:Int) :Fragmen
         _binding=DataBindingUtil.inflate(inflater,layout,container,false)
         return binding.root
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

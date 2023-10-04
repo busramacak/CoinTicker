@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="favCoin"
             type="com.bmprj.cointicker.model.FavouriteCoin" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -58,7 +56,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/coinName"
                 tools:text="btc" />
 
-
             <ImageView
                 android:id="@+id/openDetailBtn"
                 android:layout_width="70dp"
@@ -71,6 +68,5 @@
                 android:importantForAccessibility="no" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_settingsFragment_to_coinListFragment"
             app:destination="@id/coinListFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -91,7 +94,8 @@
     <fragment
         android:id="@+id/deleteAccountFragment"
         android:name="com.bmprj.cointicker.ui.delete.DeleteAccountFragment"
-        android:label="DeleteAccountFragment" >
+        android:label="DeleteAccountFragment"
+        tools:layout="@layout/fragment_delete_account">
         <action
             android:id="@+id/action_deleteAccountFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

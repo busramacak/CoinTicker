@@ -39,6 +39,8 @@
     <string name="enterYourName">Adınızı girin</string>
     <string name="save">Kaydet</string>
     <string name="cancel">Vazgeç</string>
+    <string name="continuee">Devam Et</string>
+    <string name="infoVerify">Bilgilerinizi Onaylayın</string>
     <string name="enterNewPassword">Yeni şifrenizi girin</string>
     <string name="newPassword">Yeni şifre</string>
     <string name="newPasswordConfirm">Yeni şifre onayı</string>
@@ -65,7 +67,7 @@
     <string name="logOutSuccess">Oturum kapatıldı.</string>
     <string name="welcome">Hoşgeldiniz, %1$s</string>
     <string name="settings">Ayarlar</string>
-    
+
     <string name="deleteAccount">Hesabı sil</string>
     <string name="deleteThisAccount">Bu hesabı sil</string>
     <string name="ifYouDelete">Eğer bu hesabı silmek istiyorsan:</string>
@@ -75,4 +77,16 @@
     <string name="ifYouDeleteConfirm_e_mail">Hesabınızı silmek için eposta adresinizi ve şifrenizi girin.</string>
     <string name="ifYouDeleteConfirm_e_mail_txt">Bu işlem geri alınamaz.</string>
 
+    <string name="infoNotVerify">Bilgilerinizi doğrulayamadık. Lütfen tekrar giriş yapın.</string>
+    <string name="infoVerifySuccess">Kimlik doğrulama başarılı.</string>
+    <string name="passwordChangeError">Şifre değiştirme işlemi başarısız. Daha sonra tekrar deneyin.</string>
+    <string name="passwordChangeSuccess">Şifre başarıyla değiştirildi. Lütfen tekrar giriş yapın</string>
+
+    <string name="deleteFavSuccess">Favoriler silindi.</string>
+    <string name="deleteFavError">Favorilerden silme işlemi başarısız ya da favori yok.</string>
+    <string name="deletePhotoSuccess">Profil fotorafı silindi.</string>
+    <string name="deletePhotoError">Profil fotoğrafı silinemedi. Lütfen bizimle iletişime geçin.</string>
+
+    <string name="deleteAccount_data">Hesap ve kişisel veriler başarıyla silindi</string>
+    <string name="deleteAccount_dataError">Hesap ve/veya veriler silinemedi. Lütfen bizimle iletişime geçin.</string>
 </resources>

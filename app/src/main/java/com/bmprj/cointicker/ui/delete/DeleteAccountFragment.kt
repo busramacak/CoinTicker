@@ -1,6 +1,5 @@
 package com.bmprj.cointicker.ui.delete
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -8,113 +7,89 @@ import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentDeleteAccountBinding
 import com.bmprj.cointicker.utils.logError
+import com.bmprj.cointicker.utils.navigate
 import com.bmprj.cointicker.utils.setUpDialog
 import com.bmprj.cointicker.utils.toast
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layout.fragment_delete_account) {
+class DeleteAccountFragment :
+    BaseFragment<FragmentDeleteAccountBinding>(R.layout.fragment_delete_account) {
     private val viewModel by viewModels<DeleteAccountViewModel>()
     private val findNavController by lazy { findNavController() }
     override fun initView(view: View) {
-        binding.delete=this
+
         initLiveDataObservers()
 
-        logError("deneme")
+        with(binding) {
+            backButton.setOnClickListener { back() }
+            logOutButton.setOnClickListener { logOut() }
+            deleteAccountButton.setOnClickListener {
+                deleteAccount(mailEdt.text.toString(), passwordEdt.text.toString())
+            }
+        }
     }
 
     private fun initLiveDataObservers() {
 
+        viewModel.logOut.handleState(onSucces = {
+            binding.progresBar.visibility = View.GONE
+            val action =
+                DeleteAccountFragmentDirections.actionDeleteAccountFragmentToLoginFragment()
+            navigate(findNavController,action)
+        }, onError = {
+            logError(it.message)
+        })
+        viewModel.reEntry.handleState(onError = {
+            toast(R.string.infoNotVerify)
+        }, onSucces = {
+            viewModel.deleteCloudData()
+            toast(R.string.infoVerifySuccess)
+        })
 
-        viewModel.logOut.handleState(
-            onLoading = {
-                binding.progresBar.visibility=View.VISIBLE
-            },
-            onSucces = {
-                binding.progresBar.visibility=View.GONE
-            },
-            onError = {
-                binding.progresBar.visibility=View.GONE
-                logError(it.message)
+        viewModel.deleteCloud.handleState(onSucces = {
+            if (it) {
+                toast(R.string.deleteFavSuccess)
+            } else {
+                toast(R.string.deleteFavError)
             }
-        )
-        viewModel.reEntry.handleState(
-            onLoading = {
-                binding.progresBar.visibility=View.VISIBLE
-                toast("Bilgileriniz kontrol ediliyor.")
-            },
-            onError = {
-                toast("Bilgilerinizi doğrulayamadık. lütfen tekrar giriş yapın.")
-            },
-            onSucces = {
-                binding.progresBar.visibility=View.GONE
-                viewModel.deleteCloudData()
-                toast("kimlik doğrulama başarılı.")
-            }
-        )
+            viewModel.deleteStorageData()
+        }, onError = {
+            logError(it.message.toString())
+        })
 
-        viewModel.deleteCloud.handleState(
-            onLoading = {
-                binding.progresBar.visibility=View.VISIBLE
-            },
-            onSucces = {
-                if(it){
-                    toast("favorileri silme başarılı.")
-                    binding.progresBar.visibility=View.GONE
-                    viewModel.deleteStorageData()
-                }else{
-                    logError("cloud silme işlemi başarısız")
-                }
-            },
-            onError = {
-                binding.progresBar.visibility=View.GONE
-                Log.e("eror",it.message.toString())
-                Log.e("eror",it.cause?.message.toString())
-            }
-        )
-
-        viewModel.deleteStorage.handleState (
-            onLoading = {
-                binding.progresBar.visibility=View.VISIBLE
-            },
-            onSucces = {
-                toast("profil fotografı silme başarılı")
-                binding.progresBar.visibility=View.GONE
-                viewModel.deleteAccount()
-            },
-            onError = {
-                toast("profil fotoğrafı silinemedi.. Daha sonra tekrar deneyin")
-                binding.progresBar.visibility=View.GONE
-                logError(it.message)
-                // todo Log.kt hangi classta ve hangi fonksiyonda olduğumu öğrenmek istiyorum ama ben bunu manuel yapmak istemiyorum
-            }
-        )
-        viewModel.deleteAccount.handleState(
-            onLoading = {
-                binding.progresBar.visibility=View.VISIBLE
-            },
-            onSucces = {
-                val action = DeleteAccountFragmentDirections.actionDeleteAccountFragmentToLoginFragment()
-                findNavController.navigate(action)
-                binding.progresBar.visibility=View.GONE
-            },
-            onError = {
-                binding.progresBar.visibility=View.GONE
-               logError(it.message)
-            }
-        )
+        viewModel.deleteStorage.handleState(onSucces = {
+            toast(R.string.deletePhotoSuccess)
+            viewModel.deleteAccount()
+        }, onError = {
+            toast(R.string.deletePhotoError)
+            logError(it.message)
+        })
+        viewModel.deleteAccount.handleState(onSucces = {
+            val action =
+                DeleteAccountFragmentDirections.actionDeleteAccountFragmentToLoginFragment()
+            navigate(findNavController,action)
+            toast(R.string.deleteAccount_data)
+            binding.progresBar.visibility = View.GONE
+        }, onError = {
+            binding.progresBar.visibility = View.GONE
+            logError(it.message)
+            toast(R.string.deleteAccount_dataError)
+        })
     }
 
-    fun deleteAccount(email:String,password:String){
-        viewModel.reEntryUser(email,password)
+    private fun deleteAccount(email: String, password: String) {
+        binding.progresBar.visibility = View.VISIBLE
+        viewModel.reEntryUser(email, password)
     }
 
-    fun back(){
+    private fun back() {
         val action = DeleteAccountFragmentDirections.actionDeleteAccountFragmentToCoinListFragment()
-        findNavController.navigate(action)
+        navigate(findNavController,action)
     }
-    fun logOut(){
+
+    private fun logOut() {
         val viewv = layoutInflater.inflate(R.layout.logout_dialog, null)
         val dialog = viewv.setUpDialog(requireContext())
 
@@ -124,9 +99,11 @@ class DeleteAccountFragment : BaseFragment<FragmentDeleteAccountBinding>(R.layou
 
             logOutButton.setOnClickListener {
                 viewModel.logOut()
+                binding.progresBar.visibility = View.VISIBLE
                 dialog.dismiss()
             }
             cancelButton.setOnClickListener {
+                binding.progresBar.visibility = View.GONE
                 dialog.dismiss()
             }
         }

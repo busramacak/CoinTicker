@@ -2,14 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable
-            name="delete"
-            type="com.bmprj.cointicker.ui.delete.DeleteAccountFragment" />
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,7 +23,6 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()-> delete.back()}"
                 android:src="@drawable/settings_back"/>
 
             <com.google.android.material.textview.MaterialTextView
@@ -131,12 +122,12 @@
 
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/logOutButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/customwhite"
-                android:onClick="@{()-> delete.logOut()}"
                 android:textSize="16sp"
                 android:text="@string/logoutbtn" />
         </LinearLayout>
@@ -206,11 +197,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteAccountButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/white"
-                android:onClick="@{(V)-> delete.deleteAccount(mailEdt.getText().toString(),passwordEdt.getText().toString())}"
                 android:backgroundTint="@color/redcustom"
                 android:layout_marginTop="20dp"
                 android:textSize="16sp"

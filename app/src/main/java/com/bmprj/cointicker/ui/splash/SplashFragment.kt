@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.R
+import com.bmprj.cointicker.utils.navigate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -22,11 +23,10 @@ class SplashFragment : Fragment() {
     ): View? {
 
 
-
         scope.launch {
             delay(1000)
             val action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-            findNavController.navigate(action)
+            navigate(findNavController,action)
         }
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }

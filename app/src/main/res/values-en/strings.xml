@@ -34,7 +34,8 @@
     <string name="areYouSure">Are you sure?</string>
     <string name="logoutbtn">Logout</string>
     <string name="no">Cancel</string>
-
+    <string name="continuee">Continue</string>
+    <string name="infoVerify">Confirm your information</string>
     <string name="enterYourName">Enter your name</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
@@ -76,4 +77,16 @@
 
     <string name="ifYouDeleteConfirm_e_mail">To delete your account, enter your email address and password.</string>
     <string name="ifYouDeleteConfirm_e_mail_txt">this action cannot be undone.</string>
+
+    <string name="infoNotVerify">We could not verify your information. Please log in again.</string>
+    <string name="infoVerifySuccess">Identity verification successful.</string>
+    <string name="passwordChangeError">Password change unsuccessful. Please try again later.</string>
+    <string name="passwordChangeSuccess">Password successfully changed. Please log in again.</string>
+    <string name="deleteFavSuccess">Favorites deleted.</string>
+    <string name="deleteFavError">Failed to delete favorites or no favorites found.</string>
+    <string name="deletePhotoSuccess">Profile photo deleted.</string>
+    <string name="deletePhotoError">Profile photo could not be deleted. Please contact us.</string>
+    <string name="deleteAccount_data">Account and personal data deleted successfully.</string>
+    <string name="deleteAccount_dataError">Account and/or data could not be deleted. Please contact us.</string>
+
 </resources>

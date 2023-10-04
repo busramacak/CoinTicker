@@ -26,7 +26,7 @@ class CoinRepositoryImpl @Inject constructor(
         val response = api.getCoin(id)
         val isNetworkAvailable = networkManager.checkNetworkAvailable()
         val isSuccessful = response.isSuccessful
-        val result = handleResponse(isSuccessful, response, isNetworkAvailable) // todo polimorphism ile güncelle
+        val result = handleResponse(isSuccessful, response, isNetworkAvailable)
         emit(result)
     }
 }

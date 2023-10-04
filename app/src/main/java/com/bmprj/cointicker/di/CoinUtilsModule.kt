@@ -10,14 +10,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
-
-/// TODO:singleton change viewmodelscope
 
 @InstallIn(ViewModelComponent::class)
 @Module
@@ -32,7 +28,6 @@ object CoinUtilsModule {
     @Provides
     @ViewModelScoped
     fun provideCoinApiService(): CoinApiService {
-        val BASE_URL = BuildConfig.BASE_URL
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level=HttpLoggingInterceptor.Level.BASIC
@@ -43,16 +38,10 @@ object CoinUtilsModule {
             client.addInterceptor(loggingInterceptor) //loglama için debug moddaysa interceptor eklesin.
         }
 
-        return Retrofit.Builder().baseUrl(BASE_URL)
+        return Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client.build()) //httpclienti ekledik
+            .client(client.build()) //httpclient
             .build()
             .create(CoinApiService::class.java)
-
-
-
-        //  todo (oldu galiba) debug modda http isteklerini logda görelim relase de görmeyelim
     }
-
-
 }

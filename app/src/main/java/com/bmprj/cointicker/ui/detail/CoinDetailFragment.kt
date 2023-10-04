@@ -14,6 +14,7 @@ import com.bmprj.cointicker.domain.coinList.asCoinDetail
 import com.bmprj.cointicker.utils.Constants
 import com.bmprj.cointicker.utils.fixedString
 import com.bmprj.cointicker.utils.loadFromUrl
+import com.bmprj.cointicker.utils.navigate
 import com.bmprj.cointicker.utils.setArrow
 import com.bmprj.cointicker.utils.setDateTime
 import com.bmprj.cointicker.utils.toast
@@ -23,36 +24,35 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.fragment_coin_detail) {
 
-    private lateinit var coinDetailEntity: CoinDetailEntity // todo initialize edildi mi edilmedi mi? 54.satır
+    private lateinit var coinDetailEntity: CoinDetailEntity
     private val bundle: CoinDetailFragmentArgs by navArgs()
     private val viewModel by viewModels<CoinDetailViewModel>()
     private val coinId: String by lazy { bundle.id }
     private val back: String by lazy { bundle.back }
-    private var isFav: Boolean = false
     private val findNavController by lazy { findNavController() }
+    private var isFav: Boolean = false
 
     override fun initView(view: View) {
-        binding.detail = this
         initBackPress()
         initLiveDataObservers()
         viewModel.getCoin(coinId)
         viewModel.getFavourite(coinId)
+        binding.backButton.setOnClickListener { backButton() }
+        binding.favouriteButton.setOnClickListener { favClick() }
     }
 
-    fun backButton() {
+    private fun backButton() {
         val action = if (back == Constants.COLLECTION_FAV) {
             CoinDetailFragmentDirections.actionCoinDetailFragmentToFavCoinsFragment()
         } else {
             CoinDetailFragmentDirections.actionCoinDetailFragmentToCoinListFragment()
         }
-
-        findNavController.navigate(action)
+        navigate(findNavController,action)
     }
 
-    fun favClick() {
-       //todo https://blog.jetbrains.com/kotlin/2017/09/kotlin-1-2-beta-is-out/#lateinit-improvements
-        if (!isFav) { //todo:: kullanarak classı referans alıyor. sınıfın üyelerine erişiyor. :: koymayınca kontrol edemedim.
-            if(this::coinDetailEntity.isInitialized)
+    private fun favClick() {
+        if (!isFav) {
+            if (this::coinDetailEntity.isInitialized)
                 viewModel.addFavourite(coinDetailEntity.asCoinDetail())
         } else {
             viewModel.delete(coinId)
@@ -70,7 +70,7 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
                 } else {
                     CoinDetailFragmentDirections.actionCoinDetailFragmentToCoinListFragment()
                 }
-                findNavController.navigate(action)
+                navigate(findNavController,action)
             }
         })
     }
@@ -83,15 +83,13 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             }, onError = {
                 favProgress.visibility = View.GONE
                 isFav = false
-                imageView2.setImageResource(R.drawable.empty_fav)
+                favouriteButton.setImageResource(R.drawable.empty_fav)
             }, onSucces = { result ->
-
                 isFav = result
-// todo (any other way better than this?) try to refactor
-                imageView2.setImageResource(
+                favouriteButton.setImageResource(
                     if (result) { R.drawable.fav }
-                    else { R.drawable.empty_fav })
-
+                    else { R.drawable.empty_fav }
+                )
                 favProgress.visibility = View.GONE
             })
 
@@ -118,7 +116,6 @@ class CoinDetailFragment : BaseFragment<FragmentCoinDetailBinding>(R.layout.frag
             viewModel.coinDetail.handleState(onLoading = {
                 progresBar.visibility = View.VISIBLE
             }, onSucces = {
-
                 coinDetailEntity = it
                 coinName.text = it.name
                 coinSymbol.text = it.symbol

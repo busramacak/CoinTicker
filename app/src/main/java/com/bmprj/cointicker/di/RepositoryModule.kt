@@ -11,12 +11,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @InstallIn(ViewModelComponent::class)
 @Module
-abstract class FirebaseModule {  // todo  provideFirebaseModule
+abstract class RepositoryModule {
     @Binds
     @ViewModelScoped
     abstract fun bindAuthRepo(impl:AuthRepositoryImpl): AuthRepository

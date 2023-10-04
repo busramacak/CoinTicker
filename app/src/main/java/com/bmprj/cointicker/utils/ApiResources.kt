@@ -1,7 +1,5 @@
 package com.bmprj.cointicker.utils
 
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseUser
 import retrofit2.Response
 
 
@@ -12,8 +10,10 @@ sealed class ApiResources<out R> {
 
 sealed class RetrofitError(val errorMessage: String? = null) {
     data class NoInternetError(val message: String? = null) : RetrofitError(message)
-    data class ServerError<out T>(val response: Response<@UnsafeVariance T>) : RetrofitError(handleErrorCode(response))
-    class UnKnown() : RetrofitError()
+    data class ServerError<out T>(val response: Response<@UnsafeVariance T>) :
+        RetrofitError(handleErrorCode(response))
+
+    class UnKnown : RetrofitError()
 }
 
 private fun <T> handleErrorCode(response: Response<T>): String {
@@ -33,18 +33,18 @@ private fun <T> handleErrorCode(response: Response<T>): String {
 //todo i need network control but script like this
 fun <T> handleResponse(
     isSuccessful: Boolean,
-    response: Response<T>
-) : ApiResources<T>{
+    response: Response<T>,
+): ApiResources<T> {
     val body = response.body()
 
     //success
-    if(response.errorBody() == null && isSuccessful && body!=null){
+    if (response.errorBody() == null && isSuccessful && body != null) {
         return ApiResources.Success(body)
     }
 
-    val error = if(isSuccessful && response.errorBody()!=null){ //success & no data
+    val error = if (isSuccessful && response.errorBody() != null) { //success & no data
         RetrofitError.ServerError(response)
-    }else{
+    } else {
         RetrofitError.UnKnown()
     }
 
@@ -54,7 +54,7 @@ fun <T> handleResponse(
 fun <T> handleResponse(
     isSuccessful: Boolean,
     response: Response<T>,
-    isNetworkAvailable: Boolean
+    isNetworkAvailable: Boolean,
 ): ApiResources<T> {
 
     val body = response.body()
