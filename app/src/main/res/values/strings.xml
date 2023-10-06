@@ -29,6 +29,16 @@
     <string name="profile">Profil</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="info">Yardım</string>
+    <string name="infoDescription">Yardım merkezi, bize ulaşın, hakkımızda, gizlilik politikası</string>
+    <string name="helpCenter">Yardım Merkezi</string>
+    <string name="helpCentertxt">Yardım al, Bize Ulaş</string>
+    <string name="privacyPolicy">Kullanım koşulları ve Gizlilik Politikası</string>
+    <string name="howCanWeHelp">Nasıl yardımcı olabiliriz?</string>
+    <string name="howcanwehelpTxt">Yaşadığınız sorunu belirtin</string>
+    <string name="callbackMail">Sorunun çözümü için e-posta adresiniz</string>
+    <string name="send">Sorunu Bildir</string>
+
 
     <!--    alerDialog-->
 
@@ -89,4 +99,7 @@
 
     <string name="deleteAccount_data">Hesap ve kişisel veriler başarıyla silindi</string>
     <string name="deleteAccount_dataError">Hesap ve/veya veriler silinemedi. Lütfen bizimle iletişime geçin.</string>
+    <string name="loadUserImageError">Bir şeyler yanlış gitti. Profil fotoğrafı alınamadı.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

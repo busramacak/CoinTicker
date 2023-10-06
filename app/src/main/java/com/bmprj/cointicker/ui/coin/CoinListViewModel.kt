@@ -11,7 +11,7 @@ import com.bmprj.cointicker.domain.coin.CoinEntity
 import com.bmprj.cointicker.domain.coin.CoinMarketItemEntity
 import com.bmprj.cointicker.domain.coin.GetCoinsUseCase
 import com.bmprj.cointicker.model.CoinMarketItem
-import com.bmprj.cointicker.utils.CustomSharedPreference
+import com.bmprj.cointicker.utils.CustomSharedPreferences
 import com.bmprj.cointicker.utils.FirebaseAuthResources
 import com.bmprj.cointicker.utils.UiState
 import com.google.firebase.auth.FirebaseUser
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    private val customPreference: CustomSharedPreference,
+    private val customPreference: CustomSharedPreferences,
     private val coinsUseCase: GetCoinsUseCase,
     private val coinDAO: CoinDAO,
     private val authUseCase: GetAuthUseCase,

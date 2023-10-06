@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CustomSharedPreference @Inject constructor(
+class CustomSharedPreferences @Inject constructor(
     @ApplicationContext context: Context,
 ) {
 

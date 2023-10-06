@@ -28,6 +28,21 @@
     <string name="profile">Profile</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="info">Help</string>
+    <string name="infoDescription">Help center, contact us,about us, privacy policy</string>
+    <string name="helpCenter">Help Center</string>
+    <string name="helpCentertxt">Get help, contact us</string>
+    <string name="privacyPolicy">Terms and Privacy Policy</string>
+    <string name="howCanWeHelp">How can we help?</string>
+    <string name="howcanwehelpTxt">The issue you are experiencing</string>
+    <string name="callbackMail">Email for Issue Resolution</string>
+    <string name="send">Report</string>
+
+
+
+
+
+
 
     <!--    alerDialog-->
 
@@ -88,5 +103,6 @@
     <string name="deletePhotoError">Profile photo could not be deleted. Please contact us.</string>
     <string name="deleteAccount_data">Account and personal data deleted successfully.</string>
     <string name="deleteAccount_dataError">Account and/or data could not be deleted. Please contact us.</string>
+    <string name="loadUserImageError">Something went wrong. Profile picture couldn\'t be retrieved.</string>
 
 </resources>

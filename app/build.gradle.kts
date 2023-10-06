@@ -36,6 +36,7 @@ android {
         release {
             buildConfigField("String","BASE_URL","\"https://api.coingecko.com/api/v3/\"")
             buildConfigField("String","COINGECKO_URL","\"https://www.coingecko.com/tr/api\"")
+            buildConfigField("String","PRIVACY_POLICY_URL","\"https://www.freeprivacypolicy.com/live/621a0752-3204-4349-a92c-01b1055ba261\"")
 
             isMinifyEnabled = false
             proguardFiles(
@@ -48,6 +49,8 @@ android {
         debug {
             buildConfigField("String","COINGECKO_URL","\"https://www.coingecko.com/tr/api\"")
             buildConfigField("String","BASE_URL","\"https://api.coingecko.com/api/v3/\"")
+            buildConfigField("String","PRIVACY_POLICY_URL","\"https://www.freeprivacypolicy.com/live/621a0752-3204-4349-a92c-01b1055ba261\"")
+
         }
 
 

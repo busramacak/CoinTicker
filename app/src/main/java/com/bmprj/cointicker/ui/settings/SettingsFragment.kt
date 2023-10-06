@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.bmprj.cointicker.BuildConfig
 import com.bmprj.cointicker.R
 import com.bmprj.cointicker.base.BaseFragment
 import com.bmprj.cointicker.databinding.FragmentSettingsBinding
@@ -36,6 +37,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             photoIconImageView.setOnClickListener { setPhotoClick() }
             userName.setOnClickListener { userNameClick() }
             password.setOnClickListener { passwordClick() }
+            help.setOnClickListener { helpClick() }
+            privacy.setOnClickListener { privacyClick() }
         }
         initBackPress()
         initUserName()
@@ -101,6 +104,28 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             cancelButton.setOnClickListener { dialog.dismiss() }
         }
         dialog.show()
+    }
+
+    private fun helpClick(){
+
+        val emailIntent = Intent(Intent.ACTION_SENDTO)
+        emailIntent.data = Uri.parse("mailto:busramacak@outlook.com") // Destek e-posta adresi
+
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Coin Ticker ${viewModel.firebaseUser?.displayName}")
+
+        try{
+            startActivity(emailIntent)
+
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+    }
+
+    private fun privacyClick(){
+        val uri = Uri.parse(BuildConfig.PRIVACY_POLICY_URL)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+        startActivity(intent)
     }
 
     private fun showPasswordChangeDialog() {

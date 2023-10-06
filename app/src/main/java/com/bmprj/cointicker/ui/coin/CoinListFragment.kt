@@ -174,7 +174,7 @@ class CoinListFragment : BaseFragment<FragmentCoinListBinding>(R.layout.fragment
             if(viewModel.firebaseUser?.displayName!=null){
                 name.text = viewModel.firebaseUser?.displayName
             }else name.text=""
-            toast(it.message)
+            toast(R.string.loadUserImageError)
         })
 
         lifecycleScope.launch {
