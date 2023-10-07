@@ -38,6 +38,7 @@
     <string name="howcanwehelpTxt">Yaşadığınız sorunu belirtin</string>
     <string name="callbackMail">Sorunun çözümü için e-posta adresiniz</string>
     <string name="send">Sorunu Bildir</string>
+    <string name="mailTitle">Coin Ticker : %1$s için destek </string>
 
 
     <!--    alerDialog-->

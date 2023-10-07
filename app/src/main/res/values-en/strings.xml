@@ -37,6 +37,7 @@
     <string name="howcanwehelpTxt">The issue you are experiencing</string>
     <string name="callbackMail">Email for Issue Resolution</string>
     <string name="send">Report</string>
+    <string name="mailTitle">"Coin Ticker: Support for %1$s"</string>
 
 
 

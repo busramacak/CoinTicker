@@ -107,19 +107,12 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
     }
 
     private fun helpClick(){
-
         val emailIntent = Intent(Intent.ACTION_SENDTO)
         emailIntent.data = Uri.parse("mailto:busramacak@outlook.com") // Destek e-posta adresi
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.mailTitle,viewModel.firebaseUser?.displayName))
 
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Coin Ticker ${viewModel.firebaseUser?.displayName}")
-
-        try{
-            startActivity(emailIntent)
-
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-
+        try{ startActivity(emailIntent) }
+        catch (e:Exception){ e.printStackTrace() }
     }
 
     private fun privacyClick(){
