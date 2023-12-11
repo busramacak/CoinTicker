@@ -9,7 +9,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.bmprj.cointicker.BuildConfig
 import com.bmprj.cointicker.R
@@ -68,9 +67,11 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>(R.layout.fragment
             val nameCancelButton = viewv.findViewById<MaterialTextView>(R.id.cancel_button)
             val editText = viewv.findViewById<TextInputEditText>(R.id.nameEdt)
 
-            editText.text?.replace(
-                0, editText.text?.length ?: 0, viewModel.firebaseUser?.displayName
-            )
+            val displayName = viewModel.firebaseUser?.displayName
+            val text =if(displayName!=null) displayName
+                else ""
+
+            editText.setText(text)
 
             nameSaveButton.setOnClickListener {
                 val newName = editText.text.toString()
