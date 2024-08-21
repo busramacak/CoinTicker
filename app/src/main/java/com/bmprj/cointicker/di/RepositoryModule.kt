@@ -14,14 +14,14 @@ import dagger.hilt.android.scopes.ViewModelScoped
 
 @InstallIn(ViewModelComponent::class)
 @Module
-abstract class RepositoryModule {
+interface RepositoryModule {
     @Binds
     @ViewModelScoped
-    abstract fun bindAuthRepo(impl:AuthRepositoryImpl): AuthRepository
+    fun bindAuthRepo(impl:AuthRepositoryImpl): AuthRepository
     @Binds
     @ViewModelScoped
-    abstract fun bindFirestoreRepo(impl: CloudRepositoryImpl): CloudRepository
+    fun bindFirestoreRepo(impl: CloudRepositoryImpl): CloudRepository
     @Binds
     @ViewModelScoped
-    abstract fun bindStorageRepo(impl: StorageRepositoryImpl): StorageRepository
+    fun bindStorageRepo(impl: StorageRepositoryImpl): StorageRepository
 }

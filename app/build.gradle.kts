@@ -82,6 +82,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation("androidx.drawerlayout:drawerlayout:1.2.0")
     kapt ("androidx.room:room-compiler:2.6.0")
     kapt ("com.google.dagger:hilt-android-compiler:2.47")
     kapt ("androidx.hilt:hilt-compiler:1.1.0")
